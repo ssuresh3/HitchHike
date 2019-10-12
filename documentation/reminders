@@ -1,0 +1,3 @@
+-whenever you make changes to backend code, be sure to push to github and subsequently to the ec2 server
+
+-whenever possible, try to test backend code locally using postman and localhost
