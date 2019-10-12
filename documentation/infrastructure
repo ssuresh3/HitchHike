@@ -1,1 +1,5 @@
-Connect to ec2
+Connect to ec2:
+1. make sure you "git pull" and have hitchhike2.pem in the folder
+2. go to the directory with the hitchhike2.pem folder (probably the root folder for this repo)
+3. sudo ssh -i "hitchhike2.pem" ubuntu@ec2-18-220-130-220.us-east-2.compute.amazonaws.com
+Note: MAKE SURE YOU USE SUDO, otherwise it will complain that the .pem file is accessible to everyone; changing file permissions did not solve my issue
