@@ -8,7 +8,8 @@
 const express = require('express')
 const app = express()
 const port = 8000
-
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
@@ -19,6 +20,19 @@ app.get("/", (req, res) =>{
     res.send("Welcome!");
 })
 
+//example function to send email
+var emailsSent = 0;
+const ex = {
+    to: 'amaprasa@ucsc.edu',
+    from: 'server@hitchhike.com',
+    subject: 'This is an example email'
+};
+app.get("/sendamananemail",(reg,res)=>{
+    emailsSent++;
+    ex.html = 'You have recieved <strong>'+emailsSent+'</strong> emails since the server was restarted!'
+    sgMail.send(ex);
+    res.send("Email sent!");
+})
 
 //example call from the app:
 ////example call from the app:
