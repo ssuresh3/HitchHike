@@ -2,14 +2,14 @@
 //1. do not use the default route (app.get("/")), always make a specific route based on the action
 //2. do not use
 
-
-
-
 const express = require('express')
 const app = express()
 const port = 8000
 const sgMail = require('@sendgrid/mail');
+var db = require("./db.js")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+db.hello()
 
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
