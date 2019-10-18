@@ -10,25 +10,35 @@ var __rides = []
 
 // user object that will be stored in ran 
 function User(fName, lName, email, DOB){
-    this.userID = __users.length
-    this.fName = fName;
-    this.lName = lName;
-    this.email = email;
-    this.DOB = DOB;
-    this.rides = [];
+    var User = {
+        userID: __users.length,
+        fName: fName,
+        lName:lName,
+        email: email,
+        DOB: DOB,
+        rides:[]
+    } 
 
     // add to __users array, implicitly this makes the index = userID
-    __users.push(this)
+    __users.push(User)
+
+    return User
 }
 
 // ride object
 function Rides(userID, origin, destination, seats, time){
-    this.rideID = __rides.length
-    this.userID = userID
-    this.origin = origin
-    this.destination = destination
-    this.max = seats
-    this.departTime = time
+    var Ride = {
+        rideID: __rides.length,
+        userID: userID,
+        origin: origin,
+        destination: destination,
+        maxSeats: seats,
+        departTime: time
+    }
+
+    __rides.push(Ride)
+
+    return Ride
 }
 
 // every time a new user signs up, write to file
@@ -66,6 +76,7 @@ module.exports = {
 
         // write user to backup file
         write_to_file(user)
+        console.log(user)
     },
 
     getUser: function(userID){
@@ -80,19 +91,19 @@ module.exports = {
         console.log("remove user")
     },
 
-    postRide: function(User, origin, destination, time){
+    postRide: function(userID, origin, destination, time){
         console.log("post a ride from x to y at time t")
     },
 
-    deleteRide: function(User, rideID){
+    deleteRide: function(userID, rideID){
         console.log("cancel a ride given its ID")
     },
 
-    updateRide: function(User, rideID){
+    updateRide: function(userID, rideID){
         console.log("update a posted ride")
     },
 
-    findRide: function(location, time){
+    findRide: function(userID, location, time){
         console.log("find all rides near me")
     },
 
