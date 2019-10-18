@@ -10,58 +10,59 @@ var __rides = []
 
 // user object that will be stored in ran 
 function User(fName, lName, email, DOB){
-    var User = {
-        userID: __users.length,
-        fName: fName,
-        lName:lName,
-        email: email,
-        DOB: DOB,
-        rides:[]
-    } 
+    this.userID = __users.length;
+    this.fName = fName;
+    this.lName = lName;
+    this.email = email;
+    this.DOB = DOB;
+    this.rides = [];
 
     // add to __users array, implicitly this makes the index = userID
-    __users.push(User)
-
-    return User
+    __users.push(this)
 }
 
 // ride object
 function Rides(userID, origin, destination, seats, time){
-    var Ride = {
-        rideID: __rides.length,
-        userID: userID,
-        origin: origin,
-        destination: destination,
-        maxSeats: seats,
-        departTime: time
-    }
+    this.rideID = __rides.length;
+    this.userID = userID;
+    this.origin = origin;
+    this.destination = destination;
+    this.maxSeats = seats;
+    this.departTime = time;
 
-    __rides.push(Ride)
-
-    return Ride
+    __rides.push(this)
 }
 
 // every time a new user signs up, write to file
 function write_to_file(user_obj){
     json_obj = JSON.stringify(user_obj)
 
-    fs.appendFile('backup.json', json_obj, function (err) {
-        if (err) throw err;
-        console.log('Saved!');
-    });
+    fs.readFile('backup.json', 'utf-8', function(err, data) {
+        if (err) throw err
+
+        var backup = JSON.parse(data)
+        backup.users.push(user_obj)
+
+        fs.writeFile("backup.json", JSON.stringify(backup), function(err){
+            if (err) throw err;
+        });
+
+        console.log(backup)
+    })
 }
 
 // read user from file
-/*function read_from_file(userID){
-    var data = JSON.parse(backup.json);
+function read_from_file(userID){
+    var text = fs.readFileSync('backup.json')
+    var file = JSON.parse(text)
 
-    for (var i=0 ; i < data.length ; i++){
-        
-        // find User from userID
-        if (){ 
+    for (var i=0; i<file['users'].length; i++){
+        if (file['users'][i]['userID'] == userID){
+            console.log("found userID")
+            return file['users'][i]
         }
     }
-}*/
+}
 
 // public functions availiable to index.js
 module.exports = {
@@ -72,7 +73,7 @@ module.exports = {
 
     newUser: function(fName, lName, email, DOB){
         console.log("creating new user")
-        user = User(fName, lName, email, DOB)
+        var user = new User(fName, lName, email, DOB)
 
         // write user to backup file
         write_to_file(user)
@@ -105,6 +106,10 @@ module.exports = {
 
     findRide: function(userID, location, time){
         console.log("find all rides near me")
+    },
+
+    testRead: function(userID){
+        read_from_file(userID)
     },
 
 
