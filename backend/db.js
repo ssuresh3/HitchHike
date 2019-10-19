@@ -33,6 +33,14 @@ function Rides(userID, origin, destination, seats, time){
     __rides.push(this)
 }
 
+// find user in __users
+function findUser(userID){
+    try{ return __users[userID] }
+    catch(e){
+        console.log(e)
+    }
+}
+
 // every time a new user signs up, write to file
 function write_to_file(user_obj){
     json_obj = JSON.stringify(user_obj)
@@ -51,15 +59,26 @@ function write_to_file(user_obj){
     })
 }
 
-// read user from file
-function read_from_file(userID){
+// read users from file
+function readBackup(userID){
+    console.log("Warning: we are either filling __users or overriding __users from disk")
+    
     var text = fs.readFileSync('backup.json')
     var file = JSON.parse(text)
 
     for (var i=0; i<file['users'].length; i++){
-        if (file['users'][i]['userID'] == userID){
-            console.log("found userID")
-            return file['users'][i]
+        
+        // seach for single user
+        if (userID >= 0){ 
+            if (file['users'][i]['userID'] == userID){
+                console.log("found userID")
+                return file['users'][i]
+            }
+        }
+        // transfer entire backup file to __users array
+        else{
+            __users.push(file['users'][i])
+            return
         }
     }
 }
@@ -67,25 +86,45 @@ function read_from_file(userID){
 // public functions availiable to index.js
 module.exports = {
 
-    hello: function (){
-        console.log("hello")
-    },
-
     newUser: function(fName, lName, email, DOB){
         console.log("creating new user")
         var user = new User(fName, lName, email, DOB)
 
         // write user to backup file
+        //console.log(user)
         write_to_file(user)
-        console.log(user)
     },
 
     getUser: function(userID){
-        console.log("get user")
+
+        if (userID >= __users.length || userID < 0){
+            // if ram db crashed
+            if (__users.length == 0){
+                readBackup(-1)
+                user = findUser(userID)
+                console.log(user)
+                return user
+            }
+            console.log("userID is not in users database")
+        }
+        else{
+            user = findUser(userID)
+            console.log(user)
+            return user
+        }
+
     },
 
-    updateUser: function(userID){
+    updateUser: function(userID, field, oldP, newP){
         console.log("update user")
+        try{
+            user = module.exports.getUser(userID)
+            user['field'] = newP
+            __users[userID] = user
+        }
+        catch(e){
+            console.log("was not able to update userID", userID)
+        }
     },
 
     deleteUser: function(userID){
