@@ -13,7 +13,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 app.use(express.json());
 
 //base url of server
-const baseURL = "localhost:8000/";
+const baseURL = "http://localhost:8000/";
 
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
@@ -62,7 +62,7 @@ function verifyUser(id){
 	verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
 	    user: user.fName,
-	    url: baseURL + "verify/user/"+user.userID+"?v="+code
+            url: baseURL + "verify/user/"+user.userID+"?v="+code
 	}
         console.log(verificationEmail);	
 	sgMail.send(verificationEmail).catch((e)=>{
@@ -88,9 +88,20 @@ app.post("/signup",(req,res)=>{
     if(userID>=0)verifyUser(userID);
 })
 
-
-
-
+app.get("/verify/user/:userID",(req,res)=>{
+    try{
+	var user = db.getUser(req.params.userID);
+	if(user.userStatus.code != req.query.v){
+	    throw "Invalid verification code";
+	}
+	user.userStatus.verified = true;
+	user.userStatus.code = -1;
+        res.send("You are verified!");
+    } catch(e){
+        console.log(e);
+        res.send("verification failed :(");
+    }
+});
 
 //example call from the app:
 ////example call from the app:
