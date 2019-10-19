@@ -27,11 +27,11 @@ app.get("/", (req, res) =>{
 //example function to send email
 var emailsSent = 0;
 const ex = {
-    to: 'amaprasa@ucsc.edu',
-    from: 'server@hitchhike.com',
+    to: 'kailas@ucsc.edu',
+    from: 'test@gethitchhike.ml',
     subject: 'This is an example email'
 };
-app.get("/sendamananemail",(reg,res)=>{
+app.get("/sendmeanemail",(reg,res)=>{
     emailsSent++;
     ex.html = 'You have recieved <strong>'+emailsSent+'</strong> emails since the server was restarted!'
     sgMail.send(ex).then(() => {
@@ -46,10 +46,12 @@ app.get("/sendamananemail",(reg,res)=>{
 
 const verificationEmail = {
     from: "welcome@gethitchhike.ml",
-    templateID: "d-0e933e0acf104ea0998fb4e627225d02",
+    template_id: "d-0e933e0acf104ea0998fb4e627225d02",
     dynamic_template_data: {}
 }
 
+
+//generate new code and send verification email
 function verifyUser(id){
     var code = Math.random().toString(10).substring(2,7);
 
@@ -59,20 +61,23 @@ function verifyUser(id){
         user.userStatus.code = code;
 	verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
-	    name: user.fName,
+	    user: user.fName,
 	    url: baseURL + "verify/user/"+user.userID+"?v="+code
 	}
-	console.log(verificationEmail);
+        console.log(verificationEmail);	
+	sgMail.send(verificationEmail).catch((e)=>{
+	    console.log('error',e);
+	});
     }
 }
 
+//endpoint for creating new user
 app.post("/signup",(req,res)=>{
-    console.log(req.body);
 
     var userID = -1;
     try{
         var data = req.body.user;
-	userID = db.newUser(data.fName,data.Lname,data.email,data.DOB);
+	userID = db.newUser(data.fName,data.lName,data.email,data.DOB);
         
         res.send({success:true});	
     } catch(e){
