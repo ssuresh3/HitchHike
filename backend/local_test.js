@@ -8,6 +8,7 @@ function unitTest(){
 	//db.testBackup("chartsoo@ucsc.edu")
 	//db.getUser("chartsoo@ucsc.edu")
 	//db.updateUser("chartsoo@ucsc.edu", "fName", "cody", "Cody")
+	//db.deleteUser("chartsoo@ucsc.edu")
 
 }
 

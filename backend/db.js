@@ -134,7 +134,15 @@ module.exports = {
     },
 
     deleteUser: function(email){
-        console.log("remove user")
+        console.log("removing user from database")
+
+        if (__users.has(email)){
+            __users.delete(email)
+            console.log("user deleted successfuly")
+        }
+        else{
+            console.log("could not delete user because email was not found")
+        }
     },
 
     postRide: function(email, origin, destination, time){
