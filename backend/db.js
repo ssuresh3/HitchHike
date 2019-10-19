@@ -86,10 +86,6 @@ function readBackup(userID){
 // public functions availiable to index.js
 module.exports = {
 
-    hello: function (){
-        console.log("hello")
-    },
-
     newUser: function(fName, lName, email, DOB){
         console.log("creating new user")
         var user = new User(fName, lName, email, DOB)
@@ -119,8 +115,16 @@ module.exports = {
 
     },
 
-    updateUser: function(userID){
+    updateUser: function(userID, field, oldP, newP){
         console.log("update user")
+        try{
+            user = module.exports.getUser(userID)
+            user['field'] = newP
+            __users[userID] = user
+        }
+        catch(e){
+            console.log("was not able to update userID", userID)
+        }
     },
 
     deleteUser: function(userID){
