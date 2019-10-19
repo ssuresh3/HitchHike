@@ -16,6 +16,11 @@ function User(fName, lName, email, DOB){
     this.email = email;
     this.DOB = DOB;
     this.rides = [];
+    
+    //new users start unvarified
+    this.userStatus = {
+        verified: false    
+    }
 
     // add to __users array, implicitly this makes the index = userID
     __users.push(this)
@@ -89,10 +94,12 @@ module.exports = {
     newUser: function(fName, lName, email, DOB){
         console.log("creating new user")
         var user = new User(fName, lName, email, DOB)
-
+         
         // write user to backup file
         //console.log(user)
-        write_to_file(user)
+//        write_to_file(user)
+
+	return user.userID;
     },
 
     getUser: function(userID){

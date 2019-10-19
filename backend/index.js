@@ -9,7 +9,11 @@ const sgMail = require('@sendgrid/mail');
 var db = require("./db.js")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-db.hello()
+//parse incoming requests as JSON
+app.use(express.json());
+
+//base url of server
+const baseURL = "localhost:8000/";
 
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
@@ -30,9 +34,58 @@ const ex = {
 app.get("/sendamananemail",(reg,res)=>{
     emailsSent++;
     ex.html = 'You have recieved <strong>'+emailsSent+'</strong> emails since the server was restarted!'
-    sgMail.send(ex);
-    res.send("Email sent!");
+    sgMail.send(ex).then(() => {
+        res.send('Email sent!');
+    }).catch((error) => {
+        console.log('error', error);
+    });
 })
+
+
+
+
+const verificationEmail = {
+    from: "welcome@gethitchhike.ml",
+    templateID: "d-0e933e0acf104ea0998fb4e627225d02",
+    dynamic_template_data: {}
+}
+
+function verifyUser(id){
+    var code = Math.random().toString(10).substring(2,7);
+
+    var user = db.getUser(id);
+
+    if(user != null){
+        user.userStatus.code = code;
+	verificationEmail.to = user.email;
+        verificationEmail.dynamic_template_data = {
+	    name: user.fName,
+	    url: baseURL + "verify/user/"+user.userID+"?v="+code
+	}
+	console.log(verificationEmail);
+    }
+}
+
+app.post("/signup",(req,res)=>{
+    console.log(req.body);
+
+    var userID = -1;
+    try{
+        var data = req.body.user;
+	userID = db.newUser(data.fName,data.Lname,data.email,data.DOB);
+        
+        res.send({success:true});	
+    } catch(e){
+        console.log(e);
+	res.send({success:false});
+    }
+
+    if(userID>=0)verifyUser(userID);
+})
+
+
+
+
 
 //example call from the app:
 ////example call from the app:
