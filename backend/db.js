@@ -1,43 +1,52 @@
 // Define a custome databse
 
-const fs = require('fs');
+const fs = require('fs');       // opening files
+var HashMap = require('hashmap');
 
-// storing users in ram as array hashmap
-var __users = [] 
+// storing users in hashmap where key is unique email
+var __users = new HashMap()
 
 // might want to store rides in k-d tree for efficient spacial searching
-var __rides = []
+var __rides = new HashMap()
+
+// add autosave method
 
 // user object that will be stored in ran 
-function User(fName, lName, email, DOB){
-    this.userID = __users.length;
+function User(fName, lName, username, email, DOB){
+    this.username = username;
+    this.varified = false
     this.fName = fName;
     this.lName = lName;
     this.email = email;
     this.DOB = DOB;
     this.rides = [];
 
-    // add to __users array, implicitly this makes the index = userID
-    __users.push(this)
+    __users.set(email, this)
 }
 
 // ride object
-function Rides(userID, origin, destination, seats, time){
-    this.rideID = __rides.length;
-    this.userID = userID;
+function Rides(username, origin, destination, seats, time){
+    this.rideID = newRide();
     this.origin = origin;
     this.destination = destination;
     this.maxSeats = seats;
     this.departTime = time;
 
-    __rides.push(this)
+    __rides.set(userID, this)
+}
+
+// hash the user's email to create userID
+function newRide(email){
+    console.log("generate new unique rideID")
+    return 0
 }
 
 // find user in __users
-function findUser(userID){
-    try{ return __users[userID] }
+function findUser(email){
+    try{ return __users.get(email)}
     catch(e){
         console.log(e)
+        return e
     }
 }
 
@@ -55,13 +64,13 @@ function write_to_file(user_obj){
             if (err) throw err;
         });
 
-        console.log(backup)
+        //console.log(backup)
     })
 }
 
 // read users from file
-function readBackup(userID){
-    console.log("Warning: we are either filling __users or overriding __users from disk")
+function readBackup(email, status){
+    console.log("usage: Reading __users from disk")
     
     var text = fs.readFileSync('backup.json')
     var file = JSON.parse(text)
@@ -69,15 +78,15 @@ function readBackup(userID){
     for (var i=0; i<file['users'].length; i++){
         
         // seach for single user
-        if (userID >= 0){ 
-            if (file['users'][i]['userID'] == userID){
-                console.log("found userID")
+        if (status >= 0){ 
+            if (file['users'][i]['email'] == email){
+                console.log("found user")
                 return file['users'][i]
             }
         }
         // transfer entire backup file to __users array
         else{
-            __users.push(file['users'][i])
+            __users.set(email, file['users'][i])
             return
         }
     }
@@ -86,69 +95,76 @@ function readBackup(userID){
 // public functions availiable to index.js
 module.exports = {
 
-    newUser: function(fName, lName, email, DOB){
+    newUser: function(fName, lName, username, email, DOB){
         console.log("creating new user")
-        var user = new User(fName, lName, email, DOB)
+        var user = new User(fName, lName, username, email, DOB)
 
-        // write user to backup file
+        // writing user to backup immediately for now
         //console.log(user)
         write_to_file(user)
     },
 
-    getUser: function(userID){
-
-        if (userID >= __users.length || userID < 0){
-            // if ram db crashed
-            if (__users.length == 0){
-                readBackup(-1)
-                user = findUser(userID)
-                console.log(user)
-                return user
-            }
-            console.log("userID is not in users database")
-        }
-        else{
+    getUser: function(email){
+        
+        // if db crashed, read from file
+        if (__users.size == 0){
+            readBackup(email, -1)
             user = findUser(userID)
             console.log(user)
             return user
         }
-
+        else{
+            user = findUser(email)
+            //console.log(user)
+            return user
+        }
     },
 
-    updateUser: function(userID, field, oldP, newP){
-        console.log("update user")
+    updateUser: function(email, field, oldP, newP){
+        console.log("updating user")
         try{
-            user = module.exports.getUser(userID)
-            user['field'] = newP
-            __users[userID] = user
+            user = module.exports.getUser(email)
+            user[field] = newP
+            __users.set(email, user)
+            console.log(__users.get(email))
         }
         catch(e){
             console.log("was not able to update userID", userID)
         }
     },
 
-    deleteUser: function(userID){
-        console.log("remove user")
+    deleteUser: function(email){
+        console.log("removing user from database")
+
+        if (__users.has(email)){
+            __users.delete(email)
+            console.log("user deleted successfuly")
+        }
+        else{
+            console.log("could not delete user because email was not found")
+        }
     },
 
-    postRide: function(userID, origin, destination, time){
+    postRide: function(email, origin, destination, time){
         console.log("post a ride from x to y at time t")
     },
 
-    deleteRide: function(userID, rideID){
+    deleteRide: function(email, rideID){
         console.log("cancel a ride given its ID")
     },
 
-    updateRide: function(userID, rideID){
+    updateRide: function(email, rideID){
         console.log("update a posted ride")
     },
 
-    findRide: function(userID, location, time){
+    findRide: function(email, location, time){
         console.log("find all rides near me")
     },
 
-    testRead: function(userID){
-        read_from_file(userID)
+    testBackup: function(email){
+        console.log("size of database before backup read", __users.size)
+        readBackup(email, -1)
+        console.log("size after backup read", __users.size)
     },
 
 
