@@ -97,7 +97,7 @@ module.exports = {
          
         // write user to backup file
         //console.log(user)
-//        write_to_file(user)
+        write_to_file(user)
 
 	return user.userID;
     },
