@@ -49,3 +49,16 @@ app.get("/anotherExample", (req, res) => {
     res.send(req.query.name);
 })
 
+app.post("/anotherExample", (req, res) => {
+    try{
+        var user = db.getUser(req.body.email);
+        if(user.password == req.body.password){
+            res.send(user);
+        } else {
+            res.send("Invalid password");
+        }
+    }catch(e){
+        res.send("Login failed");
+    }
+})
+
