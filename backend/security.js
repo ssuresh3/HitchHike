@@ -1,7 +1,9 @@
 // security module
 
+// to do: add salting method
+
 const crypto = require('crypto');
-const algorithm = 'sha256';
+const algorithm = 'aes-256-cbc';
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
 
@@ -25,11 +27,11 @@ module.exports = {
 
     encryptPasword: function(password){
         return encrypt(password)
-    }
+    },
 
     decryptPassword: function(password){
         return decrypt(password)
-    }
+    },
 
     varifyUser: function(email){
         console.log("varifying user given email: ", email)
