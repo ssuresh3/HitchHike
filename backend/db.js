@@ -124,6 +124,8 @@ module.exports = {
         console.log("updating user")
         try{
             user = module.exports.getUser(email)
+            if field == "password":
+                security.updatePassword(email, oldP, newP)
             user[field] = newP
             __users.set(email, user)
             console.log(__users.get(email))

@@ -35,7 +35,10 @@ module.exports = {
 
     varifyUser: function(email){
         console.log("varifying user given email: ", email)
-    }
+    },
 
+    updatePasswork: function(email, oldP, newP){
+        console.log("updating password, make user varify email")
+    },
 }
 
