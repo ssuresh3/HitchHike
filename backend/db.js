@@ -1,5 +1,6 @@
 // Define a custome databse
 
+var security = require("./security.js")
 const fs = require('fs');       // opening files
 var HashMap = require('hashmap');
 
@@ -9,11 +10,10 @@ var __users = new HashMap()
 // might want to store rides in k-d tree for efficient spacial searching
 var __rides = new HashMap()
 
-// add autosave method
-
 // user object that will be stored in ran 
-function User(fName, lName, username, email, DOB){
+function User(fName, lName, username, password, email, DOB){
     this.username = username;
+    this.password = security.encryptPasword(password)
     this.varified = false
     this.fName = fName;
     this.lName = lName;
@@ -95,12 +95,12 @@ function readBackup(email, status){
 // public functions availiable to index.js
 module.exports = {
 
-    newUser: function(fName, lName, username, email, DOB){
+    newUser: function(fName, lName, username, password, email, DOB){
         console.log("creating new user")
-        var user = new User(fName, lName, username, email, DOB)
+        var user = new User(fName, lName, username, password, email, DOB)
 
         // writing user to backup immediately for now
-        //console.log(user)
+        console.log(user)
         write_to_file(user)
     },
 
@@ -166,8 +166,6 @@ module.exports = {
         readBackup(email, -1)
         console.log("size after backup read", __users.size)
     },
-
-
 }
 
 
