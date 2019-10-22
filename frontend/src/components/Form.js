@@ -8,6 +8,8 @@ export default class Form extends Component {
     //default constructor with email and password
     constructor(props) {
         super(props);
+
+        //dynamic state
         this.state = {
             email: '',
             password: ''
@@ -16,9 +18,6 @@ export default class Form extends Component {
 
     //saving user info details
     saveData = async () => {
-        /*
-            create check for valid username and password
-        */
         const { email, password } = this.state;
 
         //saving data with asyncstorage
@@ -33,6 +32,7 @@ export default class Form extends Component {
             Keyboard.dismiss();
             alert("You have successfully registered!");
             /*
+                TODO:
                 redirect to login page
             */
         }
@@ -46,6 +46,7 @@ export default class Form extends Component {
                     if (ld.email == email && ld.password == password) {
                         alert("Welcome!");
                         /*
+                            TODO:
                             redirect to home page
                         */
                     } else {
@@ -64,6 +65,11 @@ export default class Form extends Component {
         let ld = JSON.parse(loginDetails);
         alert("Your email is: " + ld.email + " Your password is: " + ld.password);
     }
+
+    /*
+        TODO:
+        create check method for valid username and password
+    */
 
     //creating the display for signup and login
     render() {
@@ -89,7 +95,7 @@ export default class Form extends Component {
                     {
                         //depending on what the user presses, the button will either render login or signup
                     }
-                    <Text style={styles.buttonText} onPress={this.saveData} > {this.props.type}> </Text>
+                    <Text style={styles.buttonText} onPress={this.saveData}> {this.props.type} </Text>
                 </TouchableOpacity>
             </View>
         )
