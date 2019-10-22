@@ -11,7 +11,7 @@ export default class loginPage extends Component {
   
   render() {
     // let pic = {
-    //   uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'};
+    //   uri: 'https:/a/upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'};
     return (
     <React.Fragment>
       {/* <Image source = {pic} style = {{width: 193, height:110}}/> */}
