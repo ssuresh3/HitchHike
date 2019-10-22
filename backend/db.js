@@ -25,7 +25,7 @@ function User(fName, lName, username, password, email, DOB){
         verified: false    
     }
 
-    __users.set(email, this)
+    __users.set(username, this)
 }
 
 // ride object
@@ -36,22 +36,29 @@ function Rides(username, origin, destination, seats, time){
     this.maxSeats = seats;
     this.departTime = time;
 
-    __rides.set(userID, this)
+    __rides.set(username, this)
 }
 
 // hash the user's email to create userID
-function newRide(email){
+function newRide(username){
     console.log("generate new unique rideID")
     return 0
 }
 
 // find user in __users
-function findUser(email){
-    try{ return __users.get(email)}
+function findUser(username){
+    try{ return __users.get(username)}
     catch(e){
         console.log(e)
         return e
     }
+}
+
+function varyifyUser(username){
+    if (__users.has(username)){
+        return true
+    }
+    return false
 }
 
 // every time a new user signs up, write to file
@@ -73,7 +80,7 @@ function write_to_file(user_obj){
 }
 
 // read users from file
-function readBackup(email, status){
+function readBackup(username, status){
     console.log("usage: Reading __users from disk")
     
     var text = fs.readFileSync('backup.json')
@@ -83,14 +90,14 @@ function readBackup(email, status){
         
         // seach for single user
         if (status >= 0){ 
-            if (file['users'][i]['email'] == email){
+            if (file['users'][i]['username'] == username){
                 console.log("found user")
                 return file['users'][i]
             }
         }
         // transfer entire backup file to __users array
         else{
-            __users.set(email, file['users'][i])
+            __users.set(username, file['users'][i])
             return
         }
     }
@@ -102,6 +109,10 @@ module.exports = {
     newUser: function(fName, lName, username, password, email, DOB){
         console.log("creating new user")
 
+        if (varyifyUser(username) == true){
+            throw Error ('username in use')
+        }
+
         var user = new User(fName, lName, username, password, email, DOB)
 
         // writing user to backup immediately for now
@@ -111,43 +122,43 @@ module.exports = {
         return user
     },
 
-    getUser: function(email){
+    getUser: function(username){
         
         // if db crashed, read from file
         if (__users.size == 0){
-            readBackup(email, -1)
-            user = findUser(userID)
+            readBackup(username, -1)
+            user = findUser(username)
             console.log(user)
             return user
         }
         else{
-            user = findUser(email)
+            user = findUser(username)
             //console.log(user)
             return user
         }
     },
 
-    updateUser: function(email, field, oldP, newP){
+    updateUser: function(username, field, oldP, newP){
         console.log("updating user")
         try{
-            user = module.exports.getUser(email)
+            user = module.exports.getUser(username)
             if (field == "password"){
-                security.updatePassword(email, oldP, newP)
+                security.updatePassword(username, oldP, newP)
             }
             user[field] = newP
-            __users.set(email, user)
-            console.log(__users.get(email))
+            __users.set(username, user)
+            console.log(__users.get(username))
         }
         catch(e){
             console.log("was not able to update userID", userID)
         }
     },
 
-    deleteUser: function(email){
+    deleteUser: function(username){
         console.log("removing user from database")
 
-        if (__users.has(email)){
-            __users.delete(email)
+        if (__users.has(username)){
+            __users.delete(username)
             console.log("user deleted successfuly")
         }
         else{
@@ -155,25 +166,25 @@ module.exports = {
         }
     },
 
-    postRide: function(email, origin, destination, time){
+    postRide: function(username, origin, destination, time){
         console.log("post a ride from x to y at time t")
     },
 
-    deleteRide: function(email, rideID){
+    deleteRide: function(username, rideID){
         console.log("cancel a ride given its ID")
     },
 
-    updateRide: function(email, rideID){
+    updateRide: function(username, rideID){
         console.log("update a posted ride")
     },
 
-    findRide: function(email, location, time){
+    findRide: function(username, location, time){
         console.log("find all rides near me")
     },
 
-    testBackup: function(email){
+    testBackup: function(username){
         console.log("size of database before backup read", __users.size)
-        readBackup(email, -1)
+        readBackup(username, -1)
         console.log("size after backup read", __users.size)
     },
 
