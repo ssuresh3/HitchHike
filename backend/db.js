@@ -20,6 +20,11 @@ function User(fName, lName, username, password, email, DOB){
     this.email = email;
     this.DOB = DOB;
     this.rides = [];
+    
+    //new users start unvarified
+    this.userStatus = {
+        verified: false    
+    }
 
     __users.set(email, this)
 }
@@ -97,11 +102,14 @@ module.exports = {
 
     newUser: function(fName, lName, username, password, email, DOB){
         console.log("creating new user")
+
         var user = new User(fName, lName, username, password, email, DOB)
 
         // writing user to backup immediately for now
         console.log(user)
         write_to_file(user)
+
+	return user.userID;
     },
 
     getUser: function(email){
