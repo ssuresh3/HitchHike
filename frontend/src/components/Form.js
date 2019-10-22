@@ -33,7 +33,7 @@ export default class Form extends Component {
             alert("You have successfully registered!");
             /*
                 TODO:
-                redirect to login page
+                redirect to verify page
             */
         }
 
