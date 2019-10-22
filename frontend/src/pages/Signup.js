@@ -1,31 +1,31 @@
 //importing necessary libraries
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
     View,
     TouchableOpacity
 } from 'react-native';
-import Form from './src/components/Form.js'
+import Form from '../components/Form.js'
 import { Actions } from 'react-native-router-flux';
 
 //creating Signup class
-export default class Signup extends Component{
+export default class Signup extends Component {
     //function to load previous page on a stack
-    goBack(){
+    goBack() {
         Actions.pop()
     }
 
     //renders form component with signup argument, creates a text and button
-    render(){
-        return(
+    render() {
+        return (
             <View style={styles.container}>
                 <Text>{'\n'}</Text>
                 <Text>{'\n'}</Text>
-                <Form type="Signup"/>
+                <Form type="Signup" />
                 <View style={styles.signupTextCont}>
                     <Text style={styles.signupText}> Already have an account? </Text>
-                    <TouchableOpacity onPress={this.goBack}><Text style={styles.signupButton}> Sign in </Text></TouchableOpacity>
+                    <TouchableOpacity onPress={this.goBack}><Text style={styles.signupButton}> Sign in! </Text></TouchableOpacity>
                 </View>
             </View>
 
