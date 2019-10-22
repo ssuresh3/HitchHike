@@ -1,19 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View,
+  StatusBar
+} from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+import Route from './src/Route.js'
+
+export default class App extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <StatusBar
+          backgroundColor="#002f6c"
+          barStyle="light-content"
+        />
+        <Route />
+      </View>
+    );
+  }
 }
 
+//adding CSS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  }
+})
