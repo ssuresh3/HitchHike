@@ -9,16 +9,10 @@ const sgMail = require('@sendgrid/mail');
 var db = require("./db.js")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-<<<<<<< HEAD
-=======
-// db.hello()
-
 app.listen(port, () => {
     console.log("Hi!");
 })
 
-
->>>>>>> e44e746360a8442fd01c93418ad59193e1391b4d
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
 //  console.log(response.data); will print "Welcome"
@@ -52,10 +46,11 @@ app.get("/anotherExample", (req, res) => {
     res.send(req.query.name);
 })
 
-app.post("/anotherExample", (req, res) => {
+// login endpoint
+app.post("/Login", (req, res) => {
     try{
         var user = db.getUser(req.body.email);
-        if(user.password == req.body.password){
+        if (user.password == (db.hash(req.body.password)){
             res.send(user);
         } else {
             res.send("Invalid password");
@@ -65,12 +60,10 @@ app.post("/anotherExample", (req, res) => {
     }
 })
 
-<<<<<<< HEAD
 
 
 
 
 
 
-=======
->>>>>>> e44e746360a8442fd01c93418ad59193e1391b4d
+

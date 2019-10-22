@@ -9,6 +9,7 @@ function unitTest(){
 	//db.getUser("chartsoo@ucsc.edu")
 	//db.updateUser("chartsoo@ucsc.edu", "fName", "cody", "Cody")
 	//b.deleteUser("chartsoo@ucsc.edu")
+	console.log(db.hash("helloWorld"))
 
 }
 
