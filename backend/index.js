@@ -9,8 +9,6 @@ const sgMail = require('@sendgrid/mail');
 var db = require("./db.js")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-db.hello()
-
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
 //  console.log(response.data); will print "Welcome"
@@ -47,3 +45,10 @@ app.get("/anotherExample", (req, res) => {
 app.listen(port, () => {
     console.log("Hi!");
 })
+
+
+
+
+
+
+
