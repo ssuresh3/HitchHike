@@ -117,10 +117,11 @@ app.get("/anotherExample", (req, res) => {
     res.send(req.query.name);
 })
 
-app.post("/anotherExample", (req, res) => {
+// login endpoint
+app.post("/Login", (req, res) => {
     try{
         var user = db.getUser(req.body.email);
-        if(user.password == req.body.password){
+        if (user.password == (db.hash(req.body.password)){
             res.send(user);
         } else {
             res.send("Invalid password");
@@ -129,4 +130,11 @@ app.post("/anotherExample", (req, res) => {
         res.send("Login failed");
     }
 })
+
+
+
+
+
+
+
 

@@ -108,7 +108,7 @@ module.exports = {
         console.log(user)
         write_to_file(user)
 
-	return user.userID;
+        return user
     },
 
     getUser: function(email){
@@ -131,6 +131,9 @@ module.exports = {
         console.log("updating user")
         try{
             user = module.exports.getUser(email)
+            if (field == "password"){
+                security.updatePassword(email, oldP, newP)
+            }
             user[field] = newP
             __users.set(email, user)
             console.log(__users.get(email))
@@ -172,6 +175,10 @@ module.exports = {
         console.log("size of database before backup read", __users.size)
         readBackup(email, -1)
         console.log("size after backup read", __users.size)
+    },
+
+    hash: function(password){
+        return security.encryptPasword(password)
     },
 }
 
