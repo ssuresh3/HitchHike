@@ -102,6 +102,7 @@ module.exports = {
         // writing user to backup immediately for now
         console.log(user)
         write_to_file(user)
+        return user
     },
 
     getUser: function(email){
