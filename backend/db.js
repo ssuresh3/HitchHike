@@ -14,7 +14,6 @@ var __rides = new HashMap()
 function User(fName, lName, username, password, email, DOB){
     this.username = username;
     this.password = security.encryptPasword(password)
-    this.varified = false
     this.fName = fName;
     this.lName = lName;
     this.email = email;
