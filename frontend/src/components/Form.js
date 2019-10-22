@@ -30,7 +30,7 @@ export default class Form extends Component {
         if (this.props.type == Signup) { //may need to change back to != Login
             AsyncStorage.setItem(loginDetails, JSON.stringify(loginDetails)); //parses java object into text
             Keyboard.dismiss();
-            alert("You have successfully registered!");
+            alert("You have successfully registered! Please verify your email!"); 
             /*
                 TODO:
                 redirect to login page
@@ -68,7 +68,7 @@ export default class Form extends Component {
 
     /*
         TODO:
-        create check method for valid username and password
+        create check method if email is valid
     */
 
     //creating the display for signup and login
