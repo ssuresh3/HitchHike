@@ -1,14 +1,21 @@
 // Define a custome databse
 
-var security = require("./security.js")
+var security = require("./security.js");
 const fs = require('fs');       // opening files
 var HashMap = require('hashmap');
+var Heap = require('heap');
+var NN = require('nearest-neighbor');
 
 // storing users in hashmap where key is unique email
 var __users = new HashMap()
 
 // might want to store rides in k-d tree for efficient spacial searching
-var __rides = new HashMap()
+var __rides = []
+
+// queue of rides ordered by departure time
+var __rideQueue = new Heap(function(a, b) {
+    return a.depart - b.depart;
+}
 
 // user object that will be stored in ran 
 function User(fName, lName, username, password, email, DOB){
@@ -30,19 +37,44 @@ function User(fName, lName, username, password, email, DOB){
 
 // ride object
 function Rides(username, origin, destination, seats, time){
-    this.rideID = newRide();
+    this.rideID = RideID();
     this.origin = origin;
     this.destination = destination;
     this.maxSeats = seats;
     this.departTime = time;
 
-    __rides.set(username, this)
+    __rides.push(username, this)
 }
 
-// hash the user's email to create userID
-function newRide(username){
+// create unique rideID
+function RideID(username, time){
     console.log("generate new unique rideID")
-    return 0
+    var date = new Date();
+    var day = date.getDate()
+    return (username + time + day)
+}
+
+// add ride to rideQueue
+// ride in sorted order
+function addRide(ride){
+    __rideQueue.push({rideID: ride.rideID, depart: ride.departTime})
+    if (ride.departTime < nextDeparture){
+        nextDeparture = ride.departTime
+    }
+}
+
+// remove rides who's departure time has passed
+function updateQueue(){
+    var date = new Date()
+    var time = date.getTime()
+
+    rideRef = __rideQueue.pop()
+    
+    // departure time passed
+    if (rideRef.depart < time){
+        rideID = rideRef.rideID
+        // delete from tree
+    }
 }
 
 // find user in __users
@@ -52,13 +84,6 @@ function findUser(username){
         console.log(e)
         return e
     }
-}
-
-function varyifyUser(username){
-    if (__users.has(username)){
-        return true
-    }
-    return false
 }
 
 // every time a new user signs up, write to file
@@ -109,7 +134,7 @@ module.exports = {
     newUser: function(fName, lName, username, password, email, DOB){
         console.log("creating new user")
 
-        if (varyifyUser(username) == true){
+        if (__users.has(username)){
             throw Error ('username in use')
         }
 
@@ -166,8 +191,12 @@ module.exports = {
         }
     },
 
-    postRide: function(username, origin, destination, time){
+    postRide: function(username, origin, destination, seats, time){
         console.log("post a ride from x to y at time t")
+        var ride = new Rides(username, origin, destination, seats, time)
+
+        // add ride to queue of rides
+        addRide(ride)
     },
 
     deleteRide: function(username, rideID){
@@ -180,6 +209,20 @@ module.exports = {
 
     findRide: function(username, location, time){
         console.log("find all rides near me")
+
+        var query = [{"x":location.x}, {"y":location.y}, "time":time]
+
+        var fields = [
+            { name: "x", nn.comparisonMethods.number },
+            { name: "y", measure: nn.comparisonMethods.number},
+            { name: "time", measure: nn.comparisonMethods.number}
+        ]
+
+        NN.findMostSimilar(query, items, fields, function(nearestNeighbor, probability){
+            console.log(query);
+            console.log(nearestNeighbor);
+            console.log(probability);
+        }); 
     },
 
     testBackup: function(username){
