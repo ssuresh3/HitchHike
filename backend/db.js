@@ -4,13 +4,17 @@ var security = require("./security.js");
 const fs = require('fs');       // opening files
 var HashMap = require('hashmap');
 var Heap = require('heap');
-var NN = require('nearest-neighbor');
 
 // storing users in hashmap where key is unique email
 var __users = new HashMap()
 
-// store ride objects
-var __rides = []
+// store ride objects in R tree for spacial lookup
+const __rides = new RBush();
+
+// custom comparator for the R tree datastructure
+__rides.remove(itemCopy, (a, b) => {
+    return a.Ride.RideID === b.Ride.RideID;
+});
 
 // queue of rides ordered by departure time
 // this is used to hangle dynamic updates
@@ -44,7 +48,7 @@ function Rides(username, origin, destination, seats, time){
     this.maxSeats = seats;
     this.departTime = time;
 
-    __rides.push(username, this)
+    return this
 }
 
 // create unique rideID
@@ -201,32 +205,58 @@ module.exports = {
 
         // add ride to queue of rides
         addRide(ride)
+
+        const node = {
+            minX: origin.x,
+            minY: origin.y,
+            maxX: origin.x*1.05,
+            maxY: origin.y*1.05,
+            Ride: ride
+        }
+
+        __rides.insert(node);
     },
 
     deleteRide: function(username, rideID){
-        __rides.pop()
+        try{
+            __rides.remove(rideID)
+        }
+        else{
+            throw Error ("could not remove", rideID, "from database")
+        }
     },
 
-    updateRide: function(username, rideID){
-        console.log("update a posted ride")
+    updateRide: function(username, rideID, field, oldP, newP){
+        try{
+          node = __rides.remove(rideID) 
+          node.Ride.field = newP
+          __rides.insert(node) 
+        }
+        else{
+            throw Error ("could not update", rideID, "from database")
+        }
     },
 
     findRide: function(username, location, time){
-        console.log("find all rides near me")
+        var rides = []
 
-        var query = [{"x":location.x}, {"y":location.y}, "time":time]
+        var iter = 0
+        var bufferx = (location.x * 1.01)
+        var buffery = (location.y * 1.01)
 
-        var fields = [
-            { name: "x", measure: NN.comparisonMethods.number},
-            { name: "y", measure: NN.comparisonMethods.number},
-            { name: "time", measure: NN.comparisonMethods.number}
-        ]
+        while (rides.length < 10 || iter < 5){
+            rides.push(tree.search({
+                minX: location.x,
+                minY: location.y,
+                maxX: (location.x + buffer)
+                maxY: (location.y + buffer)
+            }));
 
-        NN.findMostSimilar(query, items, fields, function(nearestNeighbor, probability){
-            console.log(query);
-            console.log(nearestNeighbor);
-            console.log(probability);
-        }); 
+            bufferx += bufferx
+            buffery += buffery
+        }
+
+        return rides
     },
 
     testBackup: function(username){
