@@ -9,10 +9,11 @@ var NN = require('nearest-neighbor');
 // storing users in hashmap where key is unique email
 var __users = new HashMap()
 
-// might want to store rides in k-d tree for efficient spacial searching
+// store ride objects
 var __rides = []
 
 // queue of rides ordered by departure time
+// this is used to hangle dynamic updates
 var __rideQueue = new Heap(function(a, b) {
     return a.depart - b.depart;
 }
@@ -74,6 +75,9 @@ function updateQueue(){
     if (rideRef.depart < time){
         rideID = rideRef.rideID
         // delete from tree
+    }
+    else {
+        __rideQueue.push(rideRef)
     }
 }
 
@@ -200,7 +204,7 @@ module.exports = {
     },
 
     deleteRide: function(username, rideID){
-        console.log("cancel a ride given its ID")
+        __rides.pop()
     },
 
     updateRide: function(username, rideID){
@@ -213,9 +217,9 @@ module.exports = {
         var query = [{"x":location.x}, {"y":location.y}, "time":time]
 
         var fields = [
-            { name: "x", nn.comparisonMethods.number },
-            { name: "y", measure: nn.comparisonMethods.number},
-            { name: "time", measure: nn.comparisonMethods.number}
+            { name: "x", measure: NN.comparisonMethods.number},
+            { name: "y", measure: NN.comparisonMethods.number},
+            { name: "time", measure: NN.comparisonMethods.number}
         ]
 
         NN.findMostSimilar(query, items, fields, function(nearestNeighbor, probability){
