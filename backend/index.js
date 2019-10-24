@@ -56,19 +56,17 @@ const verificationEmail = {
 
 
 //generate new code and send verification email
-function verifyUser(id){
+function verifyUser(user){
     var code = Math.random().toString(10).substring(2,7);
-
-    var user = db.getUser(id);
 
     if(user != null){
         user.userStatus.code = code;
 	verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
 	    user: user.fName,
-            url: baseURL + "verify/user/"+user.userID+"?v="+code
+            url: baseURL + "verify/user/"+user.username+"?v="+code
 	}
-        console.log(verificationEmail);	
+        //console.log(verificationEmail);	
 	sgMail.send(verificationEmail).catch((e)=>{
 	    console.log('error',e);
 	});
@@ -77,29 +75,26 @@ function verifyUser(id){
 
 //endpoint for creating new user
 app.post("/signup",(req,res)=>{
-
-    var userID = -1;
+    var user = -1;
     try{
         var data = req.body.user;
-	userID = db.newUser(data.fName,data.lName,data.email,data.DOB);
-        
+	var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
         res.send({success:true});	
     } catch(e){
         console.log(e);
-	res.send({success:false});
+	res.send({success:false,reason:e});
     }
 
-    if(userID>=0)verifyUser(userID);
+    if(user!=-1)verify(user);
 })
 
-app.get("/verify/user/:userID",(req,res)=>{
+app.get("/verify/user/:username",(req,res)=>{
     try{
-	var user = db.getUser(req.params.userID);
+	var user = db.getUser(req.params.username);
 	if(user.userStatus.code != req.query.v){
 	    throw "Invalid verification code";
 	}
 	user.userStatus.verified = true;
-	user.userStatus.code = -1;
         res.send("You are verified!");
     } catch(e){
         console.log(e);
