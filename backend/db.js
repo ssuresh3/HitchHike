@@ -72,15 +72,24 @@ function RideID(username, dateString){
 }
 
 // remove rides who's departure time has passed
-function updateQueue(){
+function updateRides(){
     var date = new Date()
 
+    console.log("updating rides")
     key = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
 
     if (rideQueue.has(key)){
-        // remove from rides and add to past rides
+
+        rideID = rideQueue.get(key)
+        rideQueue.deleted(key)
+        __rides.remove(rideID)
+
+        console.log("ride with ID=", rideID, "has expired, moving it to pastRides")
     }
 }
+
+// make updateRides run every 30 seconds 
+let timerId = setInterval(() => updateRides(), 30000);
 
 // find user in __users
 function findUser(username){
@@ -135,10 +144,6 @@ function readBackup(username, status){
 
 // public functions availiable to index.js
 module.exports = {
-
-    nextDeparture: function(){
-        return nextDeparture
-    },
 
     newUser: function(fName, lName, username, password, email, DOB){
         console.log("creating new user")
