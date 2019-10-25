@@ -208,7 +208,6 @@ module.exports = {
 
         // store by day, hour, minutes
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
-        console.log(departure)
 
         // create the ride
         var ride = new Rides(username, origin, destination, seats, departure)
@@ -219,7 +218,7 @@ module.exports = {
         // add rideID to user's rides attribute
         user = module.exports.getUser(username)
         user.rides.push(ride.rideID)
-    
+
         const node = {
             minX: origin.x,
             minY: origin.y,
@@ -232,9 +231,12 @@ module.exports = {
         console.log(ride)
     },
 
-    deleteRide: function(username, rideID){
+    deleteRide: function(username){
         try{
+            user = module.exports.getUser(username)
+            rideID = user.rides.pop()
             __rides.remove(rideID)
+            console.log("successfuly deleted ride for", username)
         }
         catch{
             throw Error ("could not remove", rideID, "from database")
