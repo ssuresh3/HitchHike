@@ -67,8 +67,9 @@ function Rides(username, origin, destination, seats, dateString){
 }
 
 // create unique rideID
-function RideID(username, dateString){
-    return (username + ":" + dateString)
+function RideID(username, date){
+    departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+    return (username + ":" + departure)
 }
 
 // remove rides who's departure time has passed
@@ -215,7 +216,7 @@ module.exports = {
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
 
         // create the ride
-        var ride = new Rides(username, origin, destination, seats, departure)
+        var ride = new Rides(username, origin, destination, seats, date)
 
         // add rideID to hashmap of rides
         rideQueue.set(departure, ride.rideID)
@@ -227,7 +228,7 @@ module.exports = {
         const node = {
             minX: origin.x,
             minY: origin.y,
-            maxX: origin.X,
+            maxX: origin.x,
             maxY: origin.y,
             Ride: ride
         }
@@ -261,15 +262,26 @@ module.exports = {
 
     findRide: function(username, location, dateString){
         
+        console.log("looking for rides")
+
         var date = new Date(dateString)
-        var buffer = 2 // two hour buffer
+        var buffer = 2 // two hour windows
 
         var rides = knn(__rides, location.x, location.y, function (item) {
             
             // return item if within date/hour range
-            return item
+            if (item.departTime.getDay() == date.getDay()){
+                if ((item.departTime.getHours() - (date.getHours()+buffer)) > 0){
+                    return item
+                }
+                else if ((item.departTime.getHours() - (date.getHours()-buffer)) > 0){
+                    return item
+                }
+            }
 
         });
+
+        console.log(rides)
     },
 
     testBackup: function(username){
