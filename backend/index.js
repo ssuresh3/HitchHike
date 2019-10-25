@@ -45,15 +45,11 @@ app.get("/sendmeanemail",(reg,res)=>{
     });
 })
 
-
-
-
 const verificationEmail = {
     from: "welcome@gethitchhike.ml",
     template_id: "d-0e933e0acf104ea0998fb4e627225d02",
     dynamic_template_data: {}
 }
-
 
 //generate new code and send verification email
 function verifyUser(user){
@@ -74,11 +70,11 @@ function verifyUser(user){
 }
 
 //endpoint for creating new user
-app.post("/signup",(req,res)=>{
+app.post("/signup", (req,res)=>{
     var user = -1;
     try{
         var data = req.body.user;
-    var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
+        var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
         res.send({success:true});   
     } catch(e){
         console.log(e);
@@ -86,9 +82,40 @@ app.post("/signup",(req,res)=>{
     }
 
     if(user!=-1)verify(user);
-})
+});
 
-app.get("/verify/user/:username",(req,res)=>{
+// login endpoint
+app.post("/login", (req, res) => {
+    try{
+        var user = db.getUser(req.body.email);
+        if (user.password == (db.hash(req.body.password)){
+            res.send(user);
+        } else {
+            res.send("Invalid password");
+        }
+    }catch(e){
+        res.send("Login failed");
+    }
+});
+
+// post ride enpoint
+app.post("/postRide", (req, res)=>{
+    var user = -1;
+    try{
+        var data = req.body.ride;
+        var user = db.getUser(data.username)
+        var Ride = db.postRide(data.username,data.origin,data.destination,data.seats,data.departure);
+        res.send({success:true});   
+    } catch(e){
+        console.log(e);
+    res.send({success:false,reason:e});
+    }
+
+    if(user!=-1)verify(user);
+});
+
+// verify users email
+app.get("/verify/user/:username", (req, res)=>{
     try{
     var user = db.getUser(req.params.username);
     if(user.userStatus.code != req.query.v){
@@ -112,16 +139,9 @@ app.get("/anotherExample", (req, res) => {
     res.send(req.query.name);
 })
 
-// login endpoint
-app.post("/Login", (req, res) => {
-    try{
-        var user = db.getUser(req.body.email);
-        if (user.password == (db.hash(req.body.password)){
-            res.send(user);
-        } else {
-            res.send("Invalid password");
-        }
-    }catch(e){
-        res.send("Login failed");
-    }
-})
+
+
+
+
+
+
