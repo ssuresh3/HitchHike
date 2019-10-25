@@ -1,26 +1,41 @@
-// Define a custome databse
+// Custom database for the HitchHike backend
+
+/* overview of structures
+
+* Users stored in hashmap with the key being their username
+
+* Users written to backup file upon signup
+
+* Rides store in two data structues:
+    * R-tree stores rideID according to 2D location
+    * rideID stored in hashmap where departure time is the key
+
+*/
 
 var security = require("./security.js");
-const fs = require('fs');       // opening files
+const fs = require('fs'); 
 var HashMap = require('hashmap');
 var Heap = require('heap');
+var RBush = require('rbush');
+var knn = require('rbush-knn');
 
 // storing users in hashmap where key is unique email
 var __users = new HashMap()
 
 // store ride objects in R tree for spacial lookup
-const __rides = new RBush();
+var __rides = new RBush();
 
-// custom comparator for the R tree datastructure
-__rides.remove(itemCopy, (a, b) => {
+// custom comparator for the R tree data structure
+function comparator(a, b){
     return a.Ride.RideID === b.Ride.RideID;
-});
-
-// queue of rides ordered by departure time
-// this is used to hangle dynamic updates
-var __rideQueue = new Heap(function(a, b) {
-    return a.depart - b.depart;
 }
+
+/*__rides.remove(item, (a, b) => {
+    return a.Ride.RideID === b.Ride.RideID;
+});*/
+
+// store departureTime: rideID
+var rideQueue = new HashMap()
 
 // user object that will be stored in ran 
 function User(fName, lName, username, password, email, DOB){
@@ -41,12 +56,12 @@ function User(fName, lName, username, password, email, DOB){
 }
 
 // ride object
-function Rides(username, origin, destination, seats, time){
+function Rides(username, origin, destination, seats, dateString){
     this.rideID = RideID();
     this.origin = origin;
     this.destination = destination;
     this.maxSeats = seats;
-    this.departTime = time;
+    this.departTime = dateString
 
     return this
 }
@@ -59,29 +74,14 @@ function RideID(username, time){
     return (username + time + day)
 }
 
-// add ride to rideQueue
-// ride in sorted order
-function addRide(ride){
-    __rideQueue.push({rideID: ride.rideID, depart: ride.departTime})
-    if (ride.departTime < nextDeparture){
-        nextDeparture = ride.departTime
-    }
-}
-
 // remove rides who's departure time has passed
 function updateQueue(){
     var date = new Date()
-    var time = date.getTime()
 
-    rideRef = __rideQueue.pop()
-    
-    // departure time passed
-    if (rideRef.depart < time){
-        rideID = rideRef.rideID
-        // delete from tree
-    }
-    else {
-        __rideQueue.push(rideRef)
+    key = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+
+    if (rideQueue.has(key)){
+        // remove from rides and add to past rides
     }
 }
 
@@ -138,6 +138,10 @@ function readBackup(username, status){
 
 // public functions availiable to index.js
 module.exports = {
+
+    nextDeparture: function(){
+        return nextDeparture
+    },
 
     newUser: function(fName, lName, username, password, email, DOB){
         console.log("creating new user")
@@ -199,17 +203,24 @@ module.exports = {
         }
     },
 
-    postRide: function(username, origin, destination, seats, time){
+    // date is in format: 'December 17, 1995 03:24:00'
+    postRide: function(username, origin, destination, seats, dateString){
         console.log("post a ride from x to y at time t")
-        var ride = new Rides(username, origin, destination, seats, time)
 
-        // add ride to queue of rides
-        addRide(ride)
+        date = new Date(dateString)
+
+        // store by day, hour, minutes
+        departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+
+        var ride = new Rides(username, origin, destination, seats, departure)
+
+        // add rideID to hashmap of rides
+        rideQueue.set(departure, ride.rideID)
 
         const node = {
             minX: origin.x,
             minY: origin.y,
-            maxX: origin.x,
+            maxX: origin.X,
             maxY: origin.y,
             Ride: ride
         }
@@ -221,7 +232,7 @@ module.exports = {
         try{
             __rides.remove(rideID)
         }
-        else{
+        catch{
             throw Error ("could not remove", rideID, "from database")
         }
     },
@@ -232,31 +243,22 @@ module.exports = {
           node.Ride.field = newP
           __rides.insert(node) 
         }
-        else{
+        catch{
             throw Error ("could not update", rideID, "from database")
         }
     },
 
-    findRide: function(username, location, time){
-        var rides = []
+    findRide: function(username, location, dateString){
+        
+        var date = new Date(dateString)
+        var buffer = 2 // two hour buffer
 
-        var iter = 0
-        var bufferx = (location.x * 1.01)
-        var buffery = (location.y * 1.01)
+        var rides = knn(__rides, location.x, location.y, function (item) {
+            
+            // return item if within date/hour range
+            return item
 
-        while (rides.length < 10 || iter < 5){
-            rides.push(tree.search({
-                minX: location.x,
-                minY: location.y,
-                maxX: (location.x + buffer)
-                maxY: (location.y + buffer)
-            }));
-
-            bufferx += bufferx
-            buffery += buffery
-        }
-
-        return rides
+        });
     },
 
     testBackup: function(username){

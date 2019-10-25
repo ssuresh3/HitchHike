@@ -1,4 +1,4 @@
-i//Welcome to the backend, this is Aman, your host, who has some tips about using this file.
+//Welcome to the backend, this is Aman, your host, who has some tips about using this file.
 //1. do not use the default route (app.get("/")), always make a specific route based on the action
 //2. do not use
 
@@ -46,6 +46,8 @@ app.get("/sendmeanemail",(reg,res)=>{
 })
 
 
+
+
 const verificationEmail = {
     from: "welcome@gethitchhike.ml",
     template_id: "d-0e933e0acf104ea0998fb4e627225d02",
@@ -54,56 +56,45 @@ const verificationEmail = {
 
 
 //generate new code and send verification email
-function verifyUser(id){
+function verifyUser(user){
     var code = Math.random().toString(10).substring(2,7);
-
-    var user = db.getUser(id);
 
     if(user != null){
         user.userStatus.code = code;
-	verificationEmail.to = user.email;
+    verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
-	    user: user.fName,
-            url: baseURL + "verify/user/"+user.userID+"?v="+code
-	}
-        console.log(verificationEmail);	
-	sgMail.send(verificationEmail).catch((e)=>{
-	    console.log('error',e);
-	});
+        user: user.fName,
+            url: baseURL + "verify/user/"+user.username+"?v="+code
+    }
+        //console.log(verificationEmail);   
+    sgMail.send(verificationEmail).catch((e)=>{
+        console.log('error',e);
+    });
     }
 }
 
 //endpoint for creating new user
 app.post("/signup",(req,res)=>{
-
-    var userID = -1;
+    var user = -1;
     try{
         var data = req.body.user;
-	userID = db.newUser(data.fName,data.lName,data.email,data.DOB);
-        
-        res.send({success:true});	
+    var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
+        res.send({success:true});   
     } catch(e){
         console.log(e);
-	res.send({success:false});
+    res.send({success:false,reason:e});
     }
 
-    if(userID>=0)verifyUser(userID);
+    if(user!=-1)verify(user);
 })
 
-// endpoint for posting a ride
-// parameters: username, origin: {x:num, y:num}, destination: {x:num, y:num}, seats, departTime
-app.post("/postRide",(req, res)=>{
-    // 
-})
-
-app.get("/verify/user/:userID",(req,res)=>{
+app.get("/verify/user/:username",(req,res)=>{
     try{
-	var user = db.getUser(req.params.userID);
-	if(user.userStatus.code != req.query.v){
-	    throw "Invalid verification code";
-	}
-	user.userStatus.verified = true;
-	user.userStatus.code = -1;
+    var user = db.getUser(req.params.username);
+    if(user.userStatus.code != req.query.v){
+        throw "Invalid verification code";
+    }
+    user.userStatus.verified = true;
         res.send("You are verified!");
     } catch(e){
         console.log(e);
@@ -122,7 +113,7 @@ app.get("/anotherExample", (req, res) => {
 })
 
 // login endpoint
-app.post("/login", (req, res) => {
+app.post("/Login", (req, res) => {
     try{
         var user = db.getUser(req.body.email);
         if (user.password == (db.hash(req.body.password)){
@@ -134,11 +125,3 @@ app.post("/login", (req, res) => {
         res.send("Login failed");
     }
 })
-
-
-
-
-
-
-
-
