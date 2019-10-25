@@ -37,7 +37,7 @@ function comparator(a, b){
 // store departureTime: rideID
 var rideQueue = new HashMap()
 
-// user object that will be stored in ran 
+// user object that will be stored in ram
 function User(fName, lName, username, password, email, DOB){
     this.username = username;
     this.password = security.encryptPasword(password)
@@ -209,6 +209,11 @@ module.exports = {
     postRide: function(username, origin, destination, seats, dateString){
         
         console.log("posting a ride from x to y at time t")
+        user = module.exports.getUser(username)
+
+        if (user.userStatus.verified === false){
+            throw Error ("must be verified to post a ride")
+        }
 
         date = new Date(dateString)
 
@@ -222,7 +227,6 @@ module.exports = {
         rideQueue.set(departure, ride.rideID)
 
         // add rideID to user's rides attribute
-        user = module.exports.getUser(username)
         user.rides.push(ride.rideID)
 
         const node = {
@@ -240,7 +244,7 @@ module.exports = {
     deleteRide: function(username){
         try{
             user = module.exports.getUser(username)
-            rideID = user.rides.pop()
+            rideID = user.rides[user.rides.length-1]
             __rides.remove(rideID)
             console.log("successfuly deleted ride for", username)
         }
@@ -281,7 +285,7 @@ module.exports = {
 
         });
 
-        console.log(rides)
+        //console.log(rides)
     },
 
     testBackup: function(username){
