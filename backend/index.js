@@ -1,4 +1,4 @@
-i//Welcome to the backend, this is Aman, your host, who has some tips about using this file.
+//Welcome to the backend, this is Aman, your host, who has some tips about using this file.
 //1. do not use the default route (app.get("/")), always make a specific route based on the action
 //2. do not use
 
@@ -61,15 +61,15 @@ function verifyUser(user){
 
     if(user != null){
         user.userStatus.code = code;
-	verificationEmail.to = user.email;
+    verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
-	    user: user.fName,
+        user: user.fName,
             url: baseURL + "verify/user/"+user.username+"?v="+code
-	}
-        //console.log(verificationEmail);	
-	sgMail.send(verificationEmail).catch((e)=>{
-	    console.log('error',e);
-	});
+    }
+        //console.log(verificationEmail);   
+    sgMail.send(verificationEmail).catch((e)=>{
+        console.log('error',e);
+    });
     }
 }
 
@@ -78,11 +78,11 @@ app.post("/signup",(req,res)=>{
     var user = -1;
     try{
         var data = req.body.user;
-	var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
-        res.send({success:true});	
+    var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
+        res.send({success:true});   
     } catch(e){
         console.log(e);
-	res.send({success:false,reason:e});
+    res.send({success:false,reason:e});
     }
 
     if(user!=-1)verify(user);
@@ -90,11 +90,11 @@ app.post("/signup",(req,res)=>{
 
 app.get("/verify/user/:username",(req,res)=>{
     try{
-	var user = db.getUser(req.params.username);
-	if(user.userStatus.code != req.query.v){
-	    throw "Invalid verification code";
-	}
-	user.userStatus.verified = true;
+    var user = db.getUser(req.params.username);
+    if(user.userStatus.code != req.query.v){
+        throw "Invalid verification code";
+    }
+    user.userStatus.verified = true;
         res.send("You are verified!");
     } catch(e){
         console.log(e);
@@ -125,11 +125,3 @@ app.post("/Login", (req, res) => {
         res.send("Login failed");
     }
 })
-
-
-
-
-
-
-
-
