@@ -209,8 +209,8 @@ module.exports = {
         const node = {
             minX: origin.x,
             minY: origin.y,
-            maxX: origin.x*1.05,
-            maxY: origin.y*1.05,
+            maxX: origin.x,
+            maxY: origin.y,
             Ride: ride
         }
 

@@ -46,8 +46,6 @@ app.get("/sendmeanemail",(reg,res)=>{
 })
 
 
-
-
 const verificationEmail = {
     from: "welcome@gethitchhike.ml",
     template_id: "d-0e933e0acf104ea0998fb4e627225d02",
@@ -92,6 +90,12 @@ app.post("/signup",(req,res)=>{
     if(userID>=0)verifyUser(userID);
 })
 
+// endpoint for posting a ride
+// parameters: username, origin: {x:num, y:num}, destination: {x:num, y:num}, seats, departTime
+app.post("/postRide",(req, res)=>{
+    // 
+})
+
 app.get("/verify/user/:userID",(req,res)=>{
     try{
 	var user = db.getUser(req.params.userID);
@@ -118,7 +122,7 @@ app.get("/anotherExample", (req, res) => {
 })
 
 // login endpoint
-app.post("/Login", (req, res) => {
+app.post("/login", (req, res) => {
     try{
         var user = db.getUser(req.body.email);
         if (user.password == (db.hash(req.body.password)){
