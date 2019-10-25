@@ -57,7 +57,7 @@ function User(fName, lName, username, password, email, DOB){
 
 // ride object
 function Rides(username, origin, destination, seats, dateString){
-    this.rideID = RideID();
+    this.rideID = RideID(username, dateString);
     this.origin = origin;
     this.destination = destination;
     this.maxSeats = seats;
@@ -67,11 +67,8 @@ function Rides(username, origin, destination, seats, dateString){
 }
 
 // create unique rideID
-function RideID(username, time){
-    console.log("generate new unique rideID")
-    var date = new Date();
-    var day = date.getDate()
-    return (username + time + day)
+function RideID(username, dateString){
+    return (username + ":" + dateString)
 }
 
 // remove rides who's departure time has passed
@@ -184,10 +181,9 @@ module.exports = {
             }
             user[field] = newP
             __users.set(username, user)
-            console.log(__users.get(username))
         }
         catch(e){
-            console.log("was not able to update userID", userID)
+            console.log("was not able to update username", username, e)
         }
     },
 
@@ -203,20 +199,27 @@ module.exports = {
         }
     },
 
-    // date is in format: 'December 17, 1995 03:24:00'
+    // date is in format: "August 19, 1975 23:15:30"
     postRide: function(username, origin, destination, seats, dateString){
-        console.log("post a ride from x to y at time t")
+        
+        console.log("posting a ride from x to y at time t")
 
         date = new Date(dateString)
 
         // store by day, hour, minutes
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+        console.log(departure)
 
+        // create the ride
         var ride = new Rides(username, origin, destination, seats, departure)
 
         // add rideID to hashmap of rides
         rideQueue.set(departure, ride.rideID)
 
+        // add rideID to user's rides attribute
+        user = module.exports.getUser(username)
+        user.rides.push(ride.rideID)
+    
         const node = {
             minX: origin.x,
             minY: origin.y,
@@ -226,6 +229,7 @@ module.exports = {
         }
 
         __rides.insert(node);
+        console.log(ride)
     },
 
     deleteRide: function(username, rideID){
