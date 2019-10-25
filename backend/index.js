@@ -32,7 +32,7 @@ const ex = {
     from: 'server@hitchhike.com',
     subject: 'This is an example email'
 };
-app.get("/sendamananemail",(reg,res)=>{
+app.get("/sendamananemail",(req,res)=>{
     emailsSent++;
     ex.html = 'You have recieved <strong>'+emailsSent+'</strong> emails since the server was restarted!'
     sgMail.send(ex);
