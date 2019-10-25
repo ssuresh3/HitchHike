@@ -58,7 +58,9 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center', //centers flex objects
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center'
     },
 
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         fontSize: 16,
         color: '#002f6c',
-        marginVertical: 10
+        marginVertical: 10,
+        textAlign: 'center'
     },
 
     button: {
