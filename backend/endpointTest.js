@@ -8,9 +8,9 @@
 const axios = require('axios')
 
 // test signup functionality
-async function test1() {
+function test1() {
  	try {
-    	const response = await axios.post("http://localhost:8000/signup", {
+    	const response = axios.post("http://localhost:8000/signup", {
    			fName: "Cody",
    			lName: "Hartsook",
    			username: "chartsoo",
@@ -32,9 +32,9 @@ async function test1() {
 }
 
 // test login functionality
-async function test2() {
+function test2() {
  	try {
-    	const response = await axios.post("http://localhost:8000/login", {
+    	const response = axios.post("http://localhost:8000/login", {
    			username: "chartsoo",
    			password: "password12345",
     	});
@@ -51,20 +51,57 @@ async function test2() {
 	}
 }
 
+// data.username,data.origin,data.destination,data.seats,data.departure
+
+// test login functionality
+function test3() {
+ 	try {
+    	const response = axios.post("http://localhost:8000//postRide", {
+   			username: "chartsoo",
+   			password: "password12345",
+   			origin: {"x": 100, "y": 120},
+   			destination: {"x": 140, "y": 170},
+   			seats: 4,
+   			departure: "October 20, 2019 23:15:30"
+    	});
+
+    	if (response.data["success"] === true) console.log("test3 passed")
+    	if (response.data["success"] === false) {
+    		console.log("test3 failed")
+    		console.log("  - ", response.data["reason"])
+    	}
+
+ 	} catch (error) {
+ 		console.log("test3 failed with error")
+		//console.error(error);
+	}
+}
+
 // testing starts here
 
 try {
-	test1();
+	console.log("----------------------------------------------------------------")
+	test1()
 } 
 catch {
 	console.log("error occured, continue testing")
 }
 try {
-	test2();
+	console.log("----------------------------------------------------------------")
+	test2()
 } 
 catch {
 	console.log("error occured, continue testing")
 }
+try {
+	console.log("----------------------------------------------------------------")
+	test3()
+}
+catch {
+	console.log("error occured, continue testing")
+}
+
+console.log("----------------------------------------------------------------")
 
 
 

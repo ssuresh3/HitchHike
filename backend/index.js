@@ -10,7 +10,7 @@ var db = require("./db.js")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 app.listen(port, () => {
-    console.log("Hi!");
+    console.log("Welcome to the HitchHike API!");
 })
 
 //parse incoming requests as JSON
@@ -57,15 +57,15 @@ function verifyUser(user){
 
     if(user != null){
         user.userStatus.code = code;
-    verificationEmail.to = user.email;
+        verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
-        user: user.fName,
-            url: baseURL + "verify/user/"+user.username+"?v="+code
-    }
+            user: user.fName,
+                url: baseURL + "verify/user/"+user.username+"?v="+code
+        }
         //console.log(verificationEmail);   
-    sgMail.send(verificationEmail).catch((e)=>{
-        console.log('error',e);
-    });
+        sgMail.send(verificationEmail).catch((e)=>{
+            console.log('error',e);
+        });
     }
 }
 
@@ -73,29 +73,33 @@ function verifyUser(user){
 app.post("/signup", (req,res)=>{
     var user = -1;
     try{
-        var data = req.body.user;
+        var data = req.body;
         var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
+        console.log("new user signup")
         res.send({success:true});   
     } catch(e){
         console.log(e);
     res.send({success:false,reason:e});
     }
 
-    if(user!=-1)verify(user);
+    if(user!=-1)verifyUser(user);
 });
 
 // login endpoint
 app.post("/login", (req, res) => {
+    var user = -1;
     try{
-        var user = db.getUser(req.body.email);
-        if (user.password == (db.hash(req.body.password)){
+        var user = db.getUser(req.body.username);
+        if (user.password == db.hash(req.body.password)){
             res.send(user);
         } else {
-            res.send("Invalid password");
+            res.send({success:false,reason:"Invalid password"});
         }
     }catch(e){
-        res.send("Login failed");
+        res.send({success:false,reason:"Login failed"});
     }
+
+    if(user!=-1)verifyUser(user);
 });
 
 // post ride enpoint
@@ -104,14 +108,17 @@ app.post("/postRide", (req, res)=>{
     try{
         var data = req.body.ride;
         var user = db.getUser(data.username)
-        var Ride = db.postRide(data.username,data.origin,data.destination,data.seats,data.departure);
+
+        if (user.userStatus.verified === false)verifyUser(user);
+
+        var Ride = db.postRide(data.username,data.password,data.origin,data.destination,data.seats,data.departure);
         res.send({success:true});   
     } catch(e){
         console.log(e);
     res.send({success:false,reason:e});
     }
 
-    if(user!=-1)verify(user);
+    if(user!=-1)verifyUser(user);
 });
 
 // verify users email
@@ -122,22 +129,23 @@ app.get("/verify/user/:username", (req, res)=>{
         throw "Invalid verification code";
     }
     user.userStatus.verified = true;
-        res.send("You are verified!");
+        res.send({success:true,reason:"You are verified!"});
     } catch(e){
         console.log(e);
-        res.send("verification failed :(");
+        res.send({success:false,reason:"verification failed"});
     }
 });
 
-//example call from the app:
-////example call from the app:
-//axios.get("http://localhost:8080/anotherExample?name=Aman", function(response){
-//  console.log(response.data); will print "Aman"
-//})
-//if you want to pass in more than one argument: ?name=Aman&lastName=Prasad
-app.get("/anotherExample", (req, res) => {
-    res.send(req.query.name);
+/*example call from the app:
+example call from the app:
+axios.get("http://localhost:8080/anotherExample?name=Aman", function(response){
+  console.log(response.data); will print "Aman"
 })
+if you want to pass in more than one argument: ?name=Aman&lastName=Prasad
+*/
+app.get("/anotherExample", (req, res) => {
+    res.send(req.query.name)
+});
 
 
 
