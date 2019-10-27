@@ -1,29 +1,10 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  StatusBar
-} from 'react-native';
+import React from 'react';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+const AppContainer = createAppContainer(AppNavigator);
 
-import Route from './src/Route.js'
-
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar
-          backgroundColor="#002f6c"
-          barStyle="light-content"
-        />
-        <Route />
-      </View>
-    );
+    return <AppContainer />;
   }
 }
-
-//adding CSS
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  }
-})

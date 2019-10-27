@@ -1,7 +1,8 @@
 //Your part Harshitha
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Button } from 'react-native';
-
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 //import {Actions} from 'react-native-router-flux';
 
 //import Form from '../components/Form';
@@ -43,7 +44,7 @@ export default class Login extends Component {
                         }
                         <Text style={styles.buttonText} onPress={this.saveData}> Login {this.props.type} </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button1}>
+                    <TouchableOpacity style={styles.button1} onPress={() => this.props.navigation.navigate('Signup')}>
                         {
                             //depending on what the user presses, the button will either render login or signup
                         }
@@ -54,7 +55,17 @@ export default class Login extends Component {
         )
     }
 }
-
+const AppNavigator = createStackNavigator(
+    {
+      LoginPage: Login,
+      SignupPage: Signup,
+    },
+    {
+      initialRouteName: 'Login',
+    }
+  );
+  
+  export default createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
     container: {
