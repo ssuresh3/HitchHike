@@ -21,6 +21,7 @@ function unitTest(){
 
 	db.postRide("chartsoo", origin, destination, seats, time)
 	db.findRide("chartsoo", origin, time2)
+	db.deleteRide("chartsoo")
 
 }
 
