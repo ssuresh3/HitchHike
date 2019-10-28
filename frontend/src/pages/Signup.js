@@ -8,15 +8,15 @@ import {
     TextInput,
 } from 'react-native';
 // import Form from '../components/Form.js'
-// import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 
 //creating Signup class
 export default class Signup extends Component {
     //function to load previous page on a stack
-    // goBack() {
-    //     Actions.pop();
-    // }
+    goBack() {
+        Actions.pop();
+    }
 
     constructor(props) {
         super(props);
@@ -37,8 +37,8 @@ export default class Signup extends Component {
         return (
             <React.Fragment>
                 <View style={styles.formContainer}>
-                    <Text>{'\n'}</Text>
-                    <Text>{'\n'}</Text>
+                    {/* <Text>{'\n'}</Text>
+                    <Text>{'\n'}</Text> */}
                     <Text style={styles.container}>Sign up for HitchHike!</Text>
                     <TextInput
                         style={styles.inputBox} //creating first name text input
@@ -112,7 +112,7 @@ export default class Signup extends Component {
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={this.saveData}>
                             {' '}
-                            Sign up!{' '}
+                            Sign Up!{' '}
                         </Text>
                     </TouchableOpacity>
                 </View>
