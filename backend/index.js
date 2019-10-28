@@ -103,7 +103,7 @@ app.post("/login", (req, res) => {
 });
 
 // post ride enpoint
-app.post("/postRide", (req, res)=>{
+app.post("/rides/postRide", (req, res)=>{
     var user = -1;
     try{
         var data = req.body
@@ -122,7 +122,7 @@ app.post("/postRide", (req, res)=>{
 });
 
 // post ride enpoint
-app.post("/findRide", (req, res)=>{
+app.post("/rides/findRide", (req, res)=>{
     try{
         var data = req.body;
         //console.log(data)
