@@ -1,18 +1,1 @@
-{
-  "devToolsPort": 19002,
-<<<<<<< HEAD
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 30020,
-  "expoServerNgrokUrl": "https://5g-ihm.anonymous.frontend.exp.direct",
-  "packagerNgrokUrl": "https://packager.5g-ihm.anonymous.frontend.exp.direct",
-  "ngrokPid": 34484
-=======
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
->>>>>>> e27b4e39ea297a0be0320959ab43dcf8af74b7fc
-}
+{}
