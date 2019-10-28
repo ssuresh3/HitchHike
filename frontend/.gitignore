@@ -1,7 +1,9 @@
 node_modules/**/*
 .expo/*
-.expo-shared/*
+#
+.expo-shared/*  
 .assets/*
+#
 npm-debug.*
 *.jks
 *.p8
@@ -11,9 +13,11 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+#
 yarn.lock
 package.json
 package-lock.json
+#
 
 
 # macOS
