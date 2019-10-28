@@ -54,7 +54,7 @@ async function test2() {
 // test login functionality
 async function test3() {
  	try {
-    	const response = await axios.post("http://localhost:8000//postRide", {
+    	const response = await axios.post("http://localhost:8000/rides/postRide", {
    			username: "chartsoo",
    			password: "password12345",
    			origin: {"x": 100, "y": 120},
@@ -78,7 +78,7 @@ async function test3() {
 // test login functionality
 async function test4() {
     try {
-        const response = await axios.post("http://localhost:8000/findRide", {
+        const response = await axios.post("http://localhost:8000/rides/findRide", {
             origin: {"x": 100, "y": 120},
             departure: "October 20, 2019 23:15:30"
         });
@@ -97,11 +97,10 @@ async function test4() {
 }
 
 // testing starts here
-
 console.log("----------------------------------------------------------------")
-test1()
-test2()
-test3()
+//test1()
+//test2()
+//test3()
 test4()
 
 
