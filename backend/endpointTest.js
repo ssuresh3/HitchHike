@@ -8,9 +8,9 @@
 const axios = require('axios')
 
 // test signup functionality
-function test1() {
+async function test1() {
  	try {
-    	const response = axios.post("http://localhost:8000/signup", {
+    	const response = await axios.post("http://localhost:8000/signup", {
    			fName: "Cody",
    			lName: "Hartsook",
    			username: "chartsoo",
@@ -27,16 +27,16 @@ function test1() {
 
  	} catch (error) {
  		console.log("test1 failed with error")
-		//console.error(error);
 	}
+    console.log("----------------------------------------------------------------")
 }
 
 // test login functionality
-function test2() {
+async function test2() {
  	try {
-    	const response = axios.post("http://localhost:8000/login", {
-   			username: "chartsoo",
-   			password: "password12345",
+    	const response = await axios.post("http://localhost:8000/login", {
+   		   username: "chartsoo",
+   		   password: "password12345",
     	});
 
     	if (response.data["success"] === true) console.log("test2 passed")
@@ -47,16 +47,14 @@ function test2() {
 
  	} catch (error) {
  		console.log("test2 failed with error")
-		//console.error(error);
 	}
+    console.log("----------------------------------------------------------------")
 }
 
-// data.username,data.origin,data.destination,data.seats,data.departure
-
 // test login functionality
-function test3() {
+async function test3() {
  	try {
-    	const response = axios.post("http://localhost:8000//postRide", {
+    	const response = await axios.post("http://localhost:8000//postRide", {
    			username: "chartsoo",
    			password: "password12345",
    			origin: {"x": 100, "y": 120},
@@ -73,35 +71,38 @@ function test3() {
 
  	} catch (error) {
  		console.log("test3 failed with error")
-		//console.error(error);
 	}
+    console.log("----------------------------------------------------------------")
+}
+
+// test login functionality
+async function test4() {
+    try {
+        const response = await axios.post("http://localhost:8000/findRide", {
+            origin: {"x": 100, "y": 120},
+            departure: "October 20, 2019 23:15:30"
+        });
+
+        //console.log(response)
+        if (response.data["success"] === true) console.log("test4 passed")
+        if (response.data["success"] === false) {
+            console.log("test4 failed")
+            console.log("  - ", response.data["reason"])
+        }
+
+    } catch (error) {
+        console.log("test4 failed with error", error)
+    }
+    console.log("----------------------------------------------------------------")
 }
 
 // testing starts here
 
-try {
-	console.log("----------------------------------------------------------------")
-	test1()
-} 
-catch {
-	console.log("error occured, continue testing")
-}
-try {
-	console.log("----------------------------------------------------------------")
-	test2()
-} 
-catch {
-	console.log("error occured, continue testing")
-}
-try {
-	console.log("----------------------------------------------------------------")
-	test3()
-}
-catch {
-	console.log("error occured, continue testing")
-}
-
 console.log("----------------------------------------------------------------")
+test1()
+test2()
+test3()
+test4()
 
 
 

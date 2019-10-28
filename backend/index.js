@@ -10,7 +10,7 @@ var db = require("./db.js")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 app.listen(port, () => {
-    console.log("Welcome to the HitchHike API!");
+    console.log("Welcome to the HitchHike internal API!");
 })
 
 //parse incoming requests as JSON
@@ -106,7 +106,7 @@ app.post("/login", (req, res) => {
 app.post("/postRide", (req, res)=>{
     var user = -1;
     try{
-        var data = req.body.ride;
+        var data = req.body
         var user = db.getUser(data.username)
 
         if (user.userStatus.verified === false)verifyUser(user);
@@ -119,6 +119,19 @@ app.post("/postRide", (req, res)=>{
     }
 
     if(user!=-1)verifyUser(user);
+});
+
+// post ride enpoint
+app.post("/findRide", (req, res)=>{
+    try{
+        var data = req.body;
+        //console.log(data)
+        var rides = db.findRide(data.origin,data.departure);
+        res.send({success:true,body:rides});   
+    } catch(e){
+        console.log(e);
+        res.send({success:false,"reason":e});
+    }
 });
 
 // verify users email
