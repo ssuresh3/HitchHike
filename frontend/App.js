@@ -1,28 +1,25 @@
-import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import Login from './src/pages/Login';
+import Signup from './src/pages/Signup';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-
-const AppContainer = createAppContainer(AppNavigator);
-const AppNavigator = createStackNavigator(
+const AppStack = createStackNavigator(
   {
-    LoginPage: Login,
-    SignupPage: Signup,
-  },
+    SignupRoute: Signup
+  }
+)
+
+const AuthStack = createStackNavigator(
   {
-    initialRouteName: 'Login',
+    LoginRoute: Login
   }
-);
+)
 
-//export default createAppContainer(AppNavigator);
 
-export default class App extends React.Component {
-  render() {
-    return (
-    <View>
-      <Text>Fuck</Text>
-      <AppContainer />
-    </View>
-    );
+export default createAppContainer(createSwitchNavigator(
+  {
+    Auth: AuthStack,
+    App: AppStack
+
   }
-}
+));

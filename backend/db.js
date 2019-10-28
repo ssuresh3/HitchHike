@@ -76,7 +76,7 @@ function RideID(username, date){
 function updateRides(){
     var date = new Date()
 
-    console.log("updating rides")
+    //console.log("updating rides")
     key = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
 
     if (rideQueue.has(key)){
@@ -189,7 +189,7 @@ module.exports = {
             __users.set(username, user)
         }
         catch(e){
-            console.log("was not able to update username", username, e)
+            console.log("was not able to update user", username, e)
         }
     },
 
@@ -206,13 +206,17 @@ module.exports = {
     },
 
     // date is in format: "August 19, 1975 23:15:30"
-    postRide: function(username, origin, destination, seats, dateString){
+    postRide: function(username, password, origin, destination, seats, dateString){
         
         console.log("posting a ride from x to y at time t")
         user = module.exports.getUser(username)
 
-        if (user.userStatus.verified === false){
+        /*if (user.userStatus.verified === false){
             throw Error ("must be verified to post a ride")
+        }*/
+
+        if (security.encryptPasword(password) != user.password){
+            throw Error("invalid password")
         }
 
         date = new Date(dateString)
@@ -285,7 +289,7 @@ module.exports = {
 
         });
 
-        //console.log(rides)
+        console.log(rides)
     },
 
     testBackup: function(username){

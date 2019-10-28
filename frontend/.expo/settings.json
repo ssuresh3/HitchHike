@@ -1,8 +1,14 @@
 {
   "hostType": "lan",
   "lanType": "ip",
+<<<<<<< HEAD
   "dev": false,
   "minify": true,
   "urlRandomness": "5g-ihm",
+=======
+  "dev": true,
+  "minify": false,
+  "urlRandomness": "9p-jj7",
+>>>>>>> e27b4e39ea297a0be0320959ab43dcf8af74b7fc
   "https": false
 }
