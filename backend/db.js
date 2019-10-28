@@ -206,7 +206,7 @@ module.exports = {
     },
 
     // date is in format: "August 19, 1975 23:15:30"
-    postRide: function(username, password, origin, destination, seats, dateString){
+    postRide: function(username, origin, destination, seats, dateString){
         
         console.log("posting a ride from x to y at time t")
         user = module.exports.getUser(username)
@@ -214,10 +214,6 @@ module.exports = {
         /*if (user.userStatus.verified === false){
             throw Error ("must be verified to post a ride")
         }*/
-
-        if (security.encryptPasword(password) != user.password){
-            throw Error("invalid password")
-        }
 
         date = new Date(dateString)
 
@@ -268,7 +264,7 @@ module.exports = {
         }
     },
 
-    findRide: function(username, location, dateString){
+    findRide: function(location, dateString){
         
         console.log("looking for rides")
 
