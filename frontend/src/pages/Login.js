@@ -55,17 +55,7 @@ export default class Login extends Component {
         )
     }
 }
-const AppNavigator = createStackNavigator(
-    {
-      LoginPage: Login,
-      SignupPage: Signup,
-    },
-    {
-      initialRouteName: 'Login',
-    }
-  );
-  
-  export default createAppContainer(AppNavigator);
+
 
 const styles = StyleSheet.create({
     container: {
