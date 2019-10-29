@@ -25,15 +25,6 @@ var __users = new HashMap()
 // store ride objects in R tree for spacial lookup
 var __rides = new RBush();
 
-// custom comparator for the R tree data structure
-function comparator(a, b){
-    return a.Ride.RideID === b.Ride.RideID;
-}
-
-/*__rides.remove(item, (a, b) => {
-    return a.Ride.RideID === b.Ride.RideID;
-});*/
-
 // store departureTime: rideID
 var rideQueue = new HashMap()
 
@@ -45,7 +36,7 @@ function User(fName, lName, username, password, email, DOB){
     this.lName = lName;
     this.email = email;
     this.DOB = DOB;
-    this.rides = [];
+    this.postedRides = [];
     
     //new users start unvarified
     this.userStatus = {
@@ -56,7 +47,7 @@ function User(fName, lName, username, password, email, DOB){
 }
 
 // ride object
-function Rides(username, origin, destination, seats, dateString){
+function Ride(username, origin, destination, seats, dateString){
     this.rideID = RideID(username, dateString);
     this.origin = origin;
     this.destination = destination;
@@ -81,9 +72,12 @@ function updateRides(){
 
     if (rideQueue.has(key)){
 
-        rideID = rideQueue.get(key)
-        rideQueue.deleted(key)
-        __rides.remove(rideID)
+        val = rideQueue.get(key)
+        rideQueue.delete(key)
+        __rides.remove(val.ref)
+
+        // add ride to pastRides JSON file
+        // Do we delete ride from user's posted ride feild?
 
         console.log("ride with ID=", rideID, "has expired, moving it to pastRides")
     }
@@ -208,7 +202,6 @@ module.exports = {
     // date is in format: "August 19, 1975 23:15:30"
     postRide: function(username, origin, destination, seats, dateString){
         
-        console.log("posting a ride from x to y at time t")
         user = module.exports.getUser(username)
 
         /*if (user.userStatus.verified === false){
@@ -221,13 +214,7 @@ module.exports = {
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
 
         // create the ride
-        var ride = new Rides(username, origin, destination, seats, date)
-
-        // add rideID to hashmap of rides
-        rideQueue.set(departure, ride.rideID)
-
-        // add rideID to user's rides attribute
-        user.rides.push(ride.rideID)
+        var ride = new Ride(username, origin, destination, seats, date)
 
         const node = {
             minX: origin.x,
@@ -237,19 +224,29 @@ module.exports = {
             Ride: ride
         }
 
+        // add ride node to R tree for efficient searching
         __rides.insert(node);
-        console.log(ride)
+
+        // add ride node to user's ride field so thet can view and update
+        user.postedRides.push(node)
+
+        // add ride node to ride queue so we can dynamically update once they are completed
+        rideQueue.set(departure, node)
     },
 
     deleteRide: function(username){
         try{
             user = module.exports.getUser(username)
-            rideID = user.rides[user.rides.length-1]
-            __rides.remove(rideID)
+            rideNode = user.postedRides[user.postedRides.length-1]
+            rideID = rideNode.Ride.rideID
+
+            __rides.remove(rideNode);
+            rideQueue.delete(rideID);
+
             console.log("successfuly deleted ride for", username)
         }
-        catch{
-            throw Error ("could not remove", rideID, "from database")
+        catch(error){
+            console.log("could not remove ride from DB: \n", error)
         }
     },
 
@@ -266,7 +263,7 @@ module.exports = {
 
     findRide: function(location, dateString){
         
-        console.log("looking for rides")
+        //console.log("looking for rides")
 
         var date = new Date(dateString)
         var buffer = 2 // two hour windows
@@ -285,7 +282,7 @@ module.exports = {
 
         });
 
-        console.log(rides)
+        return rides
     },
 
     testBackup: function(username){

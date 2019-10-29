@@ -5,10 +5,10 @@ var db = require("./db.js")
 function unitTest(){
 
 	// user tests
-	db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7/11/1997")
-	//db.testBackup("chartsoo")
-	//db.getUser("chartsoo@ucsc.edu")
-	//db.updateUser("chartsoo", "fName", "cody", "Cody")
+	//db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7/11/1997")
+	db.testBackup("chartsoo")
+	db.getUser("chartsoo")
+	db.updateUser("chartsoo", "fName", "cody", "Cody")
 	//b.deleteUser("chartsoo@ucsc.edu")
 
 	// ride tests
@@ -20,8 +20,11 @@ function unitTest(){
 	var time2 = "August 19, 2018 23:30:30"
 
 	db.postRide("chartsoo", origin, destination, seats, time)
-	db.findRide(origin, time2)
+	rides = db.findRide(origin, time2)
+	console.log(rides)
 	db.deleteRide("chartsoo")
+	ride2 = db.findRide(origin, time2)
+	console.log(ride2)
 
 }
 
