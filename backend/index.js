@@ -7,7 +7,7 @@ const app = express()
 const port = 8000
 const sgMail = require('@sendgrid/mail');
 var db = require("./db.js")
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey("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");
 
 app.listen(port, () => {
     console.log("Welcome to the HitchHike internal API!");
