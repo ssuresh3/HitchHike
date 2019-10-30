@@ -118,7 +118,7 @@ export default class Signup extends Component {
                 </View>
                 <View style={styles.signupTextCont}>
                     <Text style={styles.signupText}> Already have an account? </Text>
-                    <TouchableOpacity onPress={this.goBack}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
                         <Text style={styles.signupButton}> Sign in! </Text>
                     </TouchableOpacity>
                 </View>
