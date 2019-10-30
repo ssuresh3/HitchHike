@@ -95,48 +95,6 @@ function findUser(username){
     }
 }
 
-// every time a new user signs up, write to file
-function write_to_file(user_obj){
-    json_obj = JSON.stringify(user_obj)
-
-    fs.readFile('backup.json', 'utf-8', function(err, data) {
-        if (err) throw err
-
-        var backup = JSON.parse(data)
-        backup.users.push(user_obj)
-
-        fs.writeFile("backup.json", JSON.stringify(backup), function(err){
-            if (err) throw err;
-        });
-
-        //console.log(backup)
-    })
-}
-
-// read users from file
-function readBackup(username, status){
-    console.log("usage: Reading __users from disk")
-    
-    var text = fs.readFileSync('backup.json')
-    var file = JSON.parse(text)
-
-    for (var i=0; i<file['users'].length; i++){
-        
-        // seach for single user
-        if (status >= 0){ 
-            if (file['users'][i]['username'] == username){
-                console.log("found user")
-                return file['users'][i]
-            }
-        }
-        // transfer entire backup file to __users array
-        else{
-            __users.set(username, file['users'][i])
-            return
-        }
-    }
-}
-
 // public functions availiable to index.js
 module.exports = {
 
@@ -151,7 +109,6 @@ module.exports = {
 
         // writing user to backup immediately for now
         console.log(user)
-        write_to_file(user)
 
         return user
     },
@@ -159,17 +116,9 @@ module.exports = {
     getUser: function(username){
         
         // if db crashed, read from file
-        if (__users.size == 0){
-            readBackup(username, -1)
-            user = findUser(username)
-            console.log(user)
-            return user
-        }
-        else{
-            user = findUser(username)
-            //console.log(user)
-            return user
-        }
+        user = findUser(username)
+        //console.log(user)
+        return user
     },
 
     updateUser: function(username, field, oldP, newP){
@@ -285,10 +234,10 @@ module.exports = {
         return rides
     },
 
-    testBackup: function(username){
-        console.log("size of database before backup read", __users.size)
-        readBackup(username, -1)
-        console.log("size after backup read", __users.size)
+    allRides: function(){
+
+        return __rides.all()
+
     },
 
     hash: function(password){
