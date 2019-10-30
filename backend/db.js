@@ -221,14 +221,16 @@ module.exports = {
         var rides = knn(__rides, location.x, location.y, numResults, function (item) {
             
             // return item if within date/hour range
-            if (item.departTime.getDay() == date.getDay()){
-                if ((item.departTime.getHours() - (date.getHours()+buffer)) > 0){
-                    return item
+            if (item.Ride.departTime.getDay() === date.getDay()){
+                if ((item.Ride.departTime.getHours() - (date.getHours()+buffer)) > 0){
+                    return true
                 }
-                else if ((item.departTime.getHours() - (date.getHours()-buffer)) > 0){
-                    return item
+                else if ((item.Ride.departTime.getHours() - (date.getHours()-buffer)) > 0){
+                    return true
                 }
+                return false
             }
+            return false
 
         });
 
