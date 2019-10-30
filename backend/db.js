@@ -248,7 +248,7 @@ module.exports = {
             __rides.remove(rideID)
             console.log("successfuly deleted ride for", username)
         }
-        catch{
+        catch(e){
             throw Error ("could not remove", rideID, "from database")
         }
     },
@@ -259,7 +259,7 @@ module.exports = {
           node.Ride.field = newP
           __rides.insert(node) 
         }
-        catch{
+        catch(e){
             throw Error ("could not update", rideID, "from database")
         }
     },
