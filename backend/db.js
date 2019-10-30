@@ -58,10 +58,10 @@ function User(fName, lName, username, password, email, DOB){
 // ride object
 function Rides(username, origin, destination, seats, dateString){
     this.rideID = RideID(username, dateString);
-    this.origin = origin;
+    this.origin = origin;   
     this.destination = destination;
     this.maxSeats = seats;
-    this.departTime = dateString
+    this.departTime = dateString;
 
     return this
 }
