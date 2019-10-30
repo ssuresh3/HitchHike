@@ -210,14 +210,15 @@ module.exports = {
         }
     },
 
-    findRide: function(location, dateString){
+    // get numResults number of nearest neighbors given location and date
+    findRide: function(location, dateString, numResults){
         
         //console.log("looking for rides")
 
         var date = new Date(dateString)
         var buffer = 2 // two hour windows
 
-        var rides = knn(__rides, location.x, location.y, function (item) {
+        var rides = knn(__rides, location.x, location.y, numResults, function (item) {
             
             // return item if within date/hour range
             if (item.departTime.getDay() == date.getDay()){
