@@ -104,6 +104,7 @@ app.post("/login", (req, res) => {
 
 // post ride enpoint
 app.post("/rides/postRide", (req, res)=>{
+    console.log(req.body);
     var user = -1;
     try{
         var data = req.body
