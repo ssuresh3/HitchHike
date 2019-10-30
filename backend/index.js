@@ -7,7 +7,7 @@ const app = express()
 const port = 8000
 const sgMail = require('@sendgrid/mail');
 var db = require("./db.js")
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey("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");
 
 app.listen(port, () => {
     console.log("Welcome to the HitchHike internal API!");
@@ -103,7 +103,7 @@ app.post("/login", (req, res) => {
 });
 
 // post ride enpoint
-app.post("/postRide", (req, res)=>{
+app.post("/rides/postRide", (req, res)=>{
     var user = -1;
     try{
         var data = req.body
@@ -122,7 +122,7 @@ app.post("/postRide", (req, res)=>{
 });
 
 // post ride enpoint
-app.post("/findRide", (req, res)=>{
+app.post("/rides/findRide", (req, res)=>{
     try{
         var data = req.body;
         //console.log(data)
