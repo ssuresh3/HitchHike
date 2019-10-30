@@ -297,6 +297,10 @@ module.exports = {
     hash: function(password){
         return security.encryptPasword(password)
     },
+
+    getAllRides: function(){
+        return __rides;
+    }
 }
 
 

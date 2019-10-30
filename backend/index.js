@@ -160,7 +160,9 @@ app.get("/anotherExample", (req, res) => {
     res.send(req.query.name)
 });
 
-
+app.get("/allRides", (req,res) =>{
+    res.send(db.getAllRides());
+})
 
 
 
