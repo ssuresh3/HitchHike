@@ -58,10 +58,10 @@ function User(fName, lName, username, password, email, DOB){
 // ride object
 function Rides(username, origin, destination, seats, dateString){
     this.rideID = RideID(username, dateString);
-    this.origin = origin;
+    this.origin = origin;   
     this.destination = destination;
     this.maxSeats = seats;
-    this.departTime = dateString
+    this.departTime = dateString;
 
     return this
 }
@@ -248,7 +248,7 @@ module.exports = {
             __rides.remove(rideID)
             console.log("successfuly deleted ride for", username)
         }
-        catch{
+        catch(e){
             throw Error ("could not remove", rideID, "from database")
         }
     },
@@ -259,7 +259,7 @@ module.exports = {
           node.Ride.field = newP
           __rides.insert(node) 
         }
-        catch{
+        catch(e){
             throw Error ("could not update", rideID, "from database")
         }
     },
@@ -297,6 +297,10 @@ module.exports = {
     hash: function(password){
         return security.encryptPasword(password)
     },
+
+    getAllRides: function(){
+        return __rides;
+    }
 }
 
 
