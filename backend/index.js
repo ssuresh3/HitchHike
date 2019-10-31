@@ -112,7 +112,7 @@ app.post("/rides/postRide", (req, res)=>{
 
         if (user.userStatus.verified === false)verifyUser(user);
 
-        var Ride = db.postRide(data.username,data.password,data.origin,data.destination,data.seats,data.departure);
+        var Ride = db.postRide(data.username,data.origin,data.destination,data.seats,data.departure);
         res.send({success:true});   
     } catch(e){
         console.log(e);
@@ -120,6 +120,22 @@ app.post("/rides/postRide", (req, res)=>{
     }
 
     if(user!=-1)verifyUser(user);
+});
+
+//update ride endpoint
+app.post("/rides/updateRide", (req, res)=>{
+    try{
+        var data = req.body
+        var user = db.getUser(data.username)
+
+       // if (user.userStatus.verified === false)verifyUser(user);
+
+        var Ride = db.updateRide(data.username,data.rideID,data.origin,data.destination,data.seats,data.departure);
+        res.send({success:true});   
+    } catch(e){
+        console.log(e);
+        res.send({success:false,reason:"Ride not updated!"});
+    }
 });
 
 // post ride enpoint
