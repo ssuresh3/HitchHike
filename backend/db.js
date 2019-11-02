@@ -83,7 +83,7 @@ function updateRides(){
 }
 
 // make updateRides run every 30 seconds 
-let timerId = setInterval(() => updateRides(), 10000);
+let timerId = setInterval(() => updateRides(), 30000);
 
 // find user in __users
 function findUser(username){
