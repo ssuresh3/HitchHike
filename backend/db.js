@@ -305,7 +305,9 @@ module.exports = {
         return (username + ":" + departure)
     },
 
-    allRides
+    allRides: function(){
+        return __rides;
+    }
 }
 
 
