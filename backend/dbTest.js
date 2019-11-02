@@ -10,7 +10,6 @@ function unitTest(){
 	//db.testBackup("chartsoo")
 	//db.getUser("chartsoo@ucsc.edu")
 	//db.updateUser("chartsoo", "fName", "cody", "Cody")
-	//b.deleteUser("chartsoo@ucsc.edu")
 
 	// ride tests
 	var origin = {"x":100, "y":100}
