@@ -20,22 +20,15 @@ var RBush = require('rbush');
 var knn = require('rbush-knn');
 
 // storing users in hashmap where key is unique email
-var __users = new HashMap()
+var __users = new HashMap();
 
 // store ride objects in R tree for spacial lookup
 var __rides = new RBush();
 
-// custom comparator for the R tree data structure
-function comparator(a, b){
-    return a.Ride.RideID === b.Ride.RideID;
-}
-
-/*__rides.remove(item, (a, b) => {
-    return a.Ride.RideID === b.Ride.RideID;
-});*/
-
 // store departureTime: rideID
-var rideQueue = new HashMap()
+var rideQueue = new Heap(function(a, b) {
+    return a.departs.getTime() - b.departs.getTime();
+});
 
 // user object that will be stored in ram
 function User(fName, lName, username, password, email, DOB){
@@ -62,8 +55,6 @@ function Rides(username, origin, destination, seats, dateString){
     this.destination = destination;
     this.maxSeats = seats;
     this.departTime = dateString
-
-    return this
 }
 
 // create unique rideID
@@ -74,23 +65,25 @@ function RideID(username, date){
 
 // remove rides who's departure time has passed
 function updateRides(){
-    var date = new Date()
+    var now = new Date()
 
-    //console.log("updating rides")
-    key = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+    if (rideQueue.size() > 0){
+        var nextRide = rideQueue.peek()
 
-    if (rideQueue.has(key)){
+        // departure time has passed
+        if (now.getTime() > nextRide.departs.getTime()) {
 
-        rideID = rideQueue.get(key)
-        rideQueue.deleted(key)
-        __rides.remove(rideID)
+            rideID = nextRide.ID
+            rideQueue.pop()
+            __rides.remove(rideID)
 
-        console.log("ride with ID=", rideID, "has expired, moving it to pastRides")
+            console.log("ride with ID = ", rideID, "has expired, moving it to pastRides")
+        }
     }
 }
 
 // make updateRides run every 30 seconds 
-let timerId = setInterval(() => updateRides(), 30000);
+let timerId = setInterval(() => updateRides(), 10000);
 
 // find user in __users
 function findUser(username){
@@ -156,8 +149,8 @@ module.exports = {
         var user = new User(fName, lName, username, password, email, DOB)
 
         // writing user to backup immediately for now
-        console.log(user)
-        write_to_file(user)
+        //console.log(user)
+        //write_to_file(user)
 
         return user
     },
@@ -173,7 +166,6 @@ module.exports = {
         }
         else{
             user = findUser(username)
-            //console.log(user)
             return user
         }
     },
@@ -222,12 +214,7 @@ module.exports = {
 
         // create the ride
         var ride = new Rides(username, origin, destination, seats, date)
-
-        // add rideID to hashmap of rides
-        rideQueue.set(departure, ride.rideID)
-
-        // add rideID to user's rides attribute
-        user.rides.push(ride.rideID)
+        console.log(ride.RideID)
 
         const node = {
             minX: origin.x,
@@ -236,6 +223,12 @@ module.exports = {
             maxY: origin.y,
             Ride: ride
         }
+
+        // add rideID to min heap of rides
+        rideQueue.push({"departs": date, "ID": ride.rideID});
+
+        // add rideID to user's rides attribute
+        user.rides.push(ride.rideID)
 
         __rides.insert(node);
         console.log(ride)
