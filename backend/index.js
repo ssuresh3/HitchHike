@@ -192,7 +192,8 @@ app.get("/anotherExample", (req, res) => {
 });
 
 app.get("/allRides", (req,res) =>{
-    res.send(db.getAllRides());
+   	console.log("hello");
+	res.send(db.allRides());
 })
 
 

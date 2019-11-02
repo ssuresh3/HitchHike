@@ -301,8 +301,8 @@ module.exports = {
         return (username + ":" + departure)
     },
 
-    getAllRides: function(){
-        return __rides.all();
-    },
+    allRides: function(){
+        return __rides;
+    }
 }
 
