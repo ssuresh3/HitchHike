@@ -303,7 +303,9 @@ module.exports = {
     RideID: function(username, date){
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
         return (username + ":" + departure)
-    }
+    },
+
+    allRides
 }
 
 
