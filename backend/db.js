@@ -57,20 +57,18 @@ function User(fName, lName, username, password, email, DOB){
 
 // ride object
 function Rides(username, origin, destination, seats, dateString){
-    this.rideID = RideID(username, dateString);
+    this.rideID = module.exports.RideID(username, dateString);
     this.origin = origin;
     this.destination = destination;
     this.maxSeats = seats;
     this.departTime = dateString
-
-    return this
 }
 
 // create unique rideID
-function RideID(username, date){
-    departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
-    return (username + ":" + departure)
-}
+// function RideID(username, date){
+//     departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+//     return (username + ":" + departure)
+// }
 
 // remove rides who's departure time has passed
 function updateRides(){
@@ -238,7 +236,7 @@ module.exports = {
         }
 
         __rides.insert(node);
-        console.log(ride)
+        // console.log(ride)
     },
 
     deleteRide: function(username){
@@ -255,15 +253,16 @@ module.exports = {
 
     updateRide: function(username, rideID, origin, destination, seats, departure){
         try{
-          node = __rides.remove(rideID) 
-          node.Ride.origin = origin
-          node.Ride.destination = destination
-          node.Ride.seats = seats
-          node.Ride.departure = departure
+          node = __rides.remove(rideID).data.children[0].Ride
+        //   console.log(node)
+          node.origin = origin
+          node.destination = destination
+          node.seats = seats
+          node.departure = departure
           __rides.insert(node) 
         }
         catch{
-            throw Error ("could not update", rideID, "from database")
+            throw Error ("could not update ride from database")
         }
     },
 
@@ -300,6 +299,11 @@ module.exports = {
     hash: function(password){
         return security.encryptPasword(password)
     },
+
+    RideID: function(username, date){
+        departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+        return (username + ":" + departure)
+    }
 }
 
 
