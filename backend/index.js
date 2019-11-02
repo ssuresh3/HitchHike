@@ -17,7 +17,7 @@ app.listen(port, () => {
 app.use(express.json());
 
 //base url of server
-const baseURL = "http://localhost:8000/";
+const baseURL = "http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000";
 
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
