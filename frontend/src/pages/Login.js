@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Button } from 'react-native';
 // import {createAppContainer} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 //import Form from '../components/Form';
 
@@ -22,13 +22,14 @@ export default class Login extends Component {
         return (
             <React.Fragment>
                 <View style={styles.container}>
+                    <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
                     <TextInput style={styles.inputBox} //creating email text input
                         onChangeText={(email) => this.setState({ email })}
                         underlineColorAndroid='rgba(0,0,0,0)'
                         placeholder="Username"
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
-                        keyboardType="Username"
+                        keyboardType="default"
                         onSubmitEditing={() => this.password.focus()} />
                     <TextInput style={styles.inputBox} //creating password text input
                         onChangeText={(password) => this.setState({ password })}
@@ -61,6 +62,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+
+    containerTwo: {
+        // flex: 1,
+        justifyContent: 'center',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        color: 'black',
+        padding: 40,
+        fontSize: 30,
     },
 
     inputBox: {
