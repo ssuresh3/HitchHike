@@ -35,6 +35,7 @@ const ex = {
     from: 'test@gethitchhike.ml',
     subject: 'This is an example email'
 };
+
 app.get("/sendmeanemail",(reg,res)=>{
     console.log("fuck me in the ass");
     emailsSent++;
@@ -151,6 +152,18 @@ app.post("/rides/findRide", (req, res)=>{
         res.send({success:false,"reason":e});
     }
 });
+
+// get all rides
+app.post("/rides/allRides", (req, res)=>{
+    try{
+        var rides = db.allRides();
+        res.send({success:true,body:rides});   
+    } catch(e){
+        console.log(e);
+        res.send({success:false,"reason":e});
+    }
+});
+
 
 // verify users email
 app.get("/verify/user/:username", (req, res)=>{
