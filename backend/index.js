@@ -180,7 +180,7 @@ app.get("/anotherExample", (req, res) => {
 
 app.get("/allRides", (req,res) =>{
    	console.log("hello");
-	res.send(db.getAllRides());
+	res.send(db.allRides());
 })
 
 
