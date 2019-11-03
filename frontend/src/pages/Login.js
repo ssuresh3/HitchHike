@@ -20,8 +20,11 @@ export default class Login extends Component {
     // }
     constructor(props) {
         super(props);
-        this.state = { user: '' };
-        this.state = { pass: '' };
+        this.state = { 
+            username: '',
+            password: '' 
+        };
+
     }
     render() {
 
@@ -30,7 +33,7 @@ export default class Login extends Component {
                 <View style={styles.container}>
                     <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
                     <TextInput style={styles.inputBox} //creating email text input
-                        onChangeText={(email) => this.setState({ email })}
+                        onChangeText={(username) => this.setState({ username })}
                         underlineColorAndroid='rgba(0,0,0,0)'
                         placeholder="Username"
                         placeholderTextColor="#ff8700"
@@ -46,7 +49,35 @@ export default class Login extends Component {
                         ref={(input) => this.password = input}
                     />
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={this.saveData}> Login {this.props.type} </Text>
+                        <Text style={styles.buttonText} onPress={() =>{
+                            console.log('login');
+                            fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    user: this.state.user,
+                                    password: this.state.password
+                                }),
+                            }).then(response => response.json()).then(response => {
+                                console.log(response)
+                                console.log("test")
+                                if(!response.success){
+                                    console.log("enter if false")
+                                    alert("Invalid username or password! Please try again."); 
+                                    console.log("Kailas is smart");
+                                } else{
+                                    console.log("enter if true")
+                                    this.props.navigation.navigate('HomeRoute')
+                                }
+                            });
+                            // this.saveData
+                        }
+                        }> 
+                            Login {this.props.type} 
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
                         <Text style={styles.buttonText}> Sign Up! {this.props.type} </Text>

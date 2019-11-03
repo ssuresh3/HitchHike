@@ -60,12 +60,12 @@ export default class Signup extends Component {
 
     //renders form component with signup argument, creates a text and button
     render() {
-        console.log(this.state.fName);
-        console.log(this.state.lName);
-        console.log(this.state.username);
-        console.log(this.state.DOB);
-        console.log(this.state.email);
-        console.log(this.state.password);
+        // console.log(this.state.fName);
+        // console.log(this.state.lName);
+        // console.log(this.state.username);
+        // console.log(this.state.DOB);
+        // console.log(this.state.email);
+        // console.log(this.state.password);
         return (
             <React.Fragment>
                 <View style={styles.formContainer}>
@@ -143,7 +143,7 @@ export default class Signup extends Component {
                     </KeyboardAvoidingView>
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {
-                            console.log('hello');
+                            console.log('Signing up');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
                                 method: 'POST',
                                 headers: {

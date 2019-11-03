@@ -9,13 +9,15 @@
 import Login from './src/pages/Login';
 import Signup from './src/pages/Signup';
 import Verify from './src/pages/Verify';
+import Home from './src/pages/Home';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 const AppStack = createStackNavigator(
   {
     SignupRoute: Signup,
-    VerifyRoute: Verify
+    VerifyRoute: Verify,
+    HomeRoute: Home
   }
 )
 
