@@ -30,7 +30,7 @@ const AuthStack = createStackNavigator(
 export default createAppContainer(createSwitchNavigator(
   {
     Auth: AuthStack,
-    App: AppStack
+    // App: AppStack
 
   }
 ));
