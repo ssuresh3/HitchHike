@@ -17,7 +17,7 @@ app.listen(port, () => {
 app.use(express.json());
 
 //base url of server
-const baseURL = "http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000";
+const baseURL = "http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/";
 
 //example call from the app:
 //axios.get("http://localhost:8080/", function(response){
@@ -61,7 +61,7 @@ function verifyUser(user){
         verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
             user: user.fName,
-                url: baseURL + "verify/user/"+user.username+"?v="+code
+            url: baseURL + "verify/user/"+user.username+"?v="+code
         }
         //console.log(verificationEmail);   
         sgMail.send(verificationEmail).catch((e)=>{
