@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+
+import { Card } from 'react-native-paper';
 
 export default class MyRides extends Component {
-  constructor(props) {
-    super(props);
-    
-  }
-
   render() {
     return (
       <React.Fragment>
         <View>
           <Text style={styles.title}>My Rides</Text>
         </View>
-        <View style={styles.container}>{}</View>
+        <View style={styles.container}>
+          {rides.map(ride => {
+            return (
+              <Card style={styles.rideCard}>
+                <View style={styles.cardRow}>
+                  <Text>{ride.origin}</Text>
+                  <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('./arrow_right.png')}/>
+                  <Text>{ride.destination}</Text>
+                </View>
+                <View style={styles.cardRow}>
+                  <Text>Departs at {ride.departTime}</Text>
+                </View>
+              </Card>
+            );
+          })}
+        </View>
       </React.Fragment>
     );
   }
@@ -27,39 +35,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  inputBox: {
-    width: 300,
-    backgroundColor: '#fffdd0',
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#002f6c',
-    marginVertical: 10,
-    textAlign: 'center',
-  },
-
-  button: {
-    width: 300,
-    backgroundColor: '#ff8700',
-    borderRadius: 25,
-    marginVertical: 10,
-    paddingVertical: 12,
-  },
-
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
   },
   title: {
     fontSize: 30,
     textAlign: 'center',
-    padding: 50,
+    padding: 20,
+    marginTop:20,
     color: '#ff8700',
   },
+  rideCard: {
+    padding: 20,
+    margin: 10,
+    marginTop:0,
+    alignSelf: 'stretch',
+    shadowRadius:5
+  },
+  cardRow: {
+    flexDirection:"row",
+    justifyContent:"center",
+  }
 });
+
+const rides = [
+  {
+    origin: 'Crown',
+    destination: 'RCC',
+    maxSeats: 5,
+    departTime: '12:30',
+  },
+  {
+    origin: 'McHenry',
+    destination: 'SNE',
+    maxSeats: 5,
+    departTime: '12:50',
+  },
+  {
+    origin: 'UCSC',
+    destination: 'Downtown',
+    maxSeats: 5,
+    departTime: '6:40',
+  },
+];
