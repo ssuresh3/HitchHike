@@ -1,3 +1,11 @@
+/*
+  This is the main js file that keeps track of routing between pages.
+  Edit this file to add a new page you want to route to.
+  Make sure to import the location of the file you want to route to.
+    eg: import Login from './src/pages/Login';
+  Add routing path to the AppStack
+*/
+
 import Login from './src/pages/Login';
 import Signup from './src/pages/Signup';
 import Verify from './src/pages/Verify';
@@ -16,7 +24,6 @@ const AuthStack = createStackNavigator(
     LoginRoute: Login
   }
 )
-
 
 export default createAppContainer(createSwitchNavigator(
   {

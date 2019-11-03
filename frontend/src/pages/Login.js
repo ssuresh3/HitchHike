@@ -1,4 +1,10 @@
-//Your part Harshitha
+/*
+    File for rendering and adding functionality to the login page
+    Will allow verified users to login with the username and password they signed up with
+    Has an option for new users to signup before logging in (user will be routed to Signup.js)
+    Once logged in, user will be routed to Home.js
+*/
+
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Button } from 'react-native';
 // import {createAppContainer} from 'react-navigation';
@@ -9,9 +15,9 @@ import { Actions } from 'react-native-router-flux';
 
 export default class Login extends Component {
 
-    signup() {
-        Actions.signup()
-    }
+    // signup() {
+    //     Actions.signup()
+    // }
     constructor(props) {
         super(props);
         this.state = { user: '' };

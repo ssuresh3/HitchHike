@@ -1,3 +1,9 @@
+/*
+    This file renders the signup page and allows users to input and submit their information
+    Users will be routed to Verify.js upon clicking Sign Up!
+    Users have the option to login if they have already been verified (they can be routed to Login.js)
+*/
+
 //importing necessary libraries
 import React, { Component } from 'react';
 import {
@@ -9,15 +15,15 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 // import Form from '../components/Form.js'
-import { Actions } from 'react-native-router-flux';
+// import { Actions } from 'react-native-router-flux';
 
 
 //creating Signup class
 export default class Signup extends Component {
     //function to load previous page on a stack
-    goBack() {
-        Actions.pop();
-    }
+    // goBack() {
+    //     Actions.pop();
+    // }
 
     constructor(props) {
         super(props);
