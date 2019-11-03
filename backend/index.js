@@ -36,10 +36,10 @@ const ex = {
     subject: 'This is an example email'
 };
 
-app.get("/sendmeanemail",(reg,res)=>{
+app.get("/sendmeanemail", (reg, res) => {
     console.log("fuck me in the ass");
     emailsSent++;
-    ex.html = 'You have recieved <strong>'+emailsSent+'</strong> emails since the server was restarted!'
+    ex.html = 'You have recieved <strong>' + emailsSent + '</strong> emails since the server was restarted!'
     sgMail.send(ex).then(() => {
         res.send('Email sent!');
     }).catch((error) => {
@@ -54,129 +54,129 @@ const verificationEmail = {
 }
 
 //generate new code and send verification email
-function verifyUser(user){
-    var code = Math.random().toString(10).substring(2,7);
+function verifyUser(user) {
+    var code = Math.random().toString(10).substring(2, 7);
 
-    if(user != null){
+    if (user != null) {
         user.userStatus.code = code;
         verificationEmail.to = user.email;
         verificationEmail.dynamic_template_data = {
             user: user.fName,
-            url: baseURL + "verify/user/"+user.username+"?v="+code
+            url: baseURL + "verify/user/" + user.username + "?v=" + code
         }
         //console.log(verificationEmail);   
-        sgMail.send(verificationEmail).catch((e)=>{
-            console.log('error',e);
+        sgMail.send(verificationEmail).catch((e) => {
+            console.log('error', e);
         });
     }
 }
 
 //endpoint for creating new user
-app.post("/signup", (req,res)=>{
+app.post("/signup", (req, res) => {
     var user = -1;
-    try{
+    try {
         var data = req.body;
-        var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
+        var user = db.newUser(data.fName, data.lName, data.username, data.password, data.email, data.DOB);
         console.log("new user signup")
-        res.send({success:true});   
-    } catch(e){
+        res.send({ success: true });
+    } catch (e) {
         console.log(e);
-    res.send({success:false,reason:e});
+        res.send({ success: false, reason: e });
     }
 
-    if(user!=-1)verifyUser(user);
+    if (user != -1) verifyUser(user);
 });
 
 // login endpoint
 app.post("/login", (req, res) => {
     var user = -1;
-    try{
+    try {
         var user = db.getUser(req.body.username);
-        if (user.password == db.hash(req.body.password)){
+        if (user.password == db.hash(req.body.password)) {
             res.send(user);
         } else {
-            res.send({success:false,reason:"Invalid password"});
+            res.send({ success: false, reason: "Invalid password" });
         }
-    }catch(e){
-        res.send({success:false,reason:"Login failed"});
+    } catch (e) {
+        res.send({ success: false, reason: "Login failed" });
     }
 
-    if(user!=-1)verifyUser(user);
+    if (user != -1) verifyUser(user);
 });
 
 // post ride enpoint
-app.post("/rides/postRide", (req, res)=>{
+app.post("/rides/postRide", (req, res) => {
     console.log(req.body);
     var user = -1;
-    try{
+    try {
         var data = req.body
         var user = db.getUser(data.username)
 
-        if (user.userStatus.verified === false)verifyUser(user);
+        if (user.userStatus.verified === false) verifyUser(user);
 
-        var Ride = db.postRide(data.username,data.origin,data.destination,data.seats,data.departure);
-        res.send({success:true});   
-    } catch(e){
+        var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure);
+        res.send({ success: true });
+    } catch (e) {
         console.log(e);
-    res.send({success:false,reason:e});
+        res.send({ success: false, reason: e });
     }
 
-    if(user!=-1)verifyUser(user);
+    if (user != -1) verifyUser(user);
 });
 
 //update ride endpoint
-app.post("/rides/updateRide", (req, res)=>{
-    try{
+app.post("/rides/updateRide", (req, res) => {
+    try {
         var data = req.body
         var user = db.getUser(data.username)
 
-       // if (user.userStatus.verified === false)verifyUser(user);
+        // if (user.userStatus.verified === false)verifyUser(user);
 
-        var Ride = db.updateRide(data.username,data.rideID,data.origin,data.destination,data.seats,data.departure);
-        res.send({success:true});   
-    } catch(e){
+        var Ride = db.updateRide(data.username, data.rideID, data.origin, data.destination, data.seats, data.departure);
+        res.send({ success: true });
+    } catch (e) {
         console.log(e);
-        res.send({success:false,reason:"Ride not updated!"});
+        res.send({ success: false, reason: "Ride not updated!" });
     }
 });
 
 // post ride enpoint
-app.post("/rides/findRide", (req, res)=>{
-    try{
+app.post("/rides/findRide", (req, res) => {
+    try {
         var data = req.body;
         //console.log(data)
-        var rides = db.findRide(data.origin,data.departure);
-        res.send({success:true,body:rides});   
-    } catch(e){
+        var rides = db.findRide(data.origin, data.departure);
+        res.send({ success: true, body: rides });
+    } catch (e) {
         console.log(e);
-        res.send({success:false,"reason":e});
+        res.send({ success: false, "reason": e });
     }
 });
 
 // get all rides
-app.post("/rides/allRides", (req, res)=>{
-    try{
+app.post("/rides/allRides", (req, res) => {
+    try {
         var rides = db.allRides();
-        res.send({success:true,body:rides});   
-    } catch(e){
+        res.send({ success: true, body: rides });
+    } catch (e) {
         console.log(e);
-        res.send({success:false,"reason":e});
+        res.send({ success: false, "reason": e });
     }
 });
 
 
 // verify users email
-app.get("/verify/user/:username", (req, res)=>{
-    try{
-    var user = db.getUser(req.params.username);
-    if(user.userStatus.code != req.query.v){
-        throw "Invalid verification code";
-    }
-    user.userStatus.verified = true;
-        res.send({success:true,reason:"You are verified!"});
-    } catch(e){
+app.get("/verify/user/:username", (req, res) => {
+    try {
+        var user = db.getUser(req.params.username);
+        if (user.userStatus.code != req.query.v) {
+            throw "Invalid verification code";
+        }
+        user.userStatus.verified = true;
+        res.send({ success: true, reason: "You are verified!" });
+    } catch (e) {
         console.log(e);
-        res.send({success:false,reason:"verification failed"});
+        res.send({ success: false, reason: "verification failed" });
     }
 });
 
@@ -191,9 +191,9 @@ app.get("/anotherExample", (req, res) => {
     res.send(req.query.name)
 });
 
-app.get("/allRides", (req,res) =>{
-   	console.log("hello");
-	res.send(db.allRides());
+app.get("/allRides", (req, res) => {
+    console.log("hello");
+    res.send(db.allRides());
 })
 
 
