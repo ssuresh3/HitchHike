@@ -23,10 +23,10 @@ export default class Signup extends Component {
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
+            fName: '',
+            lName: '',
             username: '',
-            dateOfBirth: '',
+            DOB: '',
             email: '',
             password: '',
             confirmPassword: ''
@@ -42,10 +42,10 @@ export default class Signup extends Component {
     //             'Content-Type': 'application/json',
     //         },
     //         body: JSON.stringify({
-    //             firstName: this.state.firstName,
-    //             lastName: this.state.lastName,
+    //             fName: this.state.fName,
+    //             lName: this.state.lName,
     //             username: this.state.username,
-    //             dateOfBirth: this.state.dateOfBirth,
+    //             DOB: this.state.DOB,
     //             email: this.state.email,
     //             password: this.state.password
     //         }),
@@ -54,10 +54,10 @@ export default class Signup extends Component {
 
     //renders form component with signup argument, creates a text and button
     render() {
-        console.log(this.state.firstName);
-        console.log(this.state.lastName);
+        console.log(this.state.fName);
+        console.log(this.state.lName);
         console.log(this.state.username);
-        console.log(this.state.dateOfBirth);
+        console.log(this.state.DOB);
         console.log(this.state.email);
         console.log(this.state.password);
         return (
@@ -67,7 +67,7 @@ export default class Signup extends Component {
                         <Text style={styles.container}>Sign up for HitchHike!</Text>
                         <TextInput
                             style={styles.inputBox} //creating first name text input
-                            onChangeText={firstName => this.setState({ firstName })}
+                            onChangeText={fName => this.setState({ fName })}
                             underlineColorAndroid="rgba(0,0,0,0)"
                             placeholder="First Name"
                             placeholderTextColor="#ff8700"
@@ -77,13 +77,13 @@ export default class Signup extends Component {
                         />
                         <TextInput
                             style={styles.inputBox} //creating last name text input
-                            onChangeText={lastName => this.setState({ lastName })}
+                            onChangeText={lName => this.setState({ lName })}
                             underlineColorAndroid="rgba(0,0,0,0)"
                             placeholder="Last Name"
                             placeholderTextColor="#ff8700"
                             selectionColor="#fff"
                             keyboardType="default"
-                        // onSubmitEditing={() => this.lastName.focus()}
+                        // onSubmitEditing={() => this.lName.focus()}
                         />
                         <TextInput
                             style={styles.inputBox} //creating username text input
@@ -97,13 +97,13 @@ export default class Signup extends Component {
                         />
                         <TextInput
                             style={styles.inputBox} //creating birthday text input
-                            onChangeText={dateOfBirth => this.setState({ dateOfBirth })}
+                            onChangeText={DOB => this.setState({ DOB })}
                             underlineColorAndroid="rgba(0,0,0,0)"
                             placeholder="Birthday: MM/DD/YYYY"
                             placeholderTextColor="#ff8700"
                             selectionColor="#fff"
                             keyboardType="default"
-                        // onSubmitEditing={() => this.dateOfBirth.focus()}
+                        // onSubmitEditing={() => this.DOB.focus()}
                         />
 
                         <TextInput
@@ -145,14 +145,15 @@ export default class Signup extends Component {
                                     'Content-Type': 'application/json',
                                 },
                                 body: JSON.stringify({
-                                    firstName: this.state.firstName,
-                                    lastName: this.state.lastName,
+                                    fName: this.state.fName,
+                                    lName: this.state.lName,
                                     username: this.state.username,
-                                    dateOfBirth: this.state.dateOfBirth,
+                                    DOB: this.state.DOB,
                                     email: this.state.email,
                                     password: this.state.password
                                 }),
                             });
+                            this.props.navigation.navigate('VerifyRoute')
                         }
 
                         }>
