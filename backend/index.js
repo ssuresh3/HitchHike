@@ -77,7 +77,7 @@ app.post("/signup", (req, res) => {
     try {
         var data = req.body;
         var user = db.newUser(data.fName, data.lName, data.username, data.password, data.email, data.DOB);
-        console.log("new user signup")
+        console.log("new user signup, pass: "+data.password);
         res.send({ success: true });
     } catch (e) {
         console.log(e);
@@ -92,6 +92,8 @@ app.post("/login", (req, res) => {
     var user = -1;
     try {
         var user = db.getUser(req.body.username);
+        console.log(user);
+        console.log("Password: "+req.body.password);
         if (user.password == db.hash(req.body.password)) {
             if(user.userStatus.verified){
                 res.send(user);
