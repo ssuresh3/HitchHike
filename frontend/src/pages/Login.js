@@ -10,7 +10,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyb
 // import {createAppContainer} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
 import { Actions } from 'react-native-router-flux';
-
+// import Signup from '../pages/Signup';
 //import Form from '../components/Form';
 
 export default class Login extends Component {
@@ -58,7 +58,7 @@ export default class Login extends Component {
                                     'Content-Type': 'application/json',
                                 },
                                 body: JSON.stringify({
-                                    user: this.state.user,
+                                    username: this.state.username,
                                     password: this.state.password
                                 }),
                             }).then(response => response.json()).then(response => {
