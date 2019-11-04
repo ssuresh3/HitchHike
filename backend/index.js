@@ -93,7 +93,12 @@ app.post("/login", (req, res) => {
     try {
         var user = db.getUser(req.body.username);
         if (user.password == db.hash(req.body.password)) {
-            res.send(user);
+            if(user.userStatus.verified){
+                res.send(user);
+            }
+            else {
+                res.send({ success: false, reason: "Not Verified" });
+            }
         } else {
             res.send({ success: false, reason: "Invalid password" });
         }
