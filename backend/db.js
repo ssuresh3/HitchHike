@@ -33,12 +33,13 @@ var rideQueue = new Heap(function(a, b) {
 // user object that will be stored in ram
 function User(fName, lName, username, password, email, DOB){
     this.username = username;
-    this.password = (security.encryptPasword(password))
+    this.password = security.encryptPasword(password)
     this.fName = fName;
     this.lName = lName;
     this.email = email;
     this.DOB = DOB;
     this.rides = [];
+    this.requestedRides = [];
     
     //new users start unvarified
     this.userStatus = {
@@ -47,6 +48,7 @@ function User(fName, lName, username, password, email, DOB){
 
     __users.set(username, this)
 }
+
 
 // ride object
 function Rides(username, origin, destination, seats, dateString){
