@@ -1,3 +1,8 @@
+/*
+    This file doesn't do anything for the app.
+    Used as a reference for building the frontend and learning how it works
+*/
+
 // //importing necessary react and react-native libraries
 // import React, { Component } from 'react';
 // import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard } from 'react-native';

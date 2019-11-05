@@ -1,8 +1,8 @@
 /*
-    
+    Our home file that users will see once logging in to the app
 */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -12,18 +12,13 @@ import {
 } from 'react-native';
 
 
-export default class Verify extends Component {
+export default class Home extends Component {
     render() {
         return (
             <React.Fragment>
                 <Text>
-                    Verifying Email... Check your Email!
-                    {"\n"}
-                    Once you're done, 
+                    Welcome to HitchHike!
                 </Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                    <Text style={styles.signupButton}> Sign in! </Text>
-                </TouchableOpacity>
             </React.Fragment>
         );
     }
