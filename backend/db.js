@@ -20,22 +20,15 @@ var RBush = require('rbush');
 var knn = require('rbush-knn');
 
 // storing users in hashmap where key is unique email
-var __users = new HashMap()
+var __users = new HashMap();
 
 // store ride objects in R tree for spacial lookup
 var __rides = new RBush();
 
-// custom comparator for the R tree data structure
-function comparator(a, b){
-    return a.Ride.RideID === b.Ride.RideID;
-}
-
-/*__rides.remove(item, (a, b) => {
-    return a.Ride.RideID === b.Ride.RideID;
-});*/
-
 // store departureTime: rideID
-var rideQueue = new HashMap()
+var rideQueue = new Heap(function(a, b) {
+    return a.departs.getTime() - b.departs.getTime();
+});
 
 // user object that will be stored in ram
 function User(fName, lName, username, password, email, DOB){
@@ -56,6 +49,7 @@ function User(fName, lName, username, password, email, DOB){
     __users.set(username, this)
 }
 
+
 // ride object
 function Rides(username, origin, destination, seats, dateString){
     this.rideID = module.exports.RideID(username, dateString);
@@ -73,18 +67,20 @@ function Rides(username, origin, destination, seats, dateString){
 
 // remove rides who's departure time has passed
 function updateRides(){
-    var date = new Date()
+    var now = new Date()
 
-    //console.log("updating rides")
-    key = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
+    if (rideQueue.size() > 0){
+        var nextRide = rideQueue.peek()
 
-    if (rideQueue.has(key)){
+        // departure time has passed
+        if (now.getTime() > nextRide.departs.getTime()) {
 
-        rideID = rideQueue.get(key)
-        rideQueue.deleted(key)
-        __rides.remove(rideID)
+            rideID = nextRide.ID
+            rideQueue.pop()
+            __rides.remove(rideID)
 
-        console.log("ride with ID=", rideID, "has expired, moving it to pastRides")
+            console.log("ride with ID = ", rideID, "has expired, moving it to pastRides")
+        }
     }
 }
 
@@ -155,8 +151,8 @@ module.exports = {
         var user = new User(fName, lName, username, password, email, DOB)
 
         // writing user to backup immediately for now
-        console.log(user)
-        write_to_file(user)
+        //console.log(user)
+        //write_to_file(user)
 
         return user
     },
@@ -172,7 +168,6 @@ module.exports = {
         }
         else{
             user = findUser(username)
-            //console.log(user)
             return user
         }
     },
@@ -207,7 +202,7 @@ module.exports = {
     // date is in format: "August 19, 1975 23:15:30"
     postRide: function(username, origin, destination, seats, dateString){
         
-        console.log("posting a ride from x to y at time t")
+        console.log("posting a ride")
         user = module.exports.getUser(username)
 
         /*if (user.userStatus.verified === false){
@@ -221,12 +216,7 @@ module.exports = {
 
         // create the ride
         var ride = new Rides(username, origin, destination, seats, date)
-
-        // add rideID to hashmap of rides
-        rideQueue.set(departure, ride.rideID)
-
-        // add rideID to user's rides attribute
-        user.rides.push(ride.rideID)
+        console.log(ride.RideID)
 
         const node = {
             minX: origin.x,
@@ -236,26 +226,14 @@ module.exports = {
             Ride: ride
         }
 
+        // add rideID to min heap of rides
+        rideQueue.push({"departs": date, "ID": ride.rideID});
+
+        // add rideID to user's rides attribute
+        user.rides.push(node)
+
         __rides.insert(node);
         // console.log(ride)
-    },
-
-    requestRide: function(username, ride){
-        var rideList = __rides.search({
-            minX: ride.origin.x,
-            minY: ride.origin.y,
-            maxX: ride.origin.x,
-            maxY: ride.origin.y,
-        })
-
-        if (rideList.length > 0){
-            for (var i = 0; i < rideList.length; i++){
-                if (rideList[i].data.children[0].Ride.rideID == ride.rideID){
-                    this.getUser(username).requestedRides.push
-                }
-            }
-        }
-        return 
     },
 
     deleteRide: function(username){
@@ -278,7 +256,8 @@ module.exports = {
           node.destination = destination
           node.seats = seats
           node.departure = departure
-          __rides.insert(node) 
+          __rides.insert(node)
+          return node 
         }
         catch{
             throw Error ("could not update ride from database")
@@ -322,15 +301,10 @@ module.exports = {
     RideID: function(username, date){
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
         return (username + ":" + departure)
+    },
+
+    allRides: function(){
+        return __rides;
     }
 }
-
-
-
-
-
-
-
-
-
 
