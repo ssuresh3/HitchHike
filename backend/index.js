@@ -89,25 +89,23 @@ app.post("/signup", (req,res)=>{
 
 // login endpoint
 app.post("/login", (req, res) => {
-    var user = -1;
     try{
         var user = db.getUser(req.body.username);
-        if (user.password == db.hash(req.body.password)){
-            res.send(user);
+        console.log(user.password)
+        console.log(db.hash(req.body.password))
+        if (user.password === (db.hash(req.body.password))){
+            res.send({success:true, data:user});
         } else {
             res.send({success:false,reason:"Invalid password"});
         }
     }catch(e){
         res.send({success:false,reason:"Login failed"});
     }
-
-    if(user!=-1)verifyUser(user);
 });
 
 // post ride enpoint
 app.post("/rides/postRide", (req, res)=>{
     console.log(req.body);
-    var user = -1;
     try{
         var data = req.body
         var user = db.getUser(data.username)
@@ -120,8 +118,6 @@ app.post("/rides/postRide", (req, res)=>{
         console.log(e);
     res.send({success:false,reason:e});
     }
-
-    if(user!=-1)verifyUser(user);
 });
 
 //update ride endpoint

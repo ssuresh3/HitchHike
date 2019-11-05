@@ -39,7 +39,10 @@ async function test2() {
    		   password: "password12345",
     	});
 
-    	if (response.data["success"] === true) console.log("test2 passed")
+    	if (response.data["success"] === true) {
+        console.log("test2 passed")
+        console.log(response.data)
+      }
     	if (response.data["success"] === false) {
     		console.log("test2 failed")
     		console.log("  - ", response.data["reason"])
@@ -99,10 +102,10 @@ async function test4() {
 
 // testing starts here
 console.log("----------------------------------------------------------------")
-test1()
+//test1()
 test2()
-test3()
-test4()
+//test3()
+//test4()
 
 
 
