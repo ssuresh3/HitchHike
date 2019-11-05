@@ -199,6 +199,20 @@ app.get("/allRides", (req, res) => {
 })
 
 
+app.post("/requestRide", (req, res) =>{
+    try{
+        var user = db.getUser(req.body.username)
+        
+        rides = user.rides;
 
+        rides.push(req.body.ride)
+
+        db.updateUser(req.body.username, "rides", r)
+    }
+    catch(e){
+        console.log(e);
+        res.send(e);
+    }
+});
 
 
