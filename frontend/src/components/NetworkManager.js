@@ -1,0 +1,3 @@
+/*
+    File for potentially keeping track of the user state throughout the app
+*/
