@@ -77,9 +77,9 @@ app.post("/signup", (req, res) => {
     try {
         var data = req.body;
         var user = db.newUser(data.fName, data.lName, data.username, data.password, data.email, data.DOB);
-        console.log("new user signup, pass: " + data.password);
-        console.log(user);
-        console.log(user.username);
+        // console.log("new user signup, pass: " + data.password);
+        // console.log(user);
+        // console.log(user.username);
         res.send({ success: true });
     } catch (e) {
         console.log(e);
@@ -99,7 +99,7 @@ app.post("/login", (req, res) => {
             if (user.userStatus.verified) {
                 res.send({ success: true, data: user });
             } else {
-                res.send({ success: false, reason: "Not verified" })
+                res.send({ success: false, reason: "Not verified" });
             }
         } else {
             res.send({ success: false, reason: "Invalid password" });

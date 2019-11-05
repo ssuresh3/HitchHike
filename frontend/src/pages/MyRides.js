@@ -16,7 +16,7 @@ export default class MyRides extends Component {
               <Card style={styles.rideCard}>
                 <View style={styles.cardRow}>
                   <Text>{ride.origin}</Text>
-                  <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('./arrow_right.png')}/>
+                  <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
                   <Text>{ride.destination}</Text>
                 </View>
                 <View style={styles.cardRow}>
