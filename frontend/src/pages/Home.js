@@ -2,7 +2,7 @@
     Our home file that users will see once logging in to the app
 */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
@@ -16,9 +16,47 @@ export default class Home extends Component {
     render() {
         return (
             <React.Fragment>
-                <Text>
-                    Welcome to HitchHike!
-                </Text>
+                <View style={styles.formContainer}>
+                    <Text style={styles.container}>
+                        Welcome to HitchHike!
+                    </Text>
+
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText} onPress={() => {
+                            // console.log('Signing up');
+                            this.props.navigation.navigate('RideRoute')
+                        }
+
+                        }>
+                            {' '}
+                            Available Rides{' '}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText} onPress={() => {
+                            // console.log('Signing up');
+                            this.props.navigation.navigate('AddRideRoute')
+                        }
+
+                        }>
+                            {' '}
+                            Post Rides{' '}
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText} onPress={() => {
+                            // console.log('Signing up');
+                            this.props.navigation.navigate('MyRidesRoute')
+                        }
+
+                        }>
+                            {' '}
+                            My Rides{' '}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </React.Fragment>
         );
     }

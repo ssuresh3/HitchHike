@@ -87,6 +87,7 @@ export default class AddRide extends Component {
                 console.log(error);
               });
               console.log(this.state);
+              this.props.navigation.navigate('HomeRoute')
             }}>
             <Text style={styles.buttonText}>Post Ride!</Text>
           </TouchableOpacity>
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width: 300,
-    backgroundColor: '#fffdd0',
+    backgroundColor: '#eeeeee',
     borderRadius: 25,
     paddingHorizontal: 16,
     fontSize: 16,

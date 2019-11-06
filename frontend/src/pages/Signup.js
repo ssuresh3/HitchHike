@@ -164,7 +164,7 @@ export default class Signup extends Component {
 
                         }>
                             {' '}
-                            Sign Up!{' '}
+                            Sign Up{' '}
                         </Text>
                     </TouchableOpacity>
                 </View>

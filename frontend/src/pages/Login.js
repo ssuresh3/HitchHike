@@ -70,7 +70,7 @@ export default class Login extends Component {
                                     // console.log("Kailas is smart");
                                 } else{
                                     console.log("enter if true")
-                                    this.props.navigation.navigate('RideRoute')
+                                    this.props.navigation.navigate('HomeRoute')
                                 }
                             });
                             // this.saveData
@@ -80,7 +80,7 @@ export default class Login extends Component {
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
-                        <Text style={styles.buttonText}> Sign Up! {this.props.type} </Text>
+                        <Text style={styles.buttonText}> Sign Up {this.props.type} </Text>
                     </TouchableOpacity>
                     {/* <Button
                         style={styles.button1} 
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
     inputBox: {
         width: 300,
-        backgroundColor: '#fffdd0',
+        backgroundColor: '#eeeeee',
         borderRadius: 25,
         paddingHorizontal: 16,
         fontSize: 16,

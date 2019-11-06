@@ -11,6 +11,8 @@ import Signup from './src/pages/Signup';
 import Verify from './src/pages/Verify';
 import Home from './src/pages/Home';
 import Ride from './src/components/Ride';
+import AddRide from './src/pages/AddRide';
+import MyRides from './src/pages/MyRides';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -19,7 +21,9 @@ const AppStack = createStackNavigator(
     SignupRoute: Signup,
     VerifyRoute: Verify,
     HomeRoute: Home,
-    RideRoute: Ride
+    RideRoute: Ride,
+    AddRideRoute: AddRide,
+    MyRidesRoute: MyRides
   }
 )
 
