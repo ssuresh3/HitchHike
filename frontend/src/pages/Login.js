@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Button } from 'react-native';
 // import {createAppContainer} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
-import { Actions } from 'react-native-router-flux';
+// import { Actions } from 'react-native-router-flux';
 // import Signup from '../pages/Signup';
 //import Form from '../components/Form';
 
@@ -63,14 +63,14 @@ export default class Login extends Component {
                                 }),
                             }).then(response => response.json()).then(response => {
                                 console.log(response)
-                                console.log("test")
+                                // console.log("test")
                                 if(!response.success){
                                     console.log("enter if false")
                                     alert("Invalid username or password! Please try again."); 
-                                    console.log("Kailas is smart");
+                                    // console.log("Kailas is smart");
                                 } else{
                                     console.log("enter if true")
-                                    this.props.navigation.navigate('HomeRoute')
+                                    this.props.navigation.navigate('RideRoute')
                                 }
                             });
                             // this.saveData
