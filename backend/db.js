@@ -30,6 +30,15 @@ var rideQueue = new Heap(function(a, b) {
     return a.departs.getTime() - b.departs.getTime();
 });
 
+
+//review object to be stored within user object
+function Review(reviewerUserName, receiverUserName, message, rating){
+    this.reviewerUserName = reviewerUserName;
+    this.receiverUserName = receiverUserName;
+    this.message = message;
+    this.rating = rating;
+}
+
 // user object that will be stored in ram
 function User(fName, lName, username, password, email, DOB){
     this.username = username;
@@ -40,7 +49,9 @@ function User(fName, lName, username, password, email, DOB){
     this.DOB = DOB;
     this.rides = [];
     this.requestedRides = [];
-    
+    this.reviewsGiven = [];
+    this.reviewsReceived = [];
+
     //new users start unvarified
     this.userStatus = {
         verified: false    
@@ -136,6 +147,21 @@ function readBackup(username, status){
             return
         }
     }
+}
+
+function reviewArraySum(arr){
+    var len = arr.length;
+    var sum = 0;
+
+    if(len == 0){
+        return [sum, len];
+    }
+
+    for(i in arr){
+        sum += arr[i].rating;
+    }
+
+    return [sum , len];
 }
 
 // public functions availiable to index.js
@@ -305,6 +331,34 @@ module.exports = {
 
     allRides: function(){
         return __rides;
+    },
+
+    giveReview: function(reviewerUserName, receiverUserName, message, rating){
+        try{
+            var reviewerS = getUser(reviewerUserName).reviewsGiven;
+            var receiverS = getUser(receiverUserName).reviewsReceived;
+            var toPut = new Review(reviewerUserName, receiverUserName, message, rating);
+            reviewerS.push(toPut);
+            receiverS.push(toPut);
+            this.updateUser(reviewerUserName, "reviewsGiven", reviewerS, reviewerS);
+            this.updateUser(receiverUserName, "reviewsGiven", receiverS, receiverS);
+            return "success";
+        } catch(e){
+            return e;
+        }
+    },
+
+    getRating: function(username){
+        try{
+            var user = getUser(username);
+            var giveSum = reviewArraySum(user.reviewsGiven);
+            var gotSum = reviewArraySum(user.reviewsReceived);
+            var numReviews = giveSum[1] + gotSum[1];
+            var sumReviews = giveSum[0] + gotSum[0];
+            if(numReviews == 0) return 0; else return sumReviews / numReviews;
+        } catch(e){
+            return e;
+        }
     }
 }
 
