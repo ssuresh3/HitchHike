@@ -215,4 +215,25 @@ app.post("/requestRide", (req, res) =>{
     }
 });
 
+app.post("/review", (req, res) => {
+    try{
+        db.giveReview(req.body.reviewer, req.body.receiver, req.body.message, req.body.rating);
+        res.send("Success!");
+    } 
+    
+    catch(e){
+        console.log(e);
+        res.send(e);
+    }
+})
 
+
+app.get("/getRating", (req, res) =>{
+    try{
+        res.send(db.getRating(req.body.username));
+    }
+    catch(e){
+        console.log(e);
+        res.send(e);
+    }
+})
