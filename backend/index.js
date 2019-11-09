@@ -76,7 +76,7 @@ app.post("/signup", (req,res)=>{
     var user = -1;
     try{
         var data = req.body;
-        var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.DOB);
+        var user = db.newUser(data.fName,data.lName,data.username,data.password,data.email,data.phone,data.DOB);
         console.log("new user signup")
         res.send({success:true});   
     } catch(e){
@@ -91,8 +91,8 @@ app.post("/signup", (req,res)=>{
 app.post("/login", (req, res) => {
     try{
         var user = db.getUser(req.body.username);
-        console.log(user.password)
-        console.log(db.hash(req.body.password))
+        //console.log(user.password)
+        //console.log(db.hash(req.body.password))
         if (user.password === (db.hash(req.body.password))){
             res.send({success:true, data:user});
         } else {

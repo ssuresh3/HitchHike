@@ -31,12 +31,13 @@ var rideQueue = new Heap(function(a, b) {
 });
 
 // user object that will be stored in ram
-function User(fName, lName, username, password, email, DOB){
+function User(fName, lName, username, password, email, phone, DOB){
     this.username = username;
     this.password = (security.encryptPasword(password))
     this.fName = fName;
     this.lName = lName;
     this.email = email;
+    this.phone = phone
     this.DOB = DOB;
     this.rides = [];
     
@@ -56,12 +57,6 @@ function Rides(username, origin, destination, seats, dateString){
     this.maxSeats = seats;
     this.departTime = dateString
 }
-
-// create unique rideID
-// function RideID(username, date){
-//     departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
-//     return (username + ":" + departure)
-// }
 
 // remove rides who's departure time has passed
 function updateRides(){
@@ -102,6 +97,8 @@ function write_to_file(user_obj){
         if (err) throw err
 
         var backup = JSON.parse(data)
+
+        // check if user_obj is already in file
         backup.users.push(user_obj)
 
         fs.writeFile("backup.json", JSON.stringify(backup), function(err){
