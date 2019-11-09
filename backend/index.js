@@ -228,7 +228,7 @@ app.post("/review", (req, res) => {
 })
 
 
-app.get("/getRating", (req, res) =>{
+app.post("/getRating", (req, res) =>{
     try{
         res.send(db.getRating(req.body.username));
     }
