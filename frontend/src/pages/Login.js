@@ -15,9 +15,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyb
 
 export default class Login extends Component {
 
-    // signup() {
-    //     Actions.signup()
-    // }
     constructor(props) {
         super(props);
         this.state = { 
@@ -26,6 +23,11 @@ export default class Login extends Component {
         };
 
     }
+
+    saveData() {
+        let 
+    }
+
     render() {
 
         return (
