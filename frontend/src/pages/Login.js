@@ -5,91 +5,80 @@
     Once logged in, user will be routed to Home.js
 */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Button } from 'react-native';
-// import {createAppContainer} from 'react-navigation';
-// import {createStackNavigator} from 'react-navigation-stack';
-// import { Actions } from 'react-native-router-flux';
-// import Signup from '../pages/Signup';
-//import Form from '../components/Form';
+import React, {Component} from 'react';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    AsyncStorage,
+    Keyboard,
+    Button,
+    Image
+} from 'react-native';
+// import {createAppContainer} from 'react-navigation'; import
+// {createStackNavigator} from 'react-navigation-stack'; import { Actions } from
+// 'react-native-router-flux'; import Signup from '../pages/Signup'; import
+// Form from '../components/Form';
 
 export default class Login extends Component {
-
-    // signup() {
-    //     Actions.signup()
-    // }
+    // signup() {     Actions.signup() }
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             username: '',
-            password: '' 
+            password: ''
         };
-
     }
     render() {
-
         return (
             <React.Fragment>
                 <View style={styles.container}>
+                    <Image
+                        style={{
+                        height: '35%',
+                        width: '70%'
+                    }}
+                        source={require('./HitchHike.png')}
+                        resizeMode="contain"/>
                     <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
                     <TextInput style={styles.inputBox} //creating email text input
-                        onChangeText={(username) => this.setState({ username })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Username"
-                        placeholderTextColor="#ff8700"
-                        selectionColor="#fff"
-                        keyboardType="default"
-                        onSubmitEditing={() => this.password.focus()} />
+                        onChangeText={username => this.setState({username})} underlineColorAndroid="rgba(0,0,0,0)" placeholder="Username" placeholderTextColor="#ff8700" selectionColor="#fff" keyboardType="default" onSubmitEditing={() => this.password.focus()}/>
                     <TextInput style={styles.inputBox} //creating password text input
-                        onChangeText={(password) => this.setState({ password })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        placeholderTextColor="#ff8700"
-                        ref={(input) => this.password = input}
-                    />
+                        onChangeText={password => this.setState({password})} underlineColorAndroid="rgba(0,0,0,0)" placeholder="Password" secureTextEntry={true} placeholderTextColor="#ff8700" ref={input => (this.password = input)}/>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() =>{
+                        <Text
+                            style={styles.buttonText}
+                            onPress={() => {
                             console.log('login');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
                                 method: 'POST',
                                 headers: {
                                     Accept: 'application/json',
-                                    'Content-Type': 'application/json',
+                                    'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({
-                                    username: this.state.username,
-                                    password: this.state.password
-                                }),
-                            }).then(response => response.json()).then(response => {
-                                console.log(response)
-                                // console.log("test")
-                                if(!response.success){
-                                    console.log("enter if false")
-                                    alert("Invalid username or password! Please try again."); 
-                                    // console.log("Kailas is smart");
-                                } else{
-                                    console.log("enter if true")
-                                    this.props.navigation.navigate('HomeRoute')
-                                }
-                            });
-                            // this.saveData
-                        }
-                        }> 
-                            Login {this.props.type} 
+                                    body: JSON.stringify({username: this.state.username, password: this.state.password})
+                                })
+                                .then(response => response.json())
+                                .then(response => {
+                                    console.log(response); // console.log("test") if (!response.success) { console.log('enter if false'); alert('Invalid username or password! Please try again.'); // console.log("Kailas is smart"); } else { console.log('enter if true'); this.props.navigation.navigate('HomeRoute'); } }); // this.saveData }}>
+                            Login {this.props.type}
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
-                        <Text style={styles.buttonText}> Sign Up {this.props.type} </Text>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => this.props.navigation.navigate('SignupRoute')}>
+                        <Text style={styles.buttonText}>Sign Up {this.props.type}</Text>
                     </TouchableOpacity>
                     {/* <Button
-                        style={styles.button1} 
+                        style={styles.button1}
                         title="Sign Up!"
                         onPress={() => this.props.navigation.navigate('SignupRoute')}
                     /> */}
                 </View>
             </React.Fragment>
-        )
+        );
     }
 }
 
@@ -108,7 +97,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
         padding: 40,
-        fontSize: 30,
+        fontSize: 30
     },
 
     inputBox: {
