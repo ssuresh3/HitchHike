@@ -8,18 +8,35 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
+import { Button } from 'react-native-paper';
 
 
 export default class Home extends Component {
+
+    displayName = async() => {
+        try{
+            let user = await AsyncStorage.getItem('user');
+            console.log(user);
+            // <Text>user</Text>
+        } catch(error){
+            alert(error)
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
                 <View style={styles.formContainer}>
                     <Text style={styles.container}>
                         Welcome to HitchHike!
+                        {/* let user = await AsyncStorage.getItem() */}
                     </Text>
+
+                <Button>ref={ref=>{displayName()}};</Button>
+
 
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {

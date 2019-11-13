@@ -24,10 +24,6 @@ export default class Login extends Component {
 
     }
 
-    saveData() {
-        let 
-    }
-
     render() {
 
         return (
@@ -41,6 +37,7 @@ export default class Login extends Component {
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
                         keyboardType="default"
+                        autoCapitalize="none"
                         onSubmitEditing={() => this.password.focus()} />
                     <TextInput style={styles.inputBox} //creating password text input
                         onChangeText={(password) => this.setState({ password })}
@@ -48,6 +45,7 @@ export default class Login extends Component {
                         placeholder="Password"
                         secureTextEntry={true}
                         placeholderTextColor="#ff8700"
+                        autoCapitalize="none"
                         ref={(input) => this.password = input}
                     />
                     <TouchableOpacity style={styles.button}>
@@ -72,17 +70,18 @@ export default class Login extends Component {
                                     // console.log("Kailas is smart");
                                 } else{
                                     console.log("enter if true")
+                                    AsyncStorage.setItem('user', this.state.username);
+                                    // AsyncStorage.setItem(this.username, response);
                                     this.props.navigation.navigate('HomeRoute')
                                 }
                             });
-                            // this.saveData
                         }
                         }> 
-                            Login {this.props.type} 
+                            Login 
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
-                        <Text style={styles.buttonText}> Sign Up {this.props.type} </Text>
+                        <Text style={styles.buttonText}> Sign Up </Text>
                     </TouchableOpacity>
                     {/* <Button
                         style={styles.button1} 
