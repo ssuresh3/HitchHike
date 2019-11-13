@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
 
 import { Card } from 'react-native-paper';
 
 export default class MyRides extends Component {
+
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
       <React.Fragment>

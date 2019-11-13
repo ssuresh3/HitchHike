@@ -19,7 +19,9 @@ export default class Home extends Component {
     displayName = async() => {
         try{
             let user = await AsyncStorage.getItem('user');
-            console.log(user);
+            let parsedUser = JSON.parse(user);
+            console.log("extracting from asyncstorage")
+            console.log(parsedUser.data.username);
             // <Text>user</Text>
         } catch(error){
             alert(error)
@@ -30,12 +32,10 @@ export default class Home extends Component {
         return (
             <React.Fragment>
                 <View style={styles.formContainer}>
-                    <Text style={styles.container}>
+                    <Text style={styles.container}
+                    ref={ref=>{this.displayName()}}>
                         Welcome to HitchHike!
-                        {/* let user = await AsyncStorage.getItem() */}
                     </Text>
-
-                <Button>ref={ref=>{displayName()}};</Button>
 
 
                     <TouchableOpacity style={styles.button}>

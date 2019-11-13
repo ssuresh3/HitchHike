@@ -70,7 +70,8 @@ export default class Login extends Component {
                                     // console.log("Kailas is smart");
                                 } else{
                                     console.log("enter if true")
-                                    AsyncStorage.setItem('user', this.state.username);
+                                    //stringify user object
+                                    AsyncStorage.setItem('user', JSON.stringify(response));
                                     // AsyncStorage.setItem(this.username, response);
                                     this.props.navigation.navigate('HomeRoute')
                                 }
