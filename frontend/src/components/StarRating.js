@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {
-	StyleSheet,
-	View,
-	Text
+    StyleSheet,
+    View,
+    Text,
+    Image
 } from 'react-native';
 
 type Props = {
@@ -10,18 +11,41 @@ type Props = {
 };
 
 export default class StarRating extends Component<Props> {
-	render() {
-		return (
-			<View style={ styles.container }>
-			</View>
-		);
-	}
+    render() {
+        return (
+            <View style={styles.container}>
+                <Image
+                    style={styles.image}
+                    source={require('../../assets/filled_star.png')}
+                />
+                <Image
+                    style={styles.image}
+                    source={require('../../assets/filled_star.png')}
+                />
+                <Image
+                    style={styles.image}
+                    source={require('../../assets/filled_star.png')}
+                />
+                <Image
+                    style={styles.image}
+                    source={require('../../assets/filled_star.png')}
+                />
+                <Image
+                    style={styles.image}
+                    source={require('../../assets/filled_star.png')}
+                />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-	container: {
-		backgroundColor: 'black',
-		width: 100,
-		height: 50
-	}
+    container: {
+     backgroundColor: 'black',
+    },
+    image: {
+        width: 25,
+        height: 25,
+    }
 });
+
