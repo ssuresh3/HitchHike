@@ -5,8 +5,25 @@ import { Card } from 'react-native-paper';
 
 export default class MyRides extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
+    this.state = {
+      rides: [],
+    };
+    this.displayName() 
+  }
+
+  displayName = async () => {
+    try {
+      let user = await AsyncStorage.getItem('user');
+      let parsedUser = JSON.parse(user);
+      this.setState({rides:parsedUser.data.rides});
+      console.log("extracting from asyncstorage")
+      console.log(this.state.rides);
+      // <Text>user</Text>
+    } catch (error) {
+      alert(error)
+    }
   }
 
   render() {
@@ -15,13 +32,14 @@ export default class MyRides extends Component {
         <View>
           <Text style={styles.title}>My Rides</Text>
         </View>
-        <View style={styles.container}>
-          {rides.map(ride => {
+        <View style={styles.container}
+        >
+          {this.state.rides.map(ride => {
             return (
               <Card style={styles.rideCard}>
                 <View style={styles.cardRow}>
                   <Text>{ride.origin}</Text>
-                  <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
+                  <Image style={{ width: 30, height: 20, marginLeft: 30, marginRight: 30, marginBottom: 10 }} source={require('../../assets/arrow_right.png')} />
                   <Text>{ride.destination}</Text>
                 </View>
                 <View style={styles.cardRow}>
@@ -46,39 +64,39 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     padding: 20,
-    marginTop:20,
+    marginTop: 20,
     color: '#ff8700',
   },
   rideCard: {
     padding: 20,
     margin: 10,
-    marginTop:0,
+    marginTop: 0,
     alignSelf: 'stretch',
-    shadowRadius:5
+    shadowRadius: 5
   },
   cardRow: {
-    flexDirection:"row",
-    justifyContent:"center",
+    flexDirection: "row",
+    justifyContent: "center",
   }
 });
 
-const rides = [
-  {
-    origin: 'Crown',
-    destination: 'RCC',
-    maxSeats: 5,
-    departTime: '12:30',
-  },
-  {
-    origin: 'McHenry',
-    destination: 'SNE',
-    maxSeats: 5,
-    departTime: '12:50',
-  },
-  {
-    origin: 'UCSC',
-    destination: 'Downtown',
-    maxSeats: 5,
-    departTime: '6:40',
-  },
-];
+// const rides = [
+//   {
+//     origin: 'Crown',
+//     destination: 'RCC',
+//     maxSeats: 5,
+//     departTime: '12:30',
+//   },
+//   {
+//     origin: 'McHenry',
+//     destination: 'SNE',
+//     maxSeats: 5,
+//     departTime: '12:50',
+//   },
+//   {
+//     origin: 'UCSC',
+//     destination: 'Downtown',
+//     maxSeats: 5,
+//     departTime: '6:40',
+//   },
+// ];
