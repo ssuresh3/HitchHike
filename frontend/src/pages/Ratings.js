@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {
+    Platform,
     StyleSheet,
     View,
     Text
 } from 'react-native';
-import assets from '../../assets';
+
+import StarRating from '../components/StarRating';
 
 
 //props is a variable?
@@ -15,7 +17,9 @@ type Props = {
 export default class Ratings extends Component<Props>{
     render(){
         return(
-            <View style = {styles.container}></View>
+            <View style = {styles.container}>
+                <StarRating/>
+            </View>
         );
     }
 }
@@ -26,8 +30,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: '#F5FCFF',
     }
-
 });
 
