@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+//importing necessary libraries
+import React, { Component } from 'react';
 import {
     Platform,
     StyleSheet,
@@ -6,20 +7,28 @@ import {
     Text
 } from 'react-native';
 
+//imports StarRating component
 import StarRating from '../components/StarRating';
 
+export default class Ratings extends Component {
 
-//props is a variable?
-type Props = {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: 'rider' //setState of user to be either rider of driver
+        };
+    }
 
-};
 
-export default class Ratings extends Component<Props>{
-    render(){
-        return(
-            <View style = {styles.container}>
-                <StarRating/>
-            </View>
+    render() {
+        return (
+            <React.Fragment>
+                <Text style = {styles.container}>Rate your this.state.user</Text>
+
+                <View style={styles.container}>
+                    <StarRating/>
+                </View>
+            </React.Fragment>
         );
     }
 }
@@ -27,10 +36,13 @@ export default class Ratings extends Component<Props>{
 //styling
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'F5FCFF',
-    }
+        textAlign: 'center',
+        backgroundColor: 'white',
+        color: 'black',
+        padding: 10,
+        fontSize: 30,
+    },
 });
 
