@@ -73,8 +73,10 @@ export default class StarRating extends Component {
                 </View>
 
 
-                <TouchableOpacity style={styles.button}>
-
+                <TouchableOpacity style={styles.button} onPress = {() => 
+                    alert("Your rating was " + this.state.rating)
+                }>
+                    <Text style = {styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
 
             </React.Fragment>
@@ -96,7 +98,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ff8700',
         borderRadius: 25,
         marginVertical: 10,
-        paddingVertical: 12,
+        padding: 12,
+        margin: 40
     },
     buttonViewContainer: {
         flex: 1,
@@ -104,5 +107,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#ffffff',
+        textAlign: 'center',
+    }
 });
 
