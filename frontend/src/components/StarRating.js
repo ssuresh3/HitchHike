@@ -42,6 +42,7 @@ export default class StarRating extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
      backgroundColor: 'black',
+     flexDirection: 'row'
     },
     image: {
         width: 25,
