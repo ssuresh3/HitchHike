@@ -7,24 +7,29 @@ import {
   TouchableOpacity,
   AsyncStorage,
   Keyboard,
+  Card, 
+  Image
 } from 'react-native';
-​
+
 //creating the Form class
 class MyRides extends Component {
   //default constructor with email and password
   constructor(props) {
     super(props);
-​
+
     //dynamic state
     this.state = {
       numAvailable: this.props.numAvailable,
       toShow: '',
     };
   }
-​
+
   render() {
     return (
       <React.Fragment>
+        <View>
+          <Text style={styles.title}>My Rides</Text>
+        </View>
         <View style={styles.container}>
           <Text style={styles.displayText1}>{this.props.driverFirstName}</Text>
           <Text style={styles.displayText}>
@@ -48,11 +53,10 @@ class MyRides extends Component {
     );
   }
 }
-​
+
 export default class App extends Component {
   constructor(props) {
-    super(props);
-​
+     super(props);​
     this.state = {
       rides: dummyRides,
     };
@@ -68,17 +72,32 @@ export default class App extends Component {
           {this.state.rides.map((ride, key) => {
             console.log(ride);
             return (
-              <View>
-                <MyRides
-                  key={key}
-                  driverFirstName="Aman"
-                  numAvailable={ride.maxSeats}
-                  origin={ride.origin.x + ', ' + ride.origin.y}
-                  destination={ride.destination.x + ', ' + ride.origin.y}
-                  departsAt={ride.departTime}
-                  driverPhone = {ride.driverPhone}
-                />
+              // <Card style={styles.rideCard}>
+              //   <View style={styles.cardRow}>
+              //   <MyRides
+              //     key={key}
+              //     driverFirstName="Aman"
+              //     numAvailable={ride.maxSeats}
+              //     origin={ride.origin.x + ', ' + ride.origin.y}
+              //     destination={ride.destination.x + ', ' + ride.origin.y}
+              //     departsAt={ride.departTime}
+              //     driverPhone = {ride.driverPhone}
+              //   />
+              // </View>
+              // </Card>
+              <Card style={styles.rideCard}>
+              <View style={styles.cardRow}>
+                <Text>{ride.origin}</Text>
+                <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
+                <Text>{ride.destination}</Text>
               </View>
+              <View style={styles.cardRow}>
+                <Text>Departs at {ride.departTime}</Text>
+              </View>
+              <View style={styles.cardRow}>
+                <Text>Rider's Phone Number{ride.riderPhone}</Text>
+              </View>
+            </Card>
             );
           })}
         </View>
@@ -87,7 +106,7 @@ export default class App extends Component {
     // return null
   }
 }
-​
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -97,7 +116,13 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 2,
   },
-​
+  title: {
+    fontSize: 30,
+    textAlign: 'center',
+    padding: 20,
+    marginTop:20,
+    color: '#ff8700',
+  },
   displayText: {
     // Setting up Hint Align center.
     textAlign: 'center',
@@ -114,14 +139,14 @@ const styles = StyleSheet.create({
     //textDecorationLine: 'underline',
     fontSize: 27,
   },
-​
+
 title:{
    fontSize: 30,
    textAlign: 'center',
    paddingTop: 30,
    color: '#ff8700',
  },
-​
+
   button: {
     // width: 100, backgroundColor: '#ff8700', borderRadius: 25, marginVertical: 10,
     // paddingVertical: 12, justifyContent: 'center', alignItems: 'center'
@@ -130,9 +155,8 @@ title:{
     borderWidth: 2,
     borderColor: '#ff8700',
     borderRadius: 20,
-    backgroundColor: '#ff8700',
+    backgroundColor: '#ff8700'
   },
-​
   buttonText: {
     fontSize: 25,
     fontWeight: '500',
@@ -140,7 +164,7 @@ title:{
     textAlign: 'center',
   },
 });
-​
+
 var dummyRides = [
   {
     origin: {
