@@ -13,7 +13,7 @@ function unitTest(){
 
 	// ride tests
 	var origin = {"x":100, "y":100}
-//	var origin2 = {"x": 120, "y": 95}
+	//	var origin2 = {"x": 120, "y": 95}
 	var origin2 = {"x": 200, "y": 200}
 	var destination = {"x": 500, "y": 500}
 	var seats = 4

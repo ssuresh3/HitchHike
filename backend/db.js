@@ -46,6 +46,7 @@ function User(fName, lName, username, password, email, pNumber, DOB){
     this.fName = fName;
     this.lName = lName;
     this.email = email;
+    this.phone = phone
     this.DOB = DOB;
     this.pNumber = pNumber;
     this.rides = [];
@@ -70,12 +71,6 @@ function Rides(username, origin, destination, seats, dateString){
     this.maxSeats = seats;
     this.departTime = dateString
 }
-
-// create unique rideID
-// function RideID(username, date){
-//     departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
-//     return (username + ":" + departure)
-// }
 
 // remove rides who's departure time has passed
 function updateRides(){
@@ -116,6 +111,8 @@ function write_to_file(user_obj){
         if (err) throw err
 
         var backup = JSON.parse(data)
+
+        // check if user_obj is already in file
         backup.users.push(user_obj)
 
         fs.writeFile("backup.json", JSON.stringify(backup), function(err){
