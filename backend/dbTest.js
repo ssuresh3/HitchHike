@@ -5,7 +5,7 @@ var db = require("./db.js")
 function unitTest(){
 
 	// user tests
-	var user = db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7/11/1997")
+	var user = db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7076941051", "7/11/1997")
 	console.log(user)
 	//db.testBackup("chartsoo")
 	//db.getUser("chartsoo@ucsc.edu")
