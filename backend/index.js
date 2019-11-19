@@ -76,7 +76,7 @@ app.post("/signup", (req, res) => {
     var user = -1;
     try {
         var data = req.body;
-        var user = db.newUser(data.fName, data.lName, data.username, data.password, data.email, data.DOB);
+        var user = db.newUser(data.fName, data.lName, data.username, data.password, data.email, data.pNumber, data.DOB);
         // console.log("new user signup, pass: " + data.password);
         // console.log(user);
         // console.log(user.username);
@@ -182,16 +182,6 @@ app.get("/verify/user/:username", (req, res) => {
     }
 });
 
-/*example call from the app:
-example call from the app:
-axios.get("http://localhost:8080/anotherExample?name=Aman", function(response){
-  console.log(response.data); will print "Aman"
-})
-if you want to pass in more than one argument: ?name=Aman&lastName=Prasad
-*/
-app.get("/anotherExample", (req, res) => {
-    res.send(req.query.name)
-});
 
 app.get("/allRides", (req, res) => {
     console.log("hello");
@@ -237,3 +227,4 @@ app.post("/getRating", (req, res) =>{
         res.send(e);
     }
 })
+
