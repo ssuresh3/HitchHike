@@ -40,13 +40,14 @@ function Review(reviewerUserName, receiverUserName, message, rating){
 }
 
 // user object that will be stored in ram
-function User(fName, lName, username, password, email, DOB){
+function User(fName, lName, username, password, email, pNumber, DOB){
     this.username = username;
     this.password = security.encryptPasword(password)
     this.fName = fName;
     this.lName = lName;
     this.email = email;
     this.DOB = DOB;
+    this.pNumber = pNumber;
     this.rides = [];
     this.requestedRides = [];
     this.reviewsGiven = [];
@@ -120,8 +121,6 @@ function write_to_file(user_obj){
         fs.writeFile("backup.json", JSON.stringify(backup), function(err){
             if (err) throw err;
         });
-
-        //console.log(backup)
     })
 }
 
@@ -167,7 +166,7 @@ function reviewArraySum(arr){
 // public functions availiable to index.js
 module.exports = {
 
-    newUser: function(fName, lName, username, password, email, DOB){
+    newUser: function(fName, lName, username, password, email, pNumber, DOB){
         console.log("creating new user")
 
         if (__users.has(username)){
@@ -177,8 +176,7 @@ module.exports = {
         var user = new User(fName, lName, username, password, email, DOB)
 
         // writing user to backup immediately for now
-        //console.log(user)
-        //write_to_file(user)
+        write_to_file(user)
 
         return user
     },
@@ -198,18 +196,14 @@ module.exports = {
         }
     },
 
-    updateUser: function(username, field, oldP, newP){
-        console.log("updating user")
+    updateUser: function(fName, lName, username, password, email, pNumber, DOB){
         try{
-            user = module.exports.getUser(username)
-            if (field == "password"){
-                security.updatePassword(username, oldP, newP)
-            }
-            user[field] = newP
-            __users.set(username, user)
+            user = module.exports.deleteUser(username)
+            newUser = module.exports.newUser(fName, lName, username, password, email, pNumber, DOB)
+            return newUser
         }
-        catch(e){
-            console.log("was not able to update user", username, e)
+        catch{
+            throw Error ("could not remove", username, "from database while updating user")
         }
     },
 
