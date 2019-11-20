@@ -69,6 +69,8 @@ function Rides(username, origin, destination, seats, dateString){
     this.destination = destination;
     this.maxSeats = seats;
     this.departTime = dateString
+    this.driverUserName = username
+    this.seatsLeft = this.maxSeats
 }
 
 // remove rides who's departure time has passed
@@ -264,7 +266,7 @@ module.exports = {
         }
     },
 
-    updateRide: function(username, rideID, origin, destination, seats, departure){
+    updateRide: function(username, rideID, origin, destination, seats, departure, seatsLeft){
         try{
           node = __rides.remove(rideID).data.children[0].Ride
         //   console.log(node)
@@ -272,6 +274,7 @@ module.exports = {
           node.destination = destination
           node.seats = seats
           node.departure = departure
+          node.seatsLeft = seatsLeft
           __rides.insert(node)
           return node 
         }
