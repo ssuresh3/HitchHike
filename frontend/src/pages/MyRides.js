@@ -38,9 +38,9 @@ export default class MyRides extends Component {
             return (
               <Card style={styles.rideCard}>
                 <View style={styles.cardRow}>
-                  <Text>{ride.origin}</Text>
-                  <Image style={{ width: 30, height: 20, marginLeft: 30, marginRight: 30, marginBottom: 10 }} source={require('../../assets/arrow_right.png')} />
-                  <Text>{ride.destination}</Text>
+                  <Text>{ride.origin.desc}</Text>
+                  <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
+                  <Text>{ride.destination.desc}</Text>
                 </View>
                 <View style={styles.cardRow}>
                   <Text>Departs at {ride.departTime}</Text>
