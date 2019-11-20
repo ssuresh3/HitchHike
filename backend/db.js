@@ -47,7 +47,7 @@ function User(fName, lName, username, password, email, pNumber, DOB){
     this.lName = lName;
     this.email = email;
     this.DOB = DOB;
-    this.pNumber = pNumber;
+    this.pNumber = pNumber; 
     this.rides = [];
     this.requestedRides = [];
     this.reviewsGiven = [];

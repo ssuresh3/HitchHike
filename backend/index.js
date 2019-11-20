@@ -105,7 +105,7 @@ app.post("/login", (req, res) => {
             res.send({ success: false, reason: "Invalid password" });
         }
     } catch (e) {
-        res.send({ success: false, reason: "Login failed" });
+        res.send({ success: false, reason: e });
     }
 });
 
