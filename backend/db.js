@@ -169,7 +169,7 @@ module.exports = {
             throw Error ('username in use')
         }
 
-        var user = new User(fName, lName, username, password, email, DOB)
+        var user = new User(fName, lName, username, password, email, pNumber, DOB)
 
         // writing user to backup immediately for now
         write_to_file(user)
