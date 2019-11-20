@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   AsyncStorage,
   Keyboard,
-  Card, 
   Image
 } from 'react-native';
+import { Card } from 'react-native-paper';
 
 //creating the Form class
 class MyRides extends Component {
@@ -56,7 +56,7 @@ class MyRides extends Component {
 
 export default class App extends Component {
   constructor(props) {
-     super(props);​
+    super(props);
     this.state = {
       rides: dummyRides,
     };
@@ -85,17 +85,17 @@ export default class App extends Component {
               //   />
               // </View>
               // </Card>
-              <Card style={styles.rideCard}>
+            <Card style={styles.rideCard}>
               <View style={styles.cardRow}>
-                <Text>{ride.origin}</Text>
-                <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
-                <Text>{ride.destination}</Text>
+                <Text>{ride.origin.desc}</Text>
+                <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('assets/arrow_right.png')}/>
+                <Text>{ride.destination.desc}</Text>
               </View>
               <View style={styles.cardRow}>
                 <Text>Departs at {ride.departTime}</Text>
               </View>
               <View style={styles.cardRow}>
-                <Text>Rider's Phone Number{ride.riderPhone}</Text>
+                <Text>Driver's Phone Number:{ride.DriverPhone}</Text>
               </View>
             </Card>
             );
@@ -140,13 +140,17 @@ const styles = StyleSheet.create({
     fontSize: 27,
   },
 
-title:{
-   fontSize: 30,
-   textAlign: 'center',
-   paddingTop: 30,
-   color: '#ff8700',
- },
-
+   rideCard: {
+    padding: 20,
+    margin: 10,
+    marginTop:0,
+    alignSelf: 'stretch',
+    shadowRadius:5
+  },
+    cardRow: {
+    flexDirection:"row",
+    justifyContent:"center",
+  },
   button: {
     // width: 100, backgroundColor: '#ff8700', borderRadius: 25, marginVertical: 10,
     // paddingVertical: 12, justifyContent: 'center', alignItems: 'center'
@@ -155,7 +159,7 @@ title:{
     borderWidth: 2,
     borderColor: '#ff8700',
     borderRadius: 20,
-    backgroundColor: '#ff8700'
+    backgroundColor: '#ff8700',
   },
   buttonText: {
     fontSize: 25,
