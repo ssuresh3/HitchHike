@@ -197,6 +197,8 @@ app.post("/requestRide", (req, res) =>{
 
         rides.push(req.body.ride)
 
+        db.updateRide(ride.driverUserName, ride.rideID, ride.origin, ride.destination, ride.seats, ride.departure, --rides.seatsLeft)
+
         db.updateUser(req.body.username, "rides", r)
     }
     catch(e){
