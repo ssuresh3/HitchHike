@@ -5,7 +5,7 @@
     Once logged in, user will be routed to Home.js
 */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
@@ -15,8 +15,9 @@ import {
     AsyncStorage,
     Keyboard,
     Button,
-    Image
+    Image,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import {createAppContainer} from 'react-navigation'; import
 // {createStackNavigator} from 'react-navigation-stack'; import { Actions } from
 // 'react-native-router-flux'; import Signup from '../pages/Signup'; import
@@ -34,78 +35,80 @@ export default class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                <View style={styles.container}>
-                    <Image
-                        style={{
-                        height: '35%',
-                        width: '70%'
-                    }}
-                        source={require('./HitchHike.png')}
-                        resizeMode="contain"/>
-                    <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
-                    <TextInput style={styles.inputBox} //creating email text input
-                        onChangeText={(username) => this.setState({ username })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Username"
-                        placeholderTextColor="#ff8700"
-                        selectionColor="#fff"
-                        keyboardType="default"
-                        autoCapitalize="none"
-                        onSubmitEditing={() => this.password.focus()} />
-                    <TextInput style={styles.inputBox} //creating password text input
-                        onChangeText={(password) => this.setState({ password })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        placeholderTextColor="#ff8700"
-                        autoCapitalize="none"
-                        ref={(input) => this.password = input}
-                    />
+                {/* <KeyboardAwareScrollView> */}
+                    <View style={styles.container}>
+                        <Image
+                            style={{
+                                height: '35%',
+                                width: '70%'
+                            }}
+                            source={require('../../assets/HitchHike.png')}
+                            resizeMode="contain" />
+                        <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
+                        <TextInput style={styles.inputBox} //creating email text input
+                            onChangeText={(username) => this.setState({ username })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="Username"
+                            placeholderTextColor="#ff8700"
+                            selectionColor="#fff"
+                            keyboardType="default"
+                            autoCapitalize="none"
+                            onSubmitEditing={() => this.password.focus()} />
+                        <TextInput style={styles.inputBox} //creating password text input
+                            onChangeText={(password) => this.setState({ password })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            placeholderTextColor="#ff8700"
+                            autoCapitalize="none"
+                            ref={(input) => this.password = input}
+                        />
 
-                    <TouchableOpacity style={styles.button}>
-                        <Text
-                            style={styles.buttonText}
-                            onPress={() => {
-                            console.log('login');
-                            fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    username: this.state.username,
-                                    password: this.state.password
-                                }),
-                            }).then(response => response.json()).then(response => {
-                                console.log(response)
-                                // console.log("test")
-                                if(!response.success){
-                                    console.log("enter if false")
-                                    alert("Invalid username or password! Please try again."); 
-                                    // console.log("Kailas is smart");
-                                } else{
-                                    console.log("enter if true")
-                                    //stringify user object
-                                    AsyncStorage.setItem('user', JSON.stringify(response));
-                                    // AsyncStorage.setItem(this.username, response);
-                                    this.props.navigation.navigate('HomeRoute')
+                        <TouchableOpacity style={styles.button}>
+                            <Text
+                                style={styles.buttonText}
+                                onPress={() => {
+                                    console.log('login');
+                                    fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
+                                        method: 'POST',
+                                        headers: {
+                                            Accept: 'application/json',
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            username: this.state.username,
+                                            password: this.state.password
+                                        }),
+                                    }).then(response => response.json()).then(response => {
+                                        console.log(response)
+                                        // console.log("test")
+                                        if (!response.success) {
+                                            console.log("enter if false")
+                                            alert("Invalid username or password! Please try again.");
+                                            // console.log("Kailas is smart");
+                                        } else {
+                                            console.log("enter if true")
+                                            //stringify user object
+                                            AsyncStorage.setItem('user', JSON.stringify(response));
+                                            // AsyncStorage.setItem(this.username, response);
+                                            this.props.navigation.navigate('HomeRoute')
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                        }> 
-                            Login 
+                                }>
+                                Login
                         </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
-                        <Text style={styles.buttonText}> Sign Up </Text>
-                    </TouchableOpacity>
-                    {/* <Button
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
+                            <Text style={styles.buttonText}> Sign Up </Text>
+                        </TouchableOpacity>
+                        {/* <Button
                         style={styles.button1}
                         title="Sign Up!"
                         onPress={() => this.props.navigation.navigate('SignupRoute')}
                     /> */}
-                </View>
+                    </View>
+                {/* </KeyboardAwareScrollView> */}
             </React.Fragment>
         );
     }
