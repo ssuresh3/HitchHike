@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 import { Card } from 'react-native-paper';
-
+var axios = require("axios");
 export default class MyRides extends Component {
     getRating = function(username) {
         var rating = null;
@@ -17,16 +17,14 @@ export default class MyRides extends Component {
     return (
         //Surya: please get the ride from the ride selction page while routing. This just has dummy info
       <React.Fragment>
-        <View>
-          <Text style={styles.title}>My Rides</Text>
-        </View>
         <View style={styles.container}>
-          {rides.map(ride => {
-            return (
+          <View style = {styles.title}>
+            <Text> Ride Details</Text>
+          </View>
               <Card style={styles.rideCard}>
                 <View style={styles.cardRow}>
                   <Text>{ride.origin.desc}</Text>
-                  <Image style={{width: 40, height: 100,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
+                  <Image style={{width: 60, height: 100,marginTop: 30, marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
                   <Text>{ride.destination.desc}</Text>
                 </View>
                 <View style={styles.cardRow}>
@@ -42,8 +40,6 @@ export default class MyRides extends Component {
                   <Text>Number of seats left:{ride.seatsLeft}</Text>
                 </View>
               </Card>
-            );
-          })}
         </View>
       </React.Fragment>
     );
@@ -76,4 +72,14 @@ const styles = StyleSheet.create({
   }
 });
 
+var ride = {
+  rideID : 12345,
+  origin : "San Francisco",
+  destination : "San Bruno",
+  maxSeats : 5,
+  departTime : 9,
+  driverUserName: "heyyyyy",
+  seatsLeft : 4
+
+}
 
