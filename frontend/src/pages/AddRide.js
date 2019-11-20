@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+
+import { TextInput } from 'react-native-paper';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
 export default class AddRide extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       start: '',
       end: '',
@@ -23,27 +24,31 @@ export default class AddRide extends Component {
   render() {
     return (
       <React.Fragment>
-        <View style={styles.container}>
-          <TextInput
-            style={styles.inputBox} //creating email text input
-            underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="Start Location"
-            placeholderTextColor="#ff8700"
-            selectionColor="#fff"
-            onChangeText={start => this.setState({ start })}
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled={false}
+          keyboardShouldPersistTaps={true}>
+          <LocationAutocompleteInput
+            style={{ zIndex: 8, margin: 10 }}
+            label={'Pickup'}
+            onEnter={location => {
+              this.setState({ start: location });
+            }}
           />
-          <TextInput
-            style={styles.inputBox} //creating password text input
-            underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="End Location"
-            placeholderTextColor="#ff8700"
-            onChangeText={end => this.setState({ end })}
+          <LocationAutocompleteInput
+            style={{ zIndex: 6, margin: 10 }}
+            label={'Dropoff'}
+            onEnter={location => {
+              this.setState({ end: location });
+            }}
           />
           <TextInput
             style={styles.inputBox} //creating password text input
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Price"
             placeholderTextColor="#ff8700"
+            dense={true}
             onChangeText={price => this.setState({ price })}
           />
           <TextInput
@@ -51,6 +56,7 @@ export default class AddRide extends Component {
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Date"
             placeholderTextColor="#ff8700"
+            dense={true}
             onChangeText={date => this.setState({ date })}
           />
           <TextInput
@@ -58,6 +64,7 @@ export default class AddRide extends Component {
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Time"
             placeholderTextColor="#ff8700"
+            dense={true}
             onChangeText={time => this.setState({ time })}
           />
           <TextInput
@@ -65,33 +72,39 @@ export default class AddRide extends Component {
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Seats Available"
             placeholderTextColor="#ff8700"
+            dense={true}
             onChangeText={seats => this.setState({ seats })}
           />
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  username:"$$aman69420$$",
-                  origin: this.state.start,
-                  destination: this.state.end,
-                  seats:this.state.seats,
-                  departure:this.state.time
-                }),
-              }).catch(error => {
+              console.log(this.state);
+
+              fetch(
+                'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide',
+                {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    username: '$$aman69420$$',
+                    origin: {x:this.state.start.lat,y:this.state.start.lon},
+                    destination: {x:this.state.end.lat,y:this.state.end.lon},
+                    seats: this.state.seats,
+                    departure: this.state.time,
+                  }),
+                }
+              ).catch(error => {
                 console.log(error);
               });
               console.log(this.state);
-              this.props.navigation.navigate('HomeRoute')
+              // this.props.navigation.navigate('HomeRoute');
             }}>
             <Text style={styles.buttonText}>Post Ride!</Text>
           </TouchableOpacity>
-        </View>
+        </KeyboardAwareScrollView>
       </React.Fragment>
     );
   }
@@ -106,14 +119,11 @@ const styles = StyleSheet.create({
   },
 
   inputBox: {
-    width: 300,
+    width: '80%',
     backgroundColor: '#eeeeee',
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    fontSize: 16,
     color: '#002f6c',
-    marginVertical: 10,
     textAlign: 'center',
+    margin: 10,
   },
 
   button: {
