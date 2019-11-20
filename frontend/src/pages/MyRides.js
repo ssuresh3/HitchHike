@@ -45,6 +45,9 @@ export default class MyRides extends Component {
                 <View style={styles.cardRow}>
                   <Text>Departs at {ride.departTime}</Text>
                 </View>
+                <View style={styles.cardRow}>
+                  <Text>Rider's Phone Number{ride.riderPhone}</Text>
+                </View>
               </Card>
             );
           })}

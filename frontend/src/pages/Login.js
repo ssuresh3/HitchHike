@@ -5,29 +5,43 @@
     Once logged in, user will be routed to Home.js
 */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Button } from 'react-native';
-// import {createAppContainer} from 'react-navigation';
-// import {createStackNavigator} from 'react-navigation-stack';
-// import { Actions } from 'react-native-router-flux';
-// import Signup from '../pages/Signup';
-//import Form from '../components/Form';
+import React, {Component} from 'react';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    AsyncStorage,
+    Keyboard,
+    Button,
+    Image
+} from 'react-native';
+// import {createAppContainer} from 'react-navigation'; import
+// {createStackNavigator} from 'react-navigation-stack'; import { Actions } from
+// 'react-native-router-flux'; import Signup from '../pages/Signup'; import
+// Form from '../components/Form';
 
 export default class Login extends Component {
-
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             username: '',
-            password: '' 
+            password: ''
         };
     }
 
     render() {
-
         return (
             <React.Fragment>
                 <View style={styles.container}>
+                    <Image
+                        style={{
+                        height: '35%',
+                        width: '70%'
+                    }}
+                        source={require('./HitchHike.png')}
+                        resizeMode="contain"/>
                     <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
                     <TextInput style={styles.inputBox} //creating email text input
                         onChangeText={(username) => this.setState({ username })}
@@ -47,14 +61,17 @@ export default class Login extends Component {
                         autoCapitalize="none"
                         ref={(input) => this.password = input}
                     />
+
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() =>{
+                        <Text
+                            style={styles.buttonText}
+                            onPress={() => {
                             console.log('login');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
                                 method: 'POST',
                                 headers: {
                                     Accept: 'application/json',
-                                    'Content-Type': 'application/json',
+                                    'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
                                     username: this.state.username,
@@ -84,13 +101,13 @@ export default class Login extends Component {
                         <Text style={styles.buttonText}> Sign Up </Text>
                     </TouchableOpacity>
                     {/* <Button
-                        style={styles.button1} 
+                        style={styles.button1}
                         title="Sign Up!"
                         onPress={() => this.props.navigation.navigate('SignupRoute')}
                     /> */}
                 </View>
             </React.Fragment>
-        )
+        );
     }
 }
 
@@ -109,7 +126,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
         padding: 40,
-        fontSize: 30,
+        fontSize: 30
     },
 
     inputBox: {
