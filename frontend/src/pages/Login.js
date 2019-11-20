@@ -35,7 +35,10 @@ export default class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                {/* <KeyboardAwareScrollView> */}
+                <KeyboardAwareScrollView
+                    contentContainerStyle={styles.container}
+                    resetScrollToCoords={{ x: 0, y: 0 }}
+                    scrollEnabled={true}>
                     <View style={styles.container}>
                         <Image
                             style={{
@@ -108,7 +111,7 @@ export default class Login extends Component {
                         onPress={() => this.props.navigation.navigate('SignupRoute')}
                     /> */}
                     </View>
-                {/* </KeyboardAwareScrollView> */}
+                </KeyboardAwareScrollView>
             </React.Fragment>
         );
     }
