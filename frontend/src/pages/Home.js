@@ -8,18 +8,44 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    // AsyncStorage
 } from 'react-native';
+import { Button } from 'react-native-paper';
 
 
 export default class Home extends Component {
+
+    constructor(props) {
+        super(props);
+        // this.state = { 
+        //     rides: {},
+        // };
+    }
+
+    // displayName = async() => {
+    //     try{
+    //         let user = await AsyncStorage.getItem('user');
+    //         let parsedUser = JSON.parse(user);
+    //         this.state.rides = parsedUser.data.rides;
+    //         console.log("extracting from asyncstorage")
+    //         console.log(this.state.rides);
+    //         // <Text>user</Text>
+    //     } catch(error){
+    //         alert(error)
+    //     }
+    // }
+
     render() {
         return (
             <React.Fragment>
                 <View style={styles.formContainer}>
-                    <Text style={styles.container}>
+                    <Text style={styles.container}
+                    // ref={ref=>{this.displayName()}}
+                    >
                         Welcome to HitchHike!
                     </Text>
+
 
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {

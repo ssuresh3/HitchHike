@@ -33,6 +33,7 @@ export default class Signup extends Component {
             lName: '',
             username: '',
             DOB: '',
+            phone: '',
             email: '',
             password: '',
             confirmPassword: ''
@@ -111,7 +112,16 @@ export default class Signup extends Component {
                             keyboardType="default"
                         // onSubmitEditing={() => this.DOB.focus()}
                         />
-
+                        <TextInput
+                            style={styles.inputBox} //creating Phone number text input
+                            onChangeText={phone => this.setState({ phone })}
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            placeholder="Phone Number (Ex:1234567890)"
+                            placeholderTextColor="#ff8700"
+                            selectionColor="#fff"
+                            keyboardType="default"
+                        // onSubmitEditing={() => this.username.focus()}
+                        />
                         <TextInput
                             style={styles.inputBox} //creating email text input
                             onChangeText={email => this.setState({ email })}
@@ -186,7 +196,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         backgroundColor: 'white',
-        color: 'black',
+        color: '#ff8700',
         padding: 10,
         fontSize: 30,
     },
@@ -200,12 +210,12 @@ const styles = StyleSheet.create({
     },
 
     signupText: {
-        color: '#12799f',
+        color: '#ff8700',
         fontSize: 16,
     },
 
     signupButton: {
-        color: '#12799f',
+        color: '#ff8700',
         fontSize: 16,
         fontWeight: '500',
     },

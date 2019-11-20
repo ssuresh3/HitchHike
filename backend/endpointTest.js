@@ -102,7 +102,7 @@ async function test4() {
 
 // testing starts here
 console.log("----------------------------------------------------------------")
-//test1()
+test1()
 test2()
 //test3()
 //test4()
