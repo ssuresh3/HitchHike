@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
-
+import {myRides} from '../../src/components';
 import { Card } from 'react-native-paper';
 
 export default class MyRides extends Component {
@@ -30,22 +30,22 @@ export default class MyRides extends Component {
     return (
       <React.Fragment>
         <View>
-          <Text style={styles.title}>My Rides</Text>
+          <Text style={myRides.title}>My Rides</Text>
         </View>
-        <View style={styles.container}
+        <View style={myRides.container}
         >
           {this.state.rides.map(ride => {
             return (
-              <Card style={styles.rideCard}>
-                <View style={styles.cardRow}>
+              <Card style={myRides.rideCard}>
+                <View style={myRides.cardRow}>
                   <Text>{ride.origin.desc}</Text>
                   <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
                   <Text>{ride.destination.desc}</Text>
                 </View>
-                <View style={styles.cardRow}>
+                <View style={myRides.cardRow}>
                   <Text>Departs at {ride.departTime}</Text>
                 </View>
-                <View style={styles.cardRow}>
+                <View style={myRides.cardRow}>
                   <Text>Rider's Phone Number{ride.riderPhone}</Text>
                 </View>
               </Card>
@@ -57,31 +57,31 @@ export default class MyRides extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 30,
-    textAlign: 'center',
-    padding: 20,
-    marginTop: 20,
-    color: '#ff8700',
-  },
-  rideCard: {
-    padding: 20,
-    margin: 10,
-    marginTop: 0,
-    alignSelf: 'stretch',
-    shadowRadius: 5
-  },
-  cardRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-  }
-});
+// const myRides = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     alignItems: 'center',
+//   },
+//   title: {
+//     fontSize: 30,
+//     textAlign: 'center',
+//     padding: 20,
+//     marginTop: 20,
+//     color: '#ff8700',
+//   },
+//   rideCard: {
+//     padding: 20,
+//     margin: 10,
+//     marginTop: 0,
+//     alignSelf: 'stretch',
+//     shadowRadius: 5
+//   },
+//   cardRow: {
+//     flexDirection: "row",
+//     justifyContent: "center",
+//   }
+// });
 
 // const rides = [
 //   {
