@@ -17,6 +17,7 @@ import {
     Button,
     Image
 } from 'react-native';
+import {login_signup} from '../../src/components';
 // import {createAppContainer} from 'react-navigation'; import
 // {createStackNavigator} from 'react-navigation-stack'; import { Actions } from
 // 'react-native-router-flux'; import Signup from '../pages/Signup'; import
@@ -34,7 +35,7 @@ export default class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                <View style={styles.container}>
+                <View style={login_signup.container}>
                     <Image
                         style={{
                         height: '35%',
@@ -42,8 +43,8 @@ export default class Login extends Component {
                     }}
                         source={require('./HitchHike.png')}
                         resizeMode="contain"/>
-                    <Text style={styles.containerTwo}>Log in to HitchHike!</Text>
-                    <TextInput style={styles.inputBox} //creating email text input
+                    <Text style={login_signup.containerTwo}>Log in to HitchHike!</Text>
+                    <TextInput style={login_signup.inputBox} //creating email text input
                         onChangeText={(username) => this.setState({ username })}
                         underlineColorAndroid='rgba(0,0,0,0)'
                         placeholder="Username"
@@ -52,7 +53,7 @@ export default class Login extends Component {
                         keyboardType="default"
                         autoCapitalize="none"
                         onSubmitEditing={() => this.password.focus()} />
-                    <TextInput style={styles.inputBox} //creating password text input
+                    <TextInput style={login_signup.inputBox} //creating password text input
                         onChangeText={(password) => this.setState({ password })}
                         underlineColorAndroid='rgba(0,0,0,0)'
                         placeholder="Password"
@@ -62,9 +63,9 @@ export default class Login extends Component {
                         ref={(input) => this.password = input}
                     />
 
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={login_signup.button}>
                         <Text
-                            style={styles.buttonText}
+                            style={login_signup.buttonText}
                             onPress={() => {
                             console.log('login');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
@@ -97,11 +98,11 @@ export default class Login extends Component {
                             Login 
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
-                        <Text style={styles.buttonText}> Sign Up </Text>
+                    <TouchableOpacity style={login_signup.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
+                        <Text style={login_signup.buttonText}> Sign Up </Text>
                     </TouchableOpacity>
                     {/* <Button
-                        style={styles.button1}
+                        style={login_signup.button1}
                         title="Sign Up!"
                         onPress={() => this.props.navigation.navigate('SignupRoute')}
                     /> */}
@@ -111,60 +112,60 @@ export default class Login extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+// const login_signup = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         flexDirection: 'column',
+//         justifyContent: 'center',
+//         alignItems: 'center'
+//     },
 
-    containerTwo: {
-        // flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        color: 'black',
-        padding: 40,
-        fontSize: 30
-    },
+//     containerTwo: {
+//         // flex: 1,
+//         justifyContent: 'center',
+//         textAlign: 'center',
+//         backgroundColor: 'white',
+//         color: 'black',
+//         padding: 40,
+//         fontSize: 30
+//     },
 
-    inputBox: {
-        width: 300,
-        backgroundColor: '#eeeeee',
-        borderRadius: 25,
-        paddingHorizontal: 16,
-        fontSize: 16,
-        color: '#002f6c',
-        marginVertical: 10,
-        textAlign: 'center'
-    },
+//     inputBox: {
+//         width: 300,
+//         backgroundColor: '#eeeeee',
+//         borderRadius: 25,
+//         paddingHorizontal: 16,
+//         fontSize: 16,
+//         color: '#002f6c',
+//         marginVertical: 10,
+//         textAlign: 'center'
+//     },
 
-    button: {
-        width: 300,
-        backgroundColor: '#ff8700',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12
-    },
-    button1: {
-        width: 300,
-        backgroundColor: '#fffdd0',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12
-    },
+//     button: {
+//         width: 300,
+//         backgroundColor: '#ff8700',
+//         borderRadius: 25,
+//         marginVertical: 10,
+//         paddingVertical: 12
+//     },
+//     button1: {
+//         width: 300,
+//         backgroundColor: '#fffdd0',
+//         borderRadius: 25,
+//         marginVertical: 10,
+//         paddingVertical: 12
+//     },
 
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#ffffff',
-        textAlign: 'center'
-    },
-    buttonText1: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#ff8700',
-        textAlign: 'center'
-    }
-});
+//     buttonText: {
+//         fontSize: 16,
+//         fontWeight: '500',
+//         color: '#ffffff',
+//         textAlign: 'center'
+//     },
+//     buttonText1: {
+//         fontSize: 16,
+//         fontWeight: '500',
+//         color: '#ff8700',
+//         textAlign: 'center'
+//     }
+// });
