@@ -10,7 +10,6 @@ import {
   Image
 } from 'react-native';
 import { Card } from 'react-native-paper';
-
 //creating the Form class
 class MyRides extends Component {
   //default constructor with email and password
