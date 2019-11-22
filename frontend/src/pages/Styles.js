@@ -26,35 +26,12 @@ const myRides = StyleSheet.create({
 	})
 	  
 const login_signup = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  inputBox: {
-    width: '80%',
-    backgroundColor: '#eeeeee',
-    color: '#002f6c',
-    textAlign: 'center',
-    margin: 10,
-  },
-
-  button: {
-    width: 300,
-    backgroundColor: '#ff8700',
-    borderRadius: 25,
-    marginVertical: 10,
-    paddingVertical: 12,
-  },
-
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
-  },  
+	container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 
     containerTwo: {
         // flex: 1,
@@ -66,18 +43,24 @@ const login_signup = StyleSheet.create({
         fontSize: 30
     },
 
-    // inputBox: {
-    //     width: 200,
-    //     height: 30,
-    //     backgroundColor: '#eeeeee',
-    //     borderRadius: 25,
-    //     paddingHorizontal: 16,
-    //     fontSize: 16,
-    //     color: '#002f6c',
-    //     marginVertical: 10,
-    // },
+    inputBox: {
+        width: 200,
+        height: 30,
+        backgroundColor: '#eeeeee',
+        borderRadius: 25,
+        paddingHorizontal: 16,
+        fontSize: 16,
+        color: '#002f6c',
+        marginVertical: 10,
+    },
 
-
+    button: {
+        width: 300,
+        backgroundColor: '#ff8700',
+        borderRadius: 25,
+        marginVertical: 10,
+        paddingVertical: 12
+    },
     button1: {
         width: 300,
         backgroundColor: '#fffdd0',
@@ -86,6 +69,12 @@ const login_signup = StyleSheet.create({
         paddingVertical: 12
     },
 
+    buttonText: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#ffffff',
+        textAlign: 'center'
+    },
     buttonText1: {
         fontSize: 16,
         fontWeight: '500',
@@ -120,24 +109,24 @@ const login_signup = StyleSheet.create({
         fontSize: 27,
       },
 
-
-      // button: {
-      //   // width: 100, backgroundColor: '#ff8700', borderRadius: 25, marginVertical: 10,
-      //   // paddingVertical: 12, justifyContent: 'center', alignItems: 'center'
-      //   // textAlign: 'center',
-      //   height: 35,
-      //   borderWidth: 2,
-      //   borderColor: '#ff8700',
-      //   borderRadius: 20,
-      //   backgroundColor: '#ff8700',
-      // },
-      // buttonText: {
-      //   fontSize: 25,
-      //   fontWeight: '500',
-      //   color: '#FFFFFF',
-      //   textAlign: 'center',
-      // },
+      button: {
+        // width: 100, backgroundColor: '#ff8700', borderRadius: 25, marginVertical: 10,
+        // paddingVertical: 12, justifyContent: 'center', alignItems: 'center'
+        // textAlign: 'center',
+        height: 35,
+        borderWidth: 2,
+        borderColor: '#ff8700',
+        borderRadius: 20,
+        backgroundColor: '#ff8700',
+      },
+      buttonText: {
+        fontSize: 25,
+        fontWeight: '500',
+        color: '#FFFFFF',
+        textAlign: 'center',
+      },
 
   })
 
   export {myRides, login_signup}
+   
