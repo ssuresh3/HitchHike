@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import {myRides} from '../../src/components';
 import { Card } from 'react-native-paper';
-
 //creating the Form class
 class MyRides extends Component {
   //default constructor with email and password

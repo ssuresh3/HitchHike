@@ -22,7 +22,76 @@ const myRides = StyleSheet.create({
       cardRow: {
         flexDirection: "row",
         justifyContent: "center",
-      },
+	  }
+	})
+	  
+const login_signup = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  inputBox: {
+    width: '80%',
+    backgroundColor: '#eeeeee',
+    color: '#002f6c',
+    textAlign: 'center',
+    margin: 10,
+  },
+
+  button: {
+    width: 300,
+    backgroundColor: '#ff8700',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 12,
+  },
+
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center',
+  },  
+
+    containerTwo: {
+        // flex: 1,
+        justifyContent: 'center',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        color: 'black',
+        padding: 40,
+        fontSize: 30
+    },
+
+    // inputBox: {
+    //     width: 200,
+    //     height: 30,
+    //     backgroundColor: '#eeeeee',
+    //     borderRadius: 25,
+    //     paddingHorizontal: 16,
+    //     fontSize: 16,
+    //     color: '#002f6c',
+    //     marginVertical: 10,
+    // },
+
+
+    button1: {
+        width: 300,
+        backgroundColor: '#fffdd0',
+        borderRadius: 25,
+        marginVertical: 10,
+        paddingVertical: 12
+    },
+
+    buttonText1: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#ff8700',
+        textAlign: 'center'
+    },
 
 
 
@@ -51,24 +120,24 @@ const myRides = StyleSheet.create({
         fontSize: 27,
       },
 
-      button: {
-        // width: 100, backgroundColor: '#ff8700', borderRadius: 25, marginVertical: 10,
-        // paddingVertical: 12, justifyContent: 'center', alignItems: 'center'
-        // textAlign: 'center',
-        height: 35,
-        borderWidth: 2,
-        borderColor: '#ff8700',
-        borderRadius: 20,
-        backgroundColor: '#ff8700',
-      },
-      buttonText: {
-        fontSize: 25,
-        fontWeight: '500',
-        color: '#FFFFFF',
-        textAlign: 'center',
-      },
+
+      // button: {
+      //   // width: 100, backgroundColor: '#ff8700', borderRadius: 25, marginVertical: 10,
+      //   // paddingVertical: 12, justifyContent: 'center', alignItems: 'center'
+      //   // textAlign: 'center',
+      //   height: 35,
+      //   borderWidth: 2,
+      //   borderColor: '#ff8700',
+      //   borderRadius: 20,
+      //   backgroundColor: '#ff8700',
+      // },
+      // buttonText: {
+      //   fontSize: 25,
+      //   fontWeight: '500',
+      //   color: '#FFFFFF',
+      //   textAlign: 'center',
+      // },
 
   })
 
-  export {myRides}
-   
+  export {myRides, login_signup}
