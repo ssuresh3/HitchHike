@@ -16,6 +16,7 @@ import {
     Keyboard,
     Button,
     Image,
+    KeyboardAvoidingView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import {createAppContainer} from 'react-navigation'; import
@@ -35,11 +36,14 @@ export default class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                <KeyboardAwareScrollView
+                {/* KeyboardAwareScrollView messes with the logo rendering */}
+                <KeyboardAvoidingView style={styles.container}
+                    behavior="padding">
+                {/* <KeyboardAwareScrollView
                     contentContainerStyle={styles.container}
                     resetScrollToCoords={{ x: 0, y: 0 }}
-                    scrollEnabled={true}>
-                    <View style={styles.container}>
+                    scrollEnabled={true}> */}
+                    {/* <View style={styles.container}> */}
                         <Image
                             style={{
                                 height: '35%',
@@ -110,8 +114,9 @@ export default class Login extends Component {
                         title="Sign Up!"
                         onPress={() => this.props.navigation.navigate('SignupRoute')}
                     /> */}
-                    </View>
-                </KeyboardAwareScrollView>
+                    {/* </View> */}
+                {/* </KeyboardAwareScrollView> */}
+                </KeyboardAvoidingView>
             </React.Fragment>
         );
     }
