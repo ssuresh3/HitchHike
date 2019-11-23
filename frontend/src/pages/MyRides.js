@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
-import {myRides} from '../../src/components';
+// import {myRides} from '../../src/components';
 import { Card } from 'react-native-paper';
 
 export default class MyRides extends Component {
