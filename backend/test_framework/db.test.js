@@ -14,8 +14,17 @@ test('the data is a new user', () => {
   expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')
 });
 
-// update user
-test('the data is a new user', () => {
-  expect(db.updateUser("Chard", user.lName, user.username, user.password, user.email, user.pNumber, user.DOB).fName).toBe('Chard')
-});
+// test posting a ride and finding a ride
+test('posting a ride', () => {
+
+	var origin = {"x":90, "y":-100}
+	var destination = {"x": 70, "y": -104}
+	var seats = 4
+	var time = "August 19, 2020 23:15:30"
+	db.postRide(user.username, origin, destination, seats, time)
+
+	db.findRide(origin, time)
+	expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')
+	
+})
 

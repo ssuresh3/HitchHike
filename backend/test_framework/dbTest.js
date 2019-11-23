@@ -1,13 +1,13 @@
 // test db.js file
 
-var db = require("./db.js")
+const db = require('./db.js');
 
 function unitTest(){
 
 	// user tests
-	var user = db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7076941051", "7/11/1997")
+	//var user = db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7076941051", "7/11/1997")
 	//console.log(user)
-	//db.testBackup("chartsoo")
+	db.testBackup("chartsoo")
 	//db.getUser("chartsoo")
 	//db.updateUser("chartsoo", "fName", "cody", "Cody")
 
@@ -22,7 +22,7 @@ function unitTest(){
 
 	//db.postRide("chartsoo", origin, destination, seats, time)
 	//node = db.updateRide("chartsoo", "chartsoo:1:20:23:15", origin, destination ,5, Date("August 20, 2018 23:30:30"))
-	// db.findRide(origin, time2)
+	//db.findRide(origin, time)
 	//console.log("updated ride\n", node)
 	//db.deleteRide("chartsoo")
 

@@ -48,7 +48,7 @@ function User(fName, lName, username, password, email, pNumber, DOB){
     this.email = email;
     this.DOB = DOB;
     this.pNumber = pNumber;
-    this.rides = [];
+    this.postedRides = [];
     this.requestedRides = [];
     this.reviewsGiven = [];
     this.reviewsReceived = [];
@@ -60,7 +60,6 @@ function User(fName, lName, username, password, email, pNumber, DOB){
 
     __users.set(username, this)
 }
-
 
 // ride object
 function Rides(username, origin, destination, seats, dateString){
@@ -246,7 +245,7 @@ module.exports = {
         rideQueue.push({"departs": date, "ID": ride.rideID});
 
         // add rideID to user's rides attribute
-        user.rides.push(node)
+        user.postedRides.push(node)
 
         __rides.insert(node);
         // console.log(ride)
@@ -255,7 +254,7 @@ module.exports = {
     deleteRide: function(username){
         try{
             user = module.exports.getUser(username)
-            rideID = user.rides[user.rides.length-1]
+            rideID = user.postedRides[user.postedRides.length-1]
             __rides.remove(rideID)
             console.log("successfuly deleted ride for", username)
         }
