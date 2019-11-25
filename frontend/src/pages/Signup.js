@@ -69,88 +69,89 @@ export default class Signup extends Component {
         // console.log(this.state.password);
         return (
             <React.Fragment>
-                <View style={styles.formContainer}>
-                    <KeyboardAvoidingView style={styles.formContainer}>
-                        <Text style={styles.container}>Sign up for HitchHike!</Text>
-                        <TextInput
-                            style={styles.inputBox} //creating first name text input
-                            onChangeText={fName => this.setState({ fName })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="First Name"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating last name text input
-                            onChangeText={lName => this.setState({ lName })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Last Name"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.lName.focus()}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating username text input
-                            onChangeText={username => this.setState({ username })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Username"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.username.focus()}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating birthday text input
-                            onChangeText={DOB => this.setState({ DOB })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Birthday: MM/DD/YYYY"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.DOB.focus()}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating Phone number text input
-                            onChangeText={phone => this.setState({ phone })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Phone Number (Ex:1234567890)"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.username.focus()}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating email text input
-                            onChangeText={email => this.setState({ email })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Email"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="email-address"
-                        // onSubmitEditing={() => this.password.focus()}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating password text input
-                            onChangeText={password => this.setState({ password })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            placeholderTextColor="#ff8700"
-                        // ref={input => (this.password = input)}
-                        />
-                        <TextInput
-                            style={styles.inputBox} //creating confirm password text input
-                            onChangeText={confirmPassword => this.setState({ confirmPassword })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Confirm Password"
-                            placeholderTextColor="#ff8700"
-                            secureTextEntry={true}
-                        // ref={input => (this.password = input)}
-                        />
-                    </KeyboardAvoidingView>
+                {/* <View style={styles.formContainer}> */}
+                <KeyboardAvoidingView style={styles.container}
+                    behavior="padding">
+                    <Text style={styles.container}>Sign up for HitchHike!</Text>
+                    <TextInput
+                        style={styles.inputBox} //creating first name text input
+                        onChangeText={fName => this.setState({ fName })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="First Name"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating last name text input
+                        onChangeText={lName => this.setState({ lName })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Last Name"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.lName.focus()}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating username text input
+                        onChangeText={username => this.setState({ username })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Username"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.username.focus()}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating birthday text input
+                        onChangeText={DOB => this.setState({ DOB })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Birthday: MM/DD/YYYY"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.DOB.focus()}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating Phone number text input
+                        onChangeText={phone => this.setState({ phone })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Phone Number (Ex:1234567890)"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.username.focus()}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating email text input
+                        onChangeText={email => this.setState({ email })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Email"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="email-address"
+                    // onSubmitEditing={() => this.password.focus()}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating password text input
+                        onChangeText={password => this.setState({ password })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        placeholderTextColor="#ff8700"
+                    // ref={input => (this.password = input)}
+                    />
+                    <TextInput
+                        style={styles.inputBox} //creating confirm password text input
+                        onChangeText={confirmPassword => this.setState({ confirmPassword })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Confirm Password"
+                        placeholderTextColor="#ff8700"
+                        secureTextEntry={true}
+                    // ref={input => (this.password = input)}
+                    />
+                    {/* </KeyboardAvoidingView> */}
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {
                             console.log('Signing up');
@@ -177,13 +178,14 @@ export default class Signup extends Component {
                             Sign Up{' '}
                         </Text>
                     </TouchableOpacity>
-                </View>
+                
                 <View style={styles.signupTextCont}>
                     <Text style={styles.signupText}> Already have an account? </Text>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
                         <Text style={styles.signupButton}> Sign in! </Text>
                     </TouchableOpacity>
                 </View>
+                </KeyboardAvoidingView>
             </React.Fragment>
         );
     }
@@ -192,13 +194,18 @@ export default class Signup extends Component {
 //adding CSS
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
+        // // flex: 1,
+        // justifyContent: 'center',
+        // textAlign: 'center',
+        // backgroundColor: 'white',
+        // color: '#ff8700',
+        // padding: 10,
+        // fontSize: 30,
+
+        flex: 1,
+        flexDirection: 'column',
         justifyContent: 'center',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        color: '#ff8700',
-        padding: 10,
-        fontSize: 30,
+        alignItems: 'center'
     },
 
     signupTextCont: {

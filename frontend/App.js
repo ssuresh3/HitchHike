@@ -18,8 +18,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 const AppStack = createStackNavigator(
   {
-    SignupRoute: Signup,
-    VerifyRoute: Verify,
+    // SignupRoute: Signup,
+    // VerifyRoute: Verify,
     HomeRoute: Home,
     RideRoute: Ride,
     AddRideRoute: AddRide,
@@ -29,7 +29,9 @@ const AppStack = createStackNavigator(
 
 const AuthStack = createStackNavigator(
   {
-    LoginRoute: Login
+    LoginRoute: Login,
+    SignupRoute: Signup,
+    VerifyRoute: Verify,
   }
 )
 
