@@ -30,14 +30,20 @@ const AppStack = createStackNavigator(
 const AuthStack = createStackNavigator(
   {
     LoginRoute: Login,
+  }
+)
+
+const AuthStackTwo = createStackNavigator(
+  {
     SignupRoute: Signup,
-    VerifyRoute: Verify,
+    VerifyRoute: Verify
   }
 )
 
 export default createAppContainer(createSwitchNavigator(
   {
     Auth: AuthStack,
+    Auth2: AuthStackTwo,
     App: AppStack
 
   }

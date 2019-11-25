@@ -20,11 +20,8 @@ import {
 
 //creating Signup class
 export default class Signup extends Component {
-    //function to load previous page on a stack
-    // goBack() {
-    //     Actions.pop();
-    // }
 
+    //constructor
     constructor(props) {
         super(props);
 
@@ -72,7 +69,7 @@ export default class Signup extends Component {
                 {/* <View style={styles.formContainer}> */}
                 <KeyboardAvoidingView style={styles.container}
                     behavior="padding">
-                    <Text style={styles.container}>Sign up for HitchHike!</Text>
+                    <Text style={styles.containerTwo}>Sign up for HitchHike!</Text>
                     <TextInput
                         style={styles.inputBox} //creating first name text input
                         onChangeText={fName => this.setState({ fName })}
@@ -100,6 +97,7 @@ export default class Signup extends Component {
                         placeholder="Username"
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
+                        autoCapitalize="none"
                         keyboardType="default"
                     // onSubmitEditing={() => this.username.focus()}
                     />
@@ -110,7 +108,7 @@ export default class Signup extends Component {
                         placeholder="Birthday: MM/DD/YYYY"
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
-                        keyboardType="default"
+                        keyboardType="numeric"
                     // onSubmitEditing={() => this.DOB.focus()}
                     />
                     <TextInput
@@ -120,7 +118,7 @@ export default class Signup extends Component {
                         placeholder="Phone Number (Ex:1234567890)"
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
-                        keyboardType="default"
+                        keyboardType="numeric"
                     // onSubmitEditing={() => this.username.focus()}
                     />
                     <TextInput
@@ -130,6 +128,7 @@ export default class Signup extends Component {
                         placeholder="Email"
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
+                        autoCapitalize="none"
                         keyboardType="email-address"
                     // onSubmitEditing={() => this.password.focus()}
                     />
@@ -139,6 +138,7 @@ export default class Signup extends Component {
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Password"
                         secureTextEntry={true}
+                        autoCapitalize="none"
                         placeholderTextColor="#ff8700"
                     // ref={input => (this.password = input)}
                     />
@@ -148,12 +148,17 @@ export default class Signup extends Component {
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Confirm Password"
                         placeholderTextColor="#ff8700"
+                        autoCapitalize="none"
                         secureTextEntry={true}
                     // ref={input => (this.password = input)}
                     />
                     {/* </KeyboardAvoidingView> */}
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {
+                            if(this.password != this.confirmPassword){
+                                console.log(alert)
+                                alert("Passwords don't match! Please try again.");
+                            }
                             console.log('Signing up');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
                                 method: 'POST',
@@ -206,6 +211,16 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+
+    containerTwo: {
+        // flex: 1,
+        justifyContent: 'center',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        color: 'black',
+        padding: 40,
+        fontSize: 30
     },
 
     signupTextCont: {
