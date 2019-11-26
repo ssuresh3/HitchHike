@@ -1,12 +1,32 @@
 {
-	"user": {
-		"fName": "Cody",
-		"lName": "Hartsook",
-		"username": "chartsoo",
-		"password": "1234HitchHike",
-		"email": "chartsoo@ucsc.edu",
-		"pNumber": "7076941051",
-		"DOB": "7/11/1997"
-	},
-	"rides": {}
+	"users": [
+		{
+			"fName": "Cody",
+			"lName": "Hartsook",
+			"username": "chartsoo",
+			"password": "1234HitchHike",
+			"email": "chartsoo@ucsc.edu",
+			"pNumber": "7076941051",
+			"DOB": "7/11/1997"
+		}
+	],
+
+	"rides": [
+		{
+			"origin": {"x":90, "y":-100},
+			"destination": {"x": 70, "y": -104},
+			"seats": 4,
+			"departure": "August 22, 2020 20:15:30"
+		}
+	],
+
+	"requestedRides": [
+		{
+			"origin": {"x":92, "y":-102},
+			"destination": {"x": 70, "y": -104},
+			"seats": 4,
+			"departure": "August 22, 2020 20:15:30"
+		}
+	]
+
 }
