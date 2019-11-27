@@ -159,13 +159,17 @@ export default class Signup extends Component {
                     {/* </KeyboardAvoidingView> */}
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {
-                            console.log(this.password);
-                            // console.log(confirmPassword);
-                            if (this.state.password != this.state.confirmPassword) {
-                                console.log(alert)
+                            if(this.state.fName.length == 0){
+                                alert("Enter your first name! Please try again.");
+                            } else if(this.state.lName.length == 0){
+                                alert("Enter your last name! Please try again.");
+                            } else if(this.state.username.length < 5){
+                                alert("Username too short! Please try again.");
+                            } else if (this.state.password != this.state.confirmPassword) {
+                                // console.log(alert)
                                 alert("Passwords don't match! Please try again.");
                             } 
-                            // else if() 
+                            // else if(this.state)
                             else {
                                 console.log('Signing up');
                                 fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
