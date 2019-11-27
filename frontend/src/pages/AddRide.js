@@ -125,34 +125,34 @@ export default class AddRide extends Component {
   }
 }
 
-const theme = { colors: { primary: '#ff8700' } };
+// const theme = { colors: { primary: '#ff8700' } };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
 
-  inputBox: {
-    width: '80%',
-    margin: 10,
-    zIndex:1
-  },
+//   inputBox: {
+//     width: '80%',
+//     margin: 10,
+//     zIndex:1
+//   },
 
-  button: {
-    width: 300,
-    backgroundColor: '#ff8700',
-    borderRadius: 25,
-    marginVertical: 10,
-    paddingVertical: 12,
-  },
+//   button: {
+//     width: 300,
+//     backgroundColor: '#ff8700',
+//     borderRadius: 25,
+//     marginVertical: 10,
+//     paddingVertical: 12,
+//   },
 
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-});
+//   buttonText: {
+//     fontSize: 16,
+//     fontWeight: '500',
+//     color: '#ffffff',
+//     textAlign: 'center',
+//   },
+// });

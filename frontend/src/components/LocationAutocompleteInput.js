@@ -107,21 +107,21 @@ export default class LocationAutocompleteInput extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%',
-  },
-  autocomplete: {
-    width: '100%',
-    elevation: 3,
-    position: 'absolute',
-    top: 48,
-    padding: 5,
-  },
-  suggestion: {
-    padding: 5,
-    paddingStart: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     width: '80%',
+//   },
+//   autocomplete: {
+//     width: '100%',
+//     elevation: 3,
+//     position: 'absolute',
+//     top: 48,
+//     padding: 5,
+//   },
+//   suggestion: {
+//     padding: 5,
+//     paddingStart: 10,
+//   },
+// });
