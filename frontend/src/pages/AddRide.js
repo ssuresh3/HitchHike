@@ -7,6 +7,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
+import {myRides} from '../../src/components/Styles';
+
 export default class AddRide extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,7 @@ export default class AddRide extends Component {
     return (
       <React.Fragment>
         <KeyboardAwareScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={myRides.container}
           resetScrollToCoords={{ x: 0, y: 0 }}
           scrollEnabled={false}
           keyboardShouldPersistTaps={true}>
@@ -46,7 +48,7 @@ export default class AddRide extends Component {
             }}
           />
           <TextInput
-            style={styles.inputBox}
+            style={myRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -56,7 +58,7 @@ export default class AddRide extends Component {
             onChangeText={price => this.setState({ price:price.substring(1) })}
           />
           <TextInput
-            style={styles.inputBox}
+            style={myRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -65,7 +67,7 @@ export default class AddRide extends Component {
             onChangeText={seats => this.setState({ seats:seats })}
           />
           <TextInput
-            style={styles.inputBox} //creating password text input
+            style={myRides.inputBox} //creating password text input
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Date"
             placeholderTextColor="#ff8700"
@@ -74,7 +76,7 @@ export default class AddRide extends Component {
             onChangeText={date => this.setState({ date })}
           />
           <TextInput
-            style={styles.inputBox} //creating password text input
+            style={myRides.inputBox} //creating password text input
             underlineColorAndroid="rgba(0,0,0,0)"
             placeholder="Time"
             placeholderTextColor="#ff8700"
@@ -83,7 +85,7 @@ export default class AddRide extends Component {
             onChangeText={time => this.setState({ time })}
           />
           <TouchableOpacity
-            style={styles.button}
+            style={myRides.button}
             onPress={() => {
               var body = JSON.stringify({
                 username: 'ssuresh3',
@@ -118,7 +120,7 @@ export default class AddRide extends Component {
 
               // this.props.navigation.navigate('HomeRoute');
             }}>
-            <Text style={styles.buttonText}>Post Ride!</Text>
+            <Text style={myRides.buttonText}>Post Ride!</Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
       </React.Fragment>
@@ -128,7 +130,7 @@ export default class AddRide extends Component {
 
 // const theme = { colors: { primary: '#ff8700' } };
 
-// const styles = StyleSheet.create({
+// const myRides = StyleSheet.create({
 //   container: {
 //     flex: 1,
 //     flexDirection: 'column',
