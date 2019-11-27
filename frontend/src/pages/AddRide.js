@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, AsyncStorage } from 'react-native';
+
 
 import { TextInput } from 'react-native-paper';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import LocationAutocompleteInput from './components/LocationAutocompleteInput';
+import LocationAutocompleteInput from '../components/LocationAutocompleteInput';
 
-// import DateTimePicker from "react-native-modal-datetime-picker";
-
-// import {myRides} from '../../src/components';
+import {myRides} from '../pages/Styles';
 
 export default class App extends Component {
   constructor(props) {
@@ -33,13 +26,15 @@ export default class App extends Component {
         mode: 'date',
       },
     };
+
+    this.user = AsyncStorage.getItem("user");
   }
 
   render() {
     return (
       <React.Fragment>
         <KeyboardAwareScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={myRides.container}
           resetScrollToCoords={{ x: 0, y: 0 }}
           scrollEnabled={false}
           keyboardShouldPersistTaps={true}
@@ -63,7 +58,7 @@ export default class App extends Component {
             }}
           />
           <TextInput
-            style={styles.inputBox}
+            style={myRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -76,7 +71,7 @@ export default class App extends Component {
             }
           />
           <TextInput
-            style={styles.inputBox}
+            style={myRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -102,7 +97,7 @@ export default class App extends Component {
               }
 
               var body = JSON.stringify({
-                username: 'amaprasa',
+                username: this.user.username,
                 origin: {
                   x: this.state.start.lat,
                   y: this.state.start.lng,
@@ -142,34 +137,34 @@ export default class App extends Component {
   }
 }
 
-const theme = { colors: { primary: '#ff8700' } };
+// const theme = { colors: { primary: '#ff8700' } };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+// const myRides = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
 
-  inputBox: {
-    width: '80%',
-    margin: 10,
-    zIndex: 1,
-  },
+//   inputBox: {
+//     width: '80%',
+//     margin: 10,
+//     zIndex:1
+//   },
 
-  button: {
-    width: 300,
-    backgroundColor: '#ff8700',
-    borderRadius: 25,
-    marginVertical: 10,
-    paddingVertical: 12,
-  },
+//   button: {
+//     width: 300,
+//     backgroundColor: '#ff8700',
+//     borderRadius: 25,
+//     marginVertical: 10,
+//     paddingVertical: 12,
+//   },
 
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-});
+//   buttonText: {
+//     fontSize: 16,
+//     fontWeight: '500',
+//     color: '#ffffff',
+//     textAlign: 'center',
+//   },
+// });

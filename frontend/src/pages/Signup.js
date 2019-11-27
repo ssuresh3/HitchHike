@@ -11,21 +11,19 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput,
     KeyboardAvoidingView
 } from 'react-native';
-import {login_signup} from '../../src/components';
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
-
+import { TextInput } from 'react-native-paper';
+import {myRides} from '../pages/Styles';
 
 //creating Signup class
 export default class Signup extends Component {
-    //function to load previous page on a stack
-    // goBack() {
-    //     Actions.pop();
-    // }
 
+    //constructor
     constructor(props) {
         super(props);
 
@@ -70,107 +68,135 @@ export default class Signup extends Component {
         // console.log(this.state.password);
         return (
             <React.Fragment>
-                <View style={login_signup.formContainer}>
-                    <KeyboardAvoidingView style={login_signup.formContainer}>
-                        <Text style={login_signup.container}>Sign up for HitchHike!</Text>
-                        <TextInput
-                            style={login_signup.inputBox} //creating first name text input
-                            onChangeText={fName => this.setState({ fName })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="First Name"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating last name text input
-                            onChangeText={lName => this.setState({ lName })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Last Name"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.lName.focus()}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating username text input
-                            onChangeText={username => this.setState({ username })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Username"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.username.focus()}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating birthday text input
-                            onChangeText={DOB => this.setState({ DOB })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Birthday: MM/DD/YYYY"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.DOB.focus()}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating Phone number text input
-                            onChangeText={phone => this.setState({ phone })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Phone Number (Ex:1234567890)"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="default"
-                        // onSubmitEditing={() => this.username.focus()}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating email text input
-                            onChangeText={email => this.setState({ email })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Email"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
-                            keyboardType="email-address"
-                        // onSubmitEditing={() => this.password.focus()}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating password text input
-                            onChangeText={password => this.setState({ password })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            placeholderTextColor="#ff8700"
-                        // ref={input => (this.password = input)}
-                        />
-                        <TextInput
-                            style={login_signup.inputBox} //creating confirm password text input
-                            onChangeText={confirmPassword => this.setState({ confirmPassword })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Confirm Password"
-                            placeholderTextColor="#ff8700"
-                            secureTextEntry={true}
-                        // ref={input => (this.password = input)}
-                        />
-                    </KeyboardAvoidingView>
-                    <TouchableOpacity style={login_signup.button}>
-                        <Text style={login_signup.buttonText} onPress={() => {
-                            console.log('Signing up');
-                            fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    fName: this.state.fName,
-                                    lName: this.state.lName,
-                                    username: this.state.username,
-                                    DOB: this.state.DOB,
-                                    email: this.state.email,
-                                    password: this.state.password
-                                }),
-                            });
-                            this.props.navigation.navigate('VerifyRoute')
+                {/* <View style={styles.formContainer}> */}
+                <KeyboardAwareScrollView
+                    contentContainerStyle={myRides.container}
+                >
+                {/* <KeyboardAvoidingView style={styles.container}
+                    behavior="padding"> */}
+                    <Text style={myRides.containerTwo}>Sign up for HitchHike!</Text>
+                    <TextInput
+                        style={myRides.inputBox} //creating first name text input
+                        onChangeText={fName => this.setState({ fName })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="First Name"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating last name text input
+                        onChangeText={lName => this.setState({ lName })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Last Name"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.lName.focus()}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating username text input
+                        onChangeText={username => this.setState({ username })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Username"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        autoCapitalize="none"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.username.focus()}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating birthday text input
+                        onChangeText={DOB => this.setState({ DOB })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Birthday: MM/DD/YYYY"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="default"
+                    // onSubmitEditing={() => this.DOB.focus()}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating Phone number text input
+                        onChangeText={phone => this.setState({ phone })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Phone Number (Ex:1234567890)"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        keyboardType="numeric"
+                    // onSubmitEditing={() => this.username.focus()}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating email text input
+                        onChangeText={email => this.setState({ email })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Email"
+                        placeholderTextColor="#ff8700"
+                        selectionColor="#fff"
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                    // onSubmitEditing={() => this.password.focus()}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating password text input
+                        onChangeText={password => this.setState({ password })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        autoCapitalize="none"
+                        placeholderTextColor="#ff8700"
+                    // ref={input => (this.password = input)}
+                    />
+                    <TextInput
+                        style={myRides.inputBox} //creating confirm password text input
+                        onChangeText={confirmPassword => this.setState({ confirmPassword })}
+                        underlineColorAndroid="rgba(0,0,0,0)"
+                        placeholder="Confirm Password"
+                        placeholderTextColor="#ff8700"
+                        autoCapitalize="none"
+                        secureTextEntry={true}
+                    // ref={input => (this.password = input)}
+                    />
+                    {/* </KeyboardAvoidingView> */}
+                    <TouchableOpacity style={myRides.button}>
+                        <Text style={myRides.buttonText} onPress={() => {
+                            if(this.state.fName.length == 0){
+                                alert("Enter your first name!");
+                            } else if(this.state.lName.length == 0){
+                                alert("Enter your last name!");
+                            } else if(this.state.username.length < 5){
+                                alert("Username too short! Please try again.");
+                            } else if(this.state.DOB.length != 10){
+                                alert("DOB is incorrect format! Please try again."); 
+                            } else if(this.state.phone.length != 10){
+                                alert("Phone number is incorrect format! Please try again.");    
+                            } else if(!this.state.email.includes("ucsc")){
+                                alert("Please enter a ucsc email!");
+                            } else if(this.state.password.length == 0){
+                                alert("Please enter a password!");
+                            } else if (this.state.password != this.state.confirmPassword) {
+                                // console.log(alert)
+                                alert("Passwords don't match! Please try again.");
+                            } else {
+                                console.log('Signing up');
+                                fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        fName: this.state.fName,
+                                        lName: this.state.lName,
+                                        username: this.state.username,
+                                        DOB: this.state.DOB,
+                                        email: this.state.email,
+                                        password: this.state.password
+                                    }),
+                                });
+                                this.props.navigation.navigate('VerifyRoute')
+                            }
+
                         }
 
                         }>
@@ -178,11 +204,11 @@ export default class Signup extends Component {
                             Sign Up{' '}
                         </Text>
                     </TouchableOpacity>
-                </View>
-                <View style={login_signup.signupTextCont}>
-                    <Text style={login_signup.signupText}> Already have an account? </Text>
+                </KeyboardAwareScrollView>
+                <View style={myRides.signupTextCont}>
+                    <Text style={myRides.signupText}> Already have an account? </Text>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                        <Text style={login_signup.signupButton}> Sign in! </Text>
+                        <Text style={myRides.signupButton}> Sign in! </Text>
                     </TouchableOpacity>
                 </View>
             </React.Fragment>
@@ -191,16 +217,6 @@ export default class Signup extends Component {
 }
 
 //adding CSS
-// const login_signup = StyleSheet.create({
-//     container: {
-//         // flex: 1,
-//         justifyContent: 'center',
-//         textAlign: 'center',
-//         backgroundColor: 'white',
-//         color: '#ff8700',
-//         padding: 10,
-//         fontSize: 30,
-//     },
 
 //     signupTextCont: {
 //         flexGrow: 1,
@@ -249,5 +265,3 @@ export default class Signup extends Component {
 //         fontWeight: '500',
 //         color: '#ffffff',
 //         textAlign: 'center',
-//     },
-// });
