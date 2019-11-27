@@ -8,6 +8,8 @@ import { TextInput } from 'react-native-paper';
 
 import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
+import {myRides} from '../../src/components';
+
 export default class AddRide extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +82,7 @@ export default class AddRide extends Component {
             onChangeText={time => this.setState({ time })}
           />
           <TouchableOpacity
-            style={styles.button}
+            style={myRides.button}
             onPress={() => {
               var body = JSON.stringify({
                 username: 'ssuresh3',
@@ -115,7 +117,7 @@ export default class AddRide extends Component {
 
               // this.props.navigation.navigate('HomeRoute');
             }}>
-            <Text style={styles.buttonText}>Post Ride!</Text>
+            <Text style={myRides.buttonText}>Post Ride!</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </React.Fragment>

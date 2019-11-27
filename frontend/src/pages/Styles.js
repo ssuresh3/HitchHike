@@ -22,7 +22,25 @@ const myRides = StyleSheet.create({
       cardRow: {
         flexDirection: "row",
         justifyContent: "center",
-	  }
+    }, 
+    container1: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '80%',
+    },
+    autocomplete: {
+      borderTopRightRadius: 0,
+      borderTopLeftRadius: 0,
+      width: '100%',
+      elevation: 3,
+      position: 'absolute',
+      top: 52,
+      padding: 5,
+    },
+    suggestion: {
+      padding: 5,
+      paddingStart: 10,
+    },
 	})
 	  
 const login_signup = StyleSheet.create({
