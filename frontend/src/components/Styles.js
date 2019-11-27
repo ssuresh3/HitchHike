@@ -139,6 +139,7 @@ const login_signup = StyleSheet.create({
     // '#ff8700', }, buttonText: {   fontSize: 25,   fontWeight: '500',   color:
     // '#FFFFFF',   textAlign: 'center', },
 
-})
+})   
+  export {myStyles, login_signup}
+   
 
-export {myStyles}

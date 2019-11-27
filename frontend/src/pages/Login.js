@@ -17,7 +17,11 @@ import {
     Button,
     Image,
 } from 'react-native';
+
+import {login_signup} from '../../src/components';
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 // import {createAppContainer} from 'react-navigation'; import
 // {createStackNavigator} from 'react-navigation-stack'; import { Actions } from
 // 'react-native-router-flux'; import Signup from '../pages/Signup'; import
@@ -101,6 +105,7 @@ export default class Login extends Component {
                                 }>
                                 Login
                         </Text>
+
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
                             <Text style={styles.buttonText}> Sign Up </Text>
@@ -117,60 +122,60 @@ export default class Login extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+// const login_signup = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         flexDirection: 'column',
+//         justifyContent: 'center',
+//         alignItems: 'center'
+//     },
 
-    containerTwo: {
-        // flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        color: 'black',
-        padding: 40,
-        fontSize: 30
-    },
+//     containerTwo: {
+//         // flex: 1,
+//         justifyContent: 'center',
+//         textAlign: 'center',
+//         backgroundColor: 'white',
+//         color: 'black',
+//         padding: 40,
+//         fontSize: 30
+//     },
 
-    inputBox: {
-        width: 300,
-        backgroundColor: '#eeeeee',
-        borderRadius: 25,
-        paddingHorizontal: 16,
-        fontSize: 16,
-        color: '#002f6c',
-        marginVertical: 10,
-        textAlign: 'center'
-    },
+//     inputBox: {
+//         width: 300,
+//         backgroundColor: '#eeeeee',
+//         borderRadius: 25,
+//         paddingHorizontal: 16,
+//         fontSize: 16,
+//         color: '#002f6c',
+//         marginVertical: 10,
+//         textAlign: 'center'
+//     },
 
-    button: {
-        width: 300,
-        backgroundColor: '#ff8700',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12
-    },
-    button1: {
-        width: 300,
-        backgroundColor: '#fffdd0',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12
-    },
+//     button: {
+//         width: 300,
+//         backgroundColor: '#ff8700',
+//         borderRadius: 25,
+//         marginVertical: 10,
+//         paddingVertical: 12
+//     },
+//     button1: {
+//         width: 300,
+//         backgroundColor: '#fffdd0',
+//         borderRadius: 25,
+//         marginVertical: 10,
+//         paddingVertical: 12
+//     },
 
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#ffffff',
-        textAlign: 'center'
-    },
-    buttonText1: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#ff8700',
-        textAlign: 'center'
-    }
-});
+//     buttonText: {
+//         fontSize: 16,
+//         fontWeight: '500',
+//         color: '#ffffff',
+//         textAlign: 'center'
+//     },
+//     buttonText1: {
+//         fontSize: 16,
+//         fontWeight: '500',
+//         color: '#ff8700',
+//         textAlign: 'center'
+//     }
+// });
