@@ -10,7 +10,9 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native';
-import {login_signup} from '../../src/components';
+
+import { TextInput } from 'react-native-paper';
+import {myRides} from '../../src/components/Styles';
 
 export default class Verify extends Component {
     render() {
@@ -22,7 +24,7 @@ export default class Verify extends Component {
                     Once you're done, 
                 </Text>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                    <Text style={login_signup.signupButton}> Sign in! </Text>
+                    <Text style={myRides.button}> Sign in! </Text>
                 </TouchableOpacity>
             </React.Fragment>
         );

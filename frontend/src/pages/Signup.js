@@ -11,13 +11,13 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput,
     KeyboardAvoidingView
 } from 'react-native';
-import {login_signup} from '../../src/components';
+
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
-
+import { TextInput } from 'react-native-paper';
+import {myRides} from '../../src/components/Styles';
 
 //creating Signup class
 export default class Signup extends Component {
@@ -70,90 +70,122 @@ export default class Signup extends Component {
         // console.log(this.state.password);
         return (
             <React.Fragment>
-                <View style={login_signup.formContainer}>
-                    <KeyboardAvoidingView style={login_signup.formContainer}>
-                        <Text style={login_signup.container}>Sign up for HitchHike!</Text>
+                <View style={myRides.container}>
+                    <KeyboardAvoidingView /*style={myRides.container}*/>
+                        <Text style={myRides.container}>Sign up for HitchHike!</Text>
                         <TextInput
-                            style={login_signup.inputBox} //creating first name text input
+                            style={myRides.inputBox} //creating first name text input
                             onChangeText={fName => this.setState({ fName })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="First Name"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'First Name'}
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="First Name"
+                            // placeholderTextColor="#ff8700"
+                            // selectionColor="#fff"
                             keyboardType="default"
                         // onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating last name text input
+                            style={myRides.inputBox} //creating last name text input
                             onChangeText={lName => this.setState({ lName })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Last Name"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Last Name'}
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Last Name"
+                            // placeholderTextColor="#ff8700"
+                            // selectionColor="#fff"
                             keyboardType="default"
                         // onSubmitEditing={() => this.lName.focus()}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating username text input
+                            style={myRides.inputBox} //creating username text input
                             onChangeText={username => this.setState({ username })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Username"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Username"
+                            // placeholderTextColor="#ff8700"
+                            // selectionColor="#fff"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Username'}
                             keyboardType="default"
                         // onSubmitEditing={() => this.username.focus()}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating birthday text input
+                            style={myRides.inputBox} //creating birthday text input
                             onChangeText={DOB => this.setState({ DOB })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Birthday: MM/DD/YYYY"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Birthday: MM/DD/YYYY"
+                            // placeholderTextColor="#ff8700"
+                            // selectionColor="#fff"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Birthday: MM/DD/YYYY'}
                             keyboardType="default"
                         // onSubmitEditing={() => this.DOB.focus()}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating Phone number text input
+                            style={myRides.inputBox} //creating Phone number text input
                             onChangeText={phone => this.setState({ phone })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Phone Number (Ex:1234567890)"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Phone Number (Ex:1234567890)"
+                            // placeholderTextColor="#ff8700"
+                            // selectionColor="#fff"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Phone Number (Ex:1234567890)'}
                             keyboardType="default"
                         // onSubmitEditing={() => this.username.focus()}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating email text input
+                            style={myRides.inputBox} //creating email text input
                             onChangeText={email => this.setState({ email })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Email"
-                            placeholderTextColor="#ff8700"
-                            selectionColor="#fff"
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Email"
+                            // placeholderTextColor="#ff8700"
+                            // selectionColor="#fff"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Email'}
                             keyboardType="email-address"
                         // onSubmitEditing={() => this.password.focus()}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating password text input
+                            style={myRides.inputBox} //creating password text input
                             onChangeText={password => this.setState({ password })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Password"
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Password"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Password'}
                             secureTextEntry={true}
-                            placeholderTextColor="#ff8700"
+                            //placeholderTextColor="#ff8700"
                         // ref={input => (this.password = input)}
                         />
                         <TextInput
-                            style={login_signup.inputBox} //creating confirm password text input
+                            style={myRides.inputBox} //creating confirm password text input
                             onChangeText={confirmPassword => this.setState({ confirmPassword })}
-                            underlineColorAndroid="rgba(0,0,0,0)"
-                            placeholder="Confirm Password"
-                            placeholderTextColor="#ff8700"
+                            // underlineColorAndroid="rgba(0,0,0,0)"
+                            // placeholder="Confirm Password"
+                            // placeholderTextColor="#ff8700"
+                            dense={true}
+                            theme={theme}
+                            mode={'outlined'}
+                            label={'Confirm Password'}
                             secureTextEntry={true}
                         // ref={input => (this.password = input)}
                         />
                     </KeyboardAvoidingView>
-                    <TouchableOpacity style={login_signup.button}>
-                        <Text style={login_signup.buttonText} onPress={() => {
+                    <TouchableOpacity style={myRides.button}>
+                        <Text style={myRides.buttonText} onPress={() => {
                             console.log('Signing up');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
                                 method: 'POST',
@@ -179,10 +211,10 @@ export default class Signup extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={login_signup.signupTextCont}>
-                    <Text style={login_signup.signupText}> Already have an account? </Text>
+                <View style={myRides.signupTextCont}>
+                    <Text style={myRides.signupText}> Already have an account? </Text>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                        <Text style={login_signup.signupButton}> Sign in! </Text>
+                        <Text style={myRides.signupButton}> Sign in! </Text>
                     </TouchableOpacity>
                 </View>
             </React.Fragment>
@@ -191,7 +223,7 @@ export default class Signup extends Component {
 }
 
 //adding CSS
-// const login_signup = StyleSheet.create({
+// const myRides = StyleSheet.create({
 //     container: {
 //         // flex: 1,
 //         justifyContent: 'center',

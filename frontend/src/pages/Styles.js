@@ -1,5 +1,10 @@
 import {StyleSheet} from 'react-native'
 const myRides = StyleSheet.create({
+    theme: {
+        colors: {
+            primary: '#ff8700'
+        }
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
