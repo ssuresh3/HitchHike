@@ -17,7 +17,7 @@ import {
     Image,
 } from 'react-native';
 
-import {login_signup} from '../../src/components';
+import {myRides} from '../../src/components/Styles';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
