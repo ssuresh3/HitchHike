@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+
 
 import { TextInput } from 'react-native-paper';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
@@ -24,11 +25,9 @@ export default class AddRide extends Component {
   render() {
     return (
       <React.Fragment>
-        <KeyboardAwareScrollView
-          contentContainerStyle={styles.container}
-          resetScrollToCoords={{ x: 0, y: 0 }}
-          scrollEnabled={false}
-          keyboardShouldPersistTaps={true}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior="padding">
           <LocationAutocompleteInput
             style={{ zIndex: 8, margin: 10 }}
             label={'Pickup'}
@@ -63,21 +62,19 @@ export default class AddRide extends Component {
             label={'Seats Available'}
             keyboardType={'numeric'}
             onChangeText={seats => this.setState({ seats:seats })}
-          />
+          />       
           <TextInput
             style={styles.inputBox} //creating password text input
-            underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="Date"
-            placeholderTextColor="#ff8700"
+            label={'Date'}
+            theme={theme}
             dense={true}
             mode={'outlined'}
             onChangeText={date => this.setState({ date })}
           />
           <TextInput
             style={styles.inputBox} //creating password text input
-            underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="Time"
-            placeholderTextColor="#ff8700"
+            label={'Time'}
+            theme={theme}
             dense={true}
             mode={'outlined'}
             onChangeText={time => this.setState({ time })}
@@ -120,39 +117,40 @@ export default class AddRide extends Component {
             }}>
             <Text style={styles.buttonText}>Post Ride!</Text>
           </TouchableOpacity>
-        </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
       </React.Fragment>
     );
   }
 }
 
-// const theme = { colors: { primary: '#ff8700' } };
+const theme = { colors: { primary: '#ff8700' } };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-//   inputBox: {
-//     width: '80%',
-//     margin: 10,
-//   },
+  inputBox: {
+    width: '80%',
+    margin: 10,
+    zIndex:1
+  },
 
-//   button: {
-//     width: 300,
-//     backgroundColor: '#ff8700',
-//     borderRadius: 25,
-//     marginVertical: 10,
-//     paddingVertical: 12,
-//   },
+  button: {
+    width: 300,
+    backgroundColor: '#ff8700',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 12,
+  },
 
-//   buttonText: {
-//     fontSize: 16,
-//     fontWeight: '500',
-//     color: '#ffffff',
-//     textAlign: 'center',
-//   },
-// });
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+});

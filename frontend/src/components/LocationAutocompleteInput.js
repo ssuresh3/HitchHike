@@ -12,7 +12,6 @@ export default class LocationAutocompleteInput extends React.Component {
       .substring(2, 7);
 
     this.state = {
-      focused: false,
       text: '',
       isAutofilled: false,
       session: code,
@@ -45,41 +44,38 @@ export default class LocationAutocompleteInput extends React.Component {
           label={this.props.label}
           value={this.state.text}
           dense={true}
+          theme={{colors:{primary:"#ff8700"}}}
           mode={this.props.mode}
+
           onChangeText={text => {
             if (text.length > 1) {
               this.getSuggestions(text.trim().replace(/ /g, '+'));
             }
             this.setState({ text: text, isAutofilled: false });
           }}
-          ref={ref => {
-            if (ref != null && ref.isFocused() && !this.state.focused) {
-              ref.blur();
-            }
-          }}
-          onFocus={() => {
-            this.setState({ focused: true });
-          }}
+
           onBlur={() => {
             var text = this.state.text;
             if (!this.state.isAutofilled) {
               text = '';
               this.props.onEnter(null);
             }
-            this.setState({ text: text, suggestions: [], focused: false });
+            this.setState({ text: text, suggestions: []});
           }}
         />
         {this.state.suggestions.length > 0 && (
-          <Card style={styles.autocomplete}>
+          <Card 
+            style={styles.autocomplete}>
             {this.state.suggestions.map(suggestion => {
               return (
                 <TouchableRipple
                   onPress={() => {
                     this.setState({
                       text: suggestion.description,
-                      focused: false,
+                      suggestions:[],
                       isAutofilled: true,
                     });
+                    this.props.onEnter(suggestion);
 
                     var url =
                       'https://maps.googleapis.com/maps/api/place/details/json?place_id=' +
@@ -90,7 +86,9 @@ export default class LocationAutocompleteInput extends React.Component {
                     fetch(url)
                       .then(response => response.json())
                       .then(responseJson => {
-                        this.props.onEnter(responseJson.result.geometry.location);
+                        var loc = responseJson.result.geometry.location;
+                        loc.description = suggestion.description;
+                        this.props.onEnter(loc);
                       })
                       .catch(error => {
                         console.error(error);
@@ -117,12 +115,10 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   autocomplete: {
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
     width: '100%',
     elevation: 3,
     position: 'absolute',
-    top: 52,
+    top: 48,
     padding: 5,
   },
   suggestion: {
