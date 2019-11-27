@@ -8,7 +8,7 @@ import { TextInput } from 'react-native-paper';
 
 import LocationAutocompleteInput from '../components/LocationAutocompleteInput';
 
-import {myRides} from '../../src/components/Styles';
+import {myRides} from '../pages/Styles';
 
 export default class AddRide extends Component {
   constructor(props) {

@@ -20,8 +20,9 @@ import {
     SafeAreaView
 } from 'react-native';
 
-import {myRides} from '../../src/components/Styles';
-
+console.log("Hello");
+import {myRides} from '../pages/Styles';
+console.log(myRides);
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { FlatList } from 'react-native-gesture-handler';
@@ -33,7 +34,6 @@ import { FlatList } from 'react-native-gesture-handler';
 // Form from '../components/Form';
 
 import { TextInput } from 'react-native-paper';
-import {myRides} from '../../src/components/Styles';
 
 export default class Login extends Component {
     constructor(props) {
@@ -88,7 +88,7 @@ export default class Login extends Component {
 
                             <TouchableOpacity style={myRides.button}>
                                 <Text
-                                    style={styles.buttonText}
+                                    style={myRides.buttonText}
                                     onPress={() => {
                                         console.log('login');
                                         fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {

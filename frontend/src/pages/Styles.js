@@ -1,10 +1,5 @@
 import {StyleSheet} from 'react-native'
 const myRides = StyleSheet.create({
-    theme: {
-        color: {
-            primary: '#ff8700'
-        }
-    },
     container: {
         flex: 1,
         flexDirection: 'column',
@@ -168,4 +163,10 @@ const login_signup = StyleSheet.create({
     }
 })
 
-export {myRides, login_signup}
+var theme = {
+    colors: {
+        primary: '#ff8700'
+    }
+}
+
+export {myRides, login_signup, theme}

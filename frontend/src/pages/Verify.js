@@ -8,11 +8,10 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
 } from 'react-native';
 
 import { TextInput } from 'react-native-paper';
-import {myRides} from '../../src/components/Styles';
+import {myRides} from '../pages/Styles';
 
 export default class Verify extends Component {
     render() {
