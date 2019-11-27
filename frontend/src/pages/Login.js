@@ -66,7 +66,7 @@ export default class Login extends Component {
                                 }}
                                 source={require('../../assets/HitchHike.png')}
                                 resizeMode="contain" />
-                            <Text style={myRides.containerTwo}>Log in to HitchHike!</Text>
+                            {/* <Text style={myRides.containerTwo}>Log in to HitchHike!</Text> */}
                             <TextInput style={myRides.inputBox} //creating email text input
                                 onChangeText={(username) => this.setState({ username })}
                                 underlineColorAndroid='rgba(0,0,0,0)'

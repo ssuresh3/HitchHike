@@ -70,7 +70,7 @@ export default class Signup extends Component {
             <React.Fragment>
                 {/* <View style={styles.formContainer}> */}
                 <KeyboardAwareScrollView
-                    contentContainerStyle={styles.container}
+                    contentContainerStyle={myRides.container}
                 >
                 {/* <KeyboardAvoidingView style={styles.container}
                     behavior="padding"> */}
@@ -158,7 +158,7 @@ export default class Signup extends Component {
                     // ref={input => (this.password = input)}
                     />
                     {/* </KeyboardAvoidingView> */}
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={myRides.button}>
                         <Text style={myRides.buttonText} onPress={() => {
                             if(this.state.fName.length == 0){
                                 alert("Enter your first name!");
