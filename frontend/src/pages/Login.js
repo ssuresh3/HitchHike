@@ -21,7 +21,7 @@ import {
 } from 'react-native';
 
 console.log("Hello");
-import {myRides} from '../components/Styles';
+import {myRides} from '../pages/Styles';
 console.log(myRides);
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -88,7 +88,7 @@ export default class Login extends Component {
 
                             <TouchableOpacity style={myRides.button}>
                                 <Text
-                                    style={styles.buttonText}
+                                    style={myRides.buttonText}
                                     onPress={() => {
                                         console.log('login');
                                         fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
