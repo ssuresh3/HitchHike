@@ -38,7 +38,7 @@ export default class LocationAutocompleteInput extends React.Component {
 
   render() {
     return (
-      <View style={[styles.container1, this.props.style]}>
+      <View style={[styles.container, this.props.style]}>
         <TextInput
           style={{ width: '100%' }}
           label={this.props.label}
@@ -64,7 +64,7 @@ export default class LocationAutocompleteInput extends React.Component {
           }}
         />
         {this.state.suggestions.length > 0 && (
-          <Card style={myRides.autocomplete}>
+          <Card style={styles.autocomplete}>
             {this.state.suggestions.map(suggestion => {
               return (
                 <TouchableRipple
@@ -107,21 +107,21 @@ export default class LocationAutocompleteInput extends React.Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     width: '80%',
-//   },
-//   autocomplete: {
-//     width: '100%',
-//     elevation: 3,
-//     position: 'absolute',
-//     top: 48,
-//     padding: 5,
-//   },
-//   suggestion: {
-//     padding: 5,
-//     paddingStart: 10,
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '80%',
+  },
+  autocomplete: {
+    width: '100%',
+    elevation: 3,
+    position: 'absolute',
+    top: 48,
+    padding: 5,
+  },
+  suggestion: {
+    padding: 5,
+    paddingStart: 10,
+  },
+});
