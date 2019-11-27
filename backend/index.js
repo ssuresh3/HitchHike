@@ -106,7 +106,7 @@ app.post("/login", (req, res) => {
             res.send({ success: false, reason: "Invalid password" });
         }
     } catch (e) {
-        res.send({ success: false, reason: "Login failed" });
+        res.send({ success: false, reason: e });
     }
 });
 
@@ -208,6 +208,8 @@ app.post("/requestRide", (req, res) =>{
         rides = user.rides;
 
         rides.push(req.body.ride)
+
+        db.updateRide(ride.driverUserName, ride.rideID, ride.origin, ride.destination, ride.seats, ride.departure, --rides.seatsLeft)
 
         db.updateUser(req.body.username, "rides", r)
     }
