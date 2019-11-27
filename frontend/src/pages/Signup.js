@@ -11,13 +11,14 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput,
     KeyboardAvoidingView
 } from 'react-native';
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
-
+import { TextInput } from 'react-native-paper';
+import {myRides} from '../../src/components/Styles';
 
 //creating Signup class
 export default class Signup extends Component {
@@ -73,9 +74,9 @@ export default class Signup extends Component {
                 >
                 {/* <KeyboardAvoidingView style={styles.container}
                     behavior="padding"> */}
-                    <Text style={styles.containerTwo}>Sign up for HitchHike!</Text>
+                    <Text style={myRides.containerTwo}>Sign up for HitchHike!</Text>
                     <TextInput
-                        style={styles.inputBox} //creating first name text input
+                        style={myRides.inputBox} //creating first name text input
                         onChangeText={fName => this.setState({ fName })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="First Name"
@@ -85,7 +86,7 @@ export default class Signup extends Component {
                     // onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating last name text input
+                        style={myRides.inputBox} //creating last name text input
                         onChangeText={lName => this.setState({ lName })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Last Name"
@@ -95,7 +96,7 @@ export default class Signup extends Component {
                     // onSubmitEditing={() => this.lName.focus()}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating username text input
+                        style={myRides.inputBox} //creating username text input
                         onChangeText={username => this.setState({ username })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Username"
@@ -106,7 +107,7 @@ export default class Signup extends Component {
                     // onSubmitEditing={() => this.username.focus()}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating birthday text input
+                        style={myRides.inputBox} //creating birthday text input
                         onChangeText={DOB => this.setState({ DOB })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Birthday: MM/DD/YYYY"
@@ -116,7 +117,7 @@ export default class Signup extends Component {
                     // onSubmitEditing={() => this.DOB.focus()}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating Phone number text input
+                        style={myRides.inputBox} //creating Phone number text input
                         onChangeText={phone => this.setState({ phone })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Phone Number (Ex:1234567890)"
@@ -126,7 +127,7 @@ export default class Signup extends Component {
                     // onSubmitEditing={() => this.username.focus()}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating email text input
+                        style={myRides.inputBox} //creating email text input
                         onChangeText={email => this.setState({ email })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Email"
@@ -137,7 +138,7 @@ export default class Signup extends Component {
                     // onSubmitEditing={() => this.password.focus()}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating password text input
+                        style={myRides.inputBox} //creating password text input
                         onChangeText={password => this.setState({ password })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Password"
@@ -147,7 +148,7 @@ export default class Signup extends Component {
                     // ref={input => (this.password = input)}
                     />
                     <TextInput
-                        style={styles.inputBox} //creating confirm password text input
+                        style={myRides.inputBox} //creating confirm password text input
                         onChangeText={confirmPassword => this.setState({ confirmPassword })}
                         underlineColorAndroid="rgba(0,0,0,0)"
                         placeholder="Confirm Password"
@@ -158,7 +159,7 @@ export default class Signup extends Component {
                     />
                     {/* </KeyboardAvoidingView> */}
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => {
+                        <Text style={myRides.buttonText} onPress={() => {
                             if(this.state.fName.length == 0){
                                 alert("Enter your first name!");
                             } else if(this.state.lName.length == 0){
@@ -203,94 +204,64 @@ export default class Signup extends Component {
                             Sign Up{' '}
                         </Text>
                     </TouchableOpacity>
-
-                    <View style={styles.signupTextCont}>
-                        <Text style={styles.signupText}> Already have an account? </Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                            <Text style={styles.signupButton}> Sign in! </Text>
-                        </TouchableOpacity>
-                    </View>
-                {/* </KeyboardAvoidingView> */}
-                {/* </View> */}
-                </KeyboardAwareScrollView>
+                </View>
+                <View style={myRides.signupTextCont}>
+                    <Text style={myRides.signupText}> Already have an account? </Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
+                        <Text style={myRides.signupButton}> Sign in! </Text>
+                    </TouchableOpacity>
+                </View>
             </React.Fragment>
         );
     }
 }
 
 //adding CSS
-const styles = StyleSheet.create({
-    container: {
-        // // flex: 1,
-        // justifyContent: 'center',
-        // textAlign: 'center',
-        // backgroundColor: 'white',
-        // color: '#ff8700',
-        // padding: 10,
-        // fontSize: 30,
 
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+//     signupTextCont: {
+//         flexGrow: 1,
+//         justifyContent: 'center',
+//         alignItems: 'flex-end',
+//         paddingVertical: 16,
+//         flexDirection: 'row',
+//     },
 
-    containerTwo: {
-        // flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        color: 'black',
-        // padding: 40,
-        fontSize: 30
-    },
+//     signupText: {
+//         color: '#ff8700',
+//         fontSize: 16,
+//     },
 
-    signupTextCont: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        paddingVertical: 16,
-        flexDirection: 'row',
-    },
+//     signupButton: {
+//         color: '#ff8700',
+//         fontSize: 16,
+//         fontWeight: '500',
+//     },
+//     formContainer: {
+//         justifyContent: 'center', //centers flex objects
+//         alignItems: 'center',
+//     },
 
-    signupText: {
-        color: '#ff8700',
-        fontSize: 16,
-    },
+//     inputBox: {
+//         width: 200,
+//         height: 30,
+//         backgroundColor: '#eeeeee',
+//         borderRadius: 25,
+//         paddingHorizontal: 16,
+//         fontSize: 16,
+//         color: '#002f6c',
+//         marginVertical: 10,
+//     },
 
-    signupButton: {
-        color: '#ff8700',
-        fontSize: 16,
-        fontWeight: '500',
-    },
-    formContainer: {
-        justifyContent: 'center', //centers flex objects
-        alignItems: 'center',
-    },
+//     button: {
+//         width: 300,
+//         backgroundColor: '#ff8700',
+//         borderRadius: 25,
+//         marginVertical: 10,
+//         paddingVertical: 12,
+//     },
 
-    inputBox: {
-        width: 200,
-        height: 30,
-        backgroundColor: '#eeeeee',
-        borderRadius: 25,
-        paddingHorizontal: 16,
-        fontSize: 16,
-        color: '#002f6c',
-        marginVertical: 10,
-    },
-
-    button: {
-        width: 300,
-        backgroundColor: '#ff8700',
-        borderRadius: 25,
-        marginVertical: 10,
-        paddingVertical: 12,
-    },
-
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#ffffff',
-        textAlign: 'center',
-    },
-});
+//     buttonText: {
+//         fontSize: 16,
+//         fontWeight: '500',
+//         color: '#ffffff',
+//         textAlign: 'center',
