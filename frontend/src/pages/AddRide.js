@@ -84,7 +84,7 @@ export default class App extends Component {
             }}
           />
           <TouchableOpacity
-            style={styles.button}
+            style={myRides.button}
             onPress={() => {
               if (
                 this.state.start == null ||
@@ -127,9 +127,9 @@ export default class App extends Component {
                 console.log(error);
               });
 
-              // this.props.navigation.navigate('HomeRoute');
+              this.props.navigation.navigate('HomeRoute');
             }}>
-            <Text style={styles.buttonText}>Post</Text>
+            <Text style={myRides.buttonText}>Post</Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
       </React.Fragment>
@@ -137,7 +137,7 @@ export default class App extends Component {
   }
 }
 
-// const theme = { colors: { primary: '#ff8700' } };
+const theme = { colors: { primary: '#ff8700' } };
 
 // const myRides = StyleSheet.create({
 //   container: {

@@ -41,9 +41,9 @@ class Ride extends Component {
                 this.setState(previousState => {
                     return {toShow: res.data};
                 });
-                console.log(this.state.toShow);
+                // console.log(this.state.toShow);
             });
-        console.log('here');
+        // console.log('here');
     };
 
     render() {
@@ -75,32 +75,52 @@ export default class App extends Component {
         this.state = {
             rides: []
         };
+
+        // console.log('here')
+
+        // axios.get("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides", function(response){
+        //     console.log("here2")
+        //     console.log(response)
+        // })
+
+        // var res = fetch("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides");
+        this.getRides()
+        // console.log(res)
     }
 
-    getRides = () => {
-        axios.get("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides", function(response){
-            console.log(response)
-        })
+    async getRides(){
+        return fetch("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((data)=>{
+            data.json().then(data => {
+                console.log(data.body.children)
+                this.setState(previousState => {return {rides: data.body.children}})
+            })
+        });
     }
 
     render() {
-        this.getRides()
         return (
             <View>
                 <Text style={styles.buttonText}>Choose a ride!</Text>
                 {this
                     .state
                     .rides
-                    .map((ride, key) => {
-                        console.log(ride);
+                    .map((obj, key) => {
+                        // console.log(ride);
+                        var ride = obj.Ride
                         return (
                             <View>
                                 <Ride
                                     key={key}
-                                    driverFirstName="Aman"
+                                    driverFirstName={ride.driverUserName}
                                     numAvailable={ride.maxSeats}
-                                    origin={ride.origin.x + ', ' + ride.origin.y}
-                                    destination={ride.destination.x + ', ' + ride.origin.y}
+                                    origin={ride.origin.desc}
+                                    destination={ride.destination.desc}
                                     departsAt={ride.departTime}/>
                             </View>
                         );
