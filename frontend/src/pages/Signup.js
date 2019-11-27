@@ -108,7 +108,7 @@ export default class Signup extends Component {
                         placeholder="Birthday: MM/DD/YYYY"
                         placeholderTextColor="#ff8700"
                         selectionColor="#fff"
-                        keyboardType="numeric"
+                        keyboardType="default"
                     // onSubmitEditing={() => this.DOB.focus()}
                     />
                     <TextInput
@@ -155,27 +155,31 @@ export default class Signup extends Component {
                     {/* </KeyboardAvoidingView> */}
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {
-                            if(this.password != this.confirmPassword){
+                            console.log(this.password);
+                            // console.log(confirmPassword);
+                            if (this.state.password != this.state.confirmPassword) {
                                 console.log(alert)
                                 alert("Passwords don't match! Please try again.");
+                            } else {
+                                console.log('Signing up');
+                                fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        fName: this.state.fName,
+                                        lName: this.state.lName,
+                                        username: this.state.username,
+                                        DOB: this.state.DOB,
+                                        email: this.state.email,
+                                        password: this.state.password
+                                    }),
+                                });
+                                this.props.navigation.navigate('VerifyRoute')
                             }
-                            console.log('Signing up');
-                            fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
-                                method: 'POST',
-                                headers: {
-                                    Accept: 'application/json',
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                    fName: this.state.fName,
-                                    lName: this.state.lName,
-                                    username: this.state.username,
-                                    DOB: this.state.DOB,
-                                    email: this.state.email,
-                                    password: this.state.password
-                                }),
-                            });
-                            this.props.navigation.navigate('VerifyRoute')
+
                         }
 
                         }>
@@ -183,13 +187,13 @@ export default class Signup extends Component {
                             Sign Up{' '}
                         </Text>
                     </TouchableOpacity>
-                
-                <View style={styles.signupTextCont}>
-                    <Text style={styles.signupText}> Already have an account? </Text>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                        <Text style={styles.signupButton}> Sign in! </Text>
-                    </TouchableOpacity>
-                </View>
+
+                    <View style={styles.signupTextCont}>
+                        <Text style={styles.signupText}> Already have an account? </Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
+                            <Text style={styles.signupButton}> Sign in! </Text>
+                        </TouchableOpacity>
+                    </View>
                 </KeyboardAvoidingView>
             </React.Fragment>
         );
