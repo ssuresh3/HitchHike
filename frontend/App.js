@@ -45,7 +45,8 @@ export default createAppContainer(createSwitchNavigator(
     Auth: AuthStack,
     Auth2: AuthStackTwo,
     App: AppStack
-
+  }, {
+      headerMode: 'none'
   }
 ));
 

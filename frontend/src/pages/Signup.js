@@ -14,6 +14,7 @@ import {
     TextInput,
     KeyboardAvoidingView
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
 
@@ -66,7 +67,10 @@ export default class Signup extends Component {
         // console.log(this.state.password);
         return (
             <React.Fragment>
-                <View style={styles.formContainer}>
+                {/* <View style={styles.formContainer}> */}
+                <KeyboardAwareScrollView
+                    contentContainerStyle={styles.container}
+                >
                 {/* <KeyboardAvoidingView style={styles.container}
                     behavior="padding"> */}
                     <Text style={styles.containerTwo}>Sign up for HitchHike!</Text>
@@ -160,7 +164,9 @@ export default class Signup extends Component {
                             if (this.state.password != this.state.confirmPassword) {
                                 console.log(alert)
                                 alert("Passwords don't match! Please try again.");
-                            } else {
+                            } 
+                            // else if() 
+                            else {
                                 console.log('Signing up');
                                 fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
                                     method: 'POST',
@@ -195,7 +201,8 @@ export default class Signup extends Component {
                         </TouchableOpacity>
                     </View>
                 {/* </KeyboardAvoidingView> */}
-                </View>
+                {/* </View> */}
+                </KeyboardAwareScrollView>
             </React.Fragment>
         );
     }
