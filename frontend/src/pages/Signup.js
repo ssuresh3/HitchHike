@@ -160,17 +160,23 @@ export default class Signup extends Component {
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() => {
                             if(this.state.fName.length == 0){
-                                alert("Enter your first name! Please try again.");
+                                alert("Enter your first name!");
                             } else if(this.state.lName.length == 0){
-                                alert("Enter your last name! Please try again.");
+                                alert("Enter your last name!");
                             } else if(this.state.username.length < 5){
                                 alert("Username too short! Please try again.");
+                            } else if(this.state.DOB.length != 10){
+                                alert("DOB is incorrect format! Please try again."); 
+                            } else if(this.state.phone.length != 10){
+                                alert("Phone number is incorrect format! Please try again.");    
+                            } else if(!this.state.email.includes("ucsc")){
+                                alert("Please enter a ucsc email!");
+                            } else if(this.state.password.length == 0){
+                                alert("Please enter a password!");
                             } else if (this.state.password != this.state.confirmPassword) {
                                 // console.log(alert)
                                 alert("Passwords don't match! Please try again.");
-                            } 
-                            // else if(this.state)
-                            else {
+                            } else {
                                 console.log('Signing up');
                                 fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
                                     method: 'POST',

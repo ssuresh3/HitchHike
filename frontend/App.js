@@ -27,27 +27,39 @@ const AppStack = createStackNavigator(
   }
 )
 
-const AuthStack = createStackNavigator(
-  {
-    LoginRoute: Login,
-  }
-)
+const AuthStack = createStackNavigator({
+    LoginRoute: {
+      screen: Login,
 
-const AuthStackTwo = createStackNavigator(
-  {
-    SignupRoute: Signup,
-    VerifyRoute: Verify
-  }
-)
+      navigationOptions: {
+        header: null
+      }
+    }
+});
+
+const AuthStackTwo = createStackNavigator({
+    SignupRoute: {
+      screen: Signup,
+
+      navigationOptions: {
+        header:null
+      }
+    },
+    VerifyRoute: {
+      screen: Verify,
+
+      navigationOptions: {
+        header: null
+      }
+    }
+  });
 
 export default createAppContainer(createSwitchNavigator(
   {
     Auth: AuthStack,
     Auth2: AuthStackTwo,
     App: AppStack
-  }, {
-      headerMode: 'none'
-  }
+  },
 ));
 
 // import React, { Component } from 'react';
