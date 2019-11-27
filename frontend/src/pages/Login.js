@@ -20,8 +20,9 @@ import {
     SafeAreaView
 } from 'react-native';
 
-import {myRides} from '../../src/components/Styles';
-
+console.log("Hello");
+import {myRides} from '../components/Styles';
+console.log(myRides);
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { FlatList } from 'react-native-gesture-handler';
