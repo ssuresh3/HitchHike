@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
 const myRides = StyleSheet.create({
     theme: {
-        colors: {
+        color: {
             primary: '#ff8700'
         }
     },
