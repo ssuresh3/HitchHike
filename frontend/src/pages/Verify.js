@@ -8,7 +8,6 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
 } from 'react-native';
 
 import { TextInput } from 'react-native-paper';

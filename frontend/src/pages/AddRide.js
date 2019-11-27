@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-paper';
 
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import LocationAutocompleteInput from './components/LocationAutocompleteInput';
+import LocationAutocompleteInput from '../components/LocationAutocompleteInput';
 
 import {myRides} from '../../src/components/Styles';
 

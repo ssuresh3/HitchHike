@@ -204,7 +204,7 @@ export default class Signup extends Component {
                             Sign Up{' '}
                         </Text>
                     </TouchableOpacity>
-                </View>
+                </KeyboardAwareScrollView>
                 <View style={myRides.signupTextCont}>
                     <Text style={myRides.signupText}> Already have an account? </Text>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>

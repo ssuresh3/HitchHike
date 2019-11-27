@@ -33,7 +33,6 @@ import { FlatList } from 'react-native-gesture-handler';
 // Form from '../components/Form';
 
 import { TextInput } from 'react-native-paper';
-import {myRides} from '../../src/components/Styles';
 
 export default class Login extends Component {
     constructor(props) {
