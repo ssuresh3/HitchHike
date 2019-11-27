@@ -1,39 +1,54 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from 'react-native';
 
 import { TextInput } from 'react-native-paper';
 
-// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
-import {myRides} from '../../src/components';
+// import DateTimePicker from "react-native-modal-datetime-picker";
 
-export default class AddRide extends Component {
+// import {myRides} from '../../src/components';
+
+export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      showInvalid: false,
       start: null,
       end: null,
-      price: '',
-      data: '',
-      time: '',
-      seats: '',
+      price: NaN,
+      seats: NaN,
+      date: null,
+      datePicker: {
+        show: false,
+        mode: 'date',
+      },
     };
   }
 
   render() {
     return (
       <React.Fragment>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior="padding">
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled={false}
+          keyboardShouldPersistTaps={true}
+          enableOnAndroid={true}>
           <LocationAutocompleteInput
             style={{ zIndex: 8, margin: 10 }}
             label={'Pickup'}
             mode={'outlined'}
+            error={this.state.showInvalid && this.state.start == null}
             onEnter={location => {
               this.setState({ start: location });
             }}
@@ -42,6 +57,7 @@ export default class AddRide extends Component {
             style={{ zIndex: 6, margin: 10 }}
             label={'Dropoff'}
             mode={'outlined'}
+            error={this.state.showInvalid && this.state.end == null}
             onEnter={location => {
               this.setState({ end: location });
             }}
@@ -51,41 +67,42 @@ export default class AddRide extends Component {
             dense={true}
             theme={theme}
             mode={'outlined'}
+            error={this.state.showInvalid && isNaN(this.state.price)}
             label={'Price'}
-            value={"$"+this.state.price}
+            value={isNaN(this.state.price) ? '$' : '$' + this.state.price}
             keyboardType={'numeric'}
-            onChangeText={price => this.setState({ price:price.substring(1) })}
+            onChangeText={price =>
+              this.setState({ price: parseInt(price.substring(1)) })
+            }
           />
           <TextInput
             style={styles.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
+            error={this.state.showInvalid && isNaN(this.state.seats)}
+            value={isNaN(this.state.seats) ? '' : '' + this.state.seats}
             label={'Seats Available'}
             keyboardType={'numeric'}
-            onChangeText={seats => this.setState({ seats:seats })}
-          />       
-          <TextInput
-            style={styles.inputBox} //creating password text input
-            label={'Date'}
-            theme={theme}
-            dense={true}
-            mode={'outlined'}
-            onChangeText={date => this.setState({ date })}
-          />
-          <TextInput
-            style={styles.inputBox} //creating password text input
-            label={'Time'}
-            theme={theme}
-            dense={true}
-            mode={'outlined'}
-            onChangeText={time => this.setState({ time })}
+            onChangeText={seats => {
+              this.setState({ seats: parseInt(seats) });
+            }}
           />
           <TouchableOpacity
-            style={myRides.button}
+            style={styles.button}
             onPress={() => {
+              if (
+                this.state.start == null ||
+                this.state.end == null ||
+                isNaN(this.state.price) ||
+                isNaN(this.state.seats)
+              ) {
+                this.setState({ showInvalid: true });
+                return;
+              }
+
               var body = JSON.stringify({
-                username: 'ssuresh3',
+                username: 'amaprasa',
                 origin: {
                   x: this.state.start.lat,
                   y: this.state.start.lng,
@@ -97,7 +114,7 @@ export default class AddRide extends Component {
                   desc: this.state.end.description,
                 },
                 seats: this.state.seats,
-                departure: this.state.time,
+                departure: "2020-08-17 12:09:36",
               });
               console.log(body);
 
@@ -117,42 +134,42 @@ export default class AddRide extends Component {
 
               // this.props.navigation.navigate('HomeRoute');
             }}>
-            <Text style={myRides.buttonText}>Post Ride!</Text>
+            <Text style={styles.buttonText}>Post</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </React.Fragment>
     );
   }
 }
 
-// const theme = { colors: { primary: '#ff8700' } };
+const theme = { colors: { primary: '#ff8700' } };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-//   inputBox: {
-//     width: '80%',
-//     margin: 10,
-//     zIndex:1
-//   },
+  inputBox: {
+    width: '80%',
+    margin: 10,
+    zIndex: 1,
+  },
 
-//   button: {
-//     width: 300,
-//     backgroundColor: '#ff8700',
-//     borderRadius: 25,
-//     marginVertical: 10,
-//     paddingVertical: 12,
-//   },
+  button: {
+    width: 300,
+    backgroundColor: '#ff8700',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 12,
+  },
 
-//   buttonText: {
-//     fontSize: 16,
-//     fontWeight: '500',
-//     color: '#ffffff',
-//     textAlign: 'center',
-//   },
-// });
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+});

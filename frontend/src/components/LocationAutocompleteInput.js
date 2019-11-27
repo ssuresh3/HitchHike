@@ -43,6 +43,7 @@ export default class LocationAutocompleteInput extends React.Component {
           style={{ width: '100%' }}
           label={this.props.label}
           value={this.state.text}
+          error={this.props.error}
           dense={true}
           theme={{colors:{primary:"#ff8700"}}}
           mode={this.props.mode}
