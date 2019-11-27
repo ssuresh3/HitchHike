@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+
 
 import { TextInput } from 'react-native-paper';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
@@ -65,7 +66,7 @@ export default class AddRide extends Component {
             label={'Seats Available'}
             keyboardType={'numeric'}
             onChangeText={seats => this.setState({ seats:seats })}
-          />
+          />       
           <TextInput
             style={myRides.inputBox} //creating password text input
             underlineColorAndroid="rgba(0,0,0,0)"
@@ -77,9 +78,12 @@ export default class AddRide extends Component {
           />
           <TextInput
             style={myRides.inputBox} //creating password text input
-            underlineColorAndroid="rgba(0,0,0,0)"
-            placeholder="Time"
-            placeholderTextColor="#ff8700"
+            // underlineColorAndroid="rgba(0,0,0,0)"
+            // placeholder="Time"
+            // placeholderTextColor="#ff8700"
+          //  style={styles.inputBox} //creating password text input
+            label={'Time'}
+            theme={theme}
             dense={true}
             mode={'outlined'}
             onChangeText={time => this.setState({ time })}
@@ -141,6 +145,7 @@ export default class AddRide extends Component {
 //   inputBox: {
 //     width: '80%',
 //     margin: 10,
+//     zIndex:1
 //   },
 
 //   button: {

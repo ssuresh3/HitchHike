@@ -16,7 +16,11 @@ import {
     Button,
     Image,
 } from 'react-native';
+
+import {login_signup} from '../../src/components';
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 // import {createAppContainer} from 'react-navigation'; import
 // {createStackNavigator} from 'react-navigation-stack'; import { Actions } from
 // 'react-native-router-flux'; import Signup from '../pages/Signup'; import
@@ -110,6 +114,7 @@ export default class Login extends Component {
                                 }>
                                 Login
                         </Text>
+
                         </TouchableOpacity>
                         <TouchableOpacity style={myRides.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
                             <Text style={myRides.buttonText}> Sign Up </Text>
