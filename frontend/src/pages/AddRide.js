@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 
 
 import { TextInput } from 'react-native-paper';
@@ -22,6 +22,8 @@ export default class AddRide extends Component {
       time: '',
       seats: '',
     };
+
+    this.user = AsyncStorage.getItem("user");
   }
 
   render() {
@@ -92,7 +94,7 @@ export default class AddRide extends Component {
             style={myRides.button}
             onPress={() => {
               var body = JSON.stringify({
-                username: 'ssuresh3',
+                username: this.user.username,
                 origin: {
                   x: this.state.start.lat,
                   y: this.state.start.lng,
