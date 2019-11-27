@@ -8,6 +8,7 @@ import {
     AsyncStorage,
     Keyboard
 } from 'react-native';
+import { getProvidesAudioData } from 'expo/build/AR';
 
 var axios = require('axios');
 
@@ -75,7 +76,19 @@ export default class App extends Component {
             rides: dummyRides
         };
     }
+
+    getRides() {
+        axios.get("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/getAllRides", (response) => {
+            this.setState(previousState => {
+                return {
+                    rides: response.data
+                }
+            })
+        })
+    }
+
     render() {
+        this.getRides()
         return (
             <View>
                 <Text style={styles.buttonText}>Choose a ride!</Text>
