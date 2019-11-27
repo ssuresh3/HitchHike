@@ -18,8 +18,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 const AppStack = createStackNavigator(
   {
-    SignupRoute: Signup,
-    VerifyRoute: Verify,
+    // SignupRoute: Signup,
+    // VerifyRoute: Verify,
     HomeRoute: Home,
     RideRoute: Ride,
     AddRideRoute: AddRide,
@@ -27,18 +27,39 @@ const AppStack = createStackNavigator(
   }
 )
 
-const AuthStack = createStackNavigator(
-  {
-    LoginRoute: Login
-  }
-)
+const AuthStack = createStackNavigator({
+    LoginRoute: {
+      screen: Login,
+
+      navigationOptions: {
+        header: null
+      }
+    }
+});
+
+const AuthStackTwo = createStackNavigator({
+    SignupRoute: {
+      screen: Signup,
+
+      navigationOptions: {
+        header:null
+      }
+    },
+    VerifyRoute: {
+      screen: Verify,
+
+      navigationOptions: {
+        header: null
+      }
+    }
+  });
 
 export default createAppContainer(createSwitchNavigator(
   {
     Auth: AuthStack,
+    Auth2: AuthStackTwo,
     App: AppStack
-
-  }
+  },
 ));
 
 // import React, { Component } from 'react';
