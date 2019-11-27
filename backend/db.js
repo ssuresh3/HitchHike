@@ -182,7 +182,7 @@ module.exports = {
         if (__users.size == 0){
             readBackup(username, -1)
             user = findUser(username)
-            console.log(user)
+            //console.log(user)
             return user
         }
         else{
@@ -217,7 +217,7 @@ module.exports = {
     // date is in format: "August 19, 1975 23:15:30"
     postRide: function(username, origin, destination, seats, dateString){
         
-        console.log("posting a ride")
+        //console.log("posting a ride")
         user = module.exports.getUser(username)
 
         /*if (user.userStatus.verified === false){
@@ -231,7 +231,7 @@ module.exports = {
 
         // create the ride
         var ride = new Rides(username, origin, destination, seats, date)
-        console.log(ride.RideID)
+        //console.log(ride.RideID)
 
         const node = {
             minX: origin.x,
@@ -248,7 +248,7 @@ module.exports = {
         user.postedRides.push(node)
 
         __rides.insert(node);
-        // console.log(ride)
+        //console.log(node)
     },
 
     deleteRide: function(username){
@@ -286,21 +286,12 @@ module.exports = {
         var date = new Date(dateString)
         var buffer = 2 // two hour windows
 
-        var rides = knn(__rides, location.x, location.y, function (item) {
-            
-            // return item if within date/hour range
-            if (item.departTime.getDay() == date.getDay()){
-                if ((item.departTime.getHours() - (date.getHours()+buffer)) > 0){
-                    return item
-                }
-                else if ((item.departTime.getHours() - (date.getHours()-buffer)) > 0){
-                    return item
-                }
-            }
+        console.log(date.getDay())
 
+        var neighbors = knn(__rides, location.x, location.y, 5, function (item) {
+            return (item.Ride.departTime.getDay() === date.getDay())
         });
-
-        console.log(rides)
+        return neighbors
     },
 
     testBackup: function(username){

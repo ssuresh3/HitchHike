@@ -19,10 +19,6 @@ app.use(express.json());
 //base url of server
 const baseURL = "http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/";
 
-//example call from the app:
-//axios.get("http://localhost:8080/", function(response){
-//  console.log(response.data); will print "Welcome"
-//})
 //if you use this, make sure to comment why you used this
 app.get("/", (req, res) => {
     res.send("Welcome!");
@@ -53,7 +49,9 @@ const verificationEmail = {
     dynamic_template_data: {}
 }
 
-//generate new code and send verification email
+/*
+generate new code and send verification email
+*/
 function verifyUser(user) {
     var code = Math.random().toString(10).substring(2, 7);
 
@@ -71,15 +69,17 @@ function verifyUser(user) {
     }
 }
 
-//endpoint for creating new user
+
+/*
+Endpoint for creating new user.
+Parameters: (firstName, LastName, username, password, email, phoneNumbre, DOB)
+*/
 app.post("/signup", (req, res) => {
     var user = -1;
     try {
         var data = req.body;
         var user = db.newUser(data.fName, data.lName, data.username, data.password, data.email, data.pNumber, data.DOB);
-        // console.log("new user signup, pass: " + data.password);
-        // console.log(user);
-        // console.log(user.username);
+
         res.send({ success: true });
     } catch (e) {
         console.log(e);
@@ -89,12 +89,13 @@ app.post("/signup", (req, res) => {
     if (user != -1) verifyUser(user);
 });
 
-// login endpoint
+/*
+Endpoint for logging into the app and retriving user data.
+Parameters: (username)
+*/
 app.post("/login", (req, res) => {
     try {
         var user = db.getUser(req.body.username);
-        console.log(user.password)
-        console.log(db.hash(req.body.password))
         if (user.password === (db.hash(req.body.password))) {
             if (user.userStatus.verified) {
                 res.send({ success: true, data: user });
@@ -109,7 +110,10 @@ app.post("/login", (req, res) => {
     }
 });
 
-// post ride enpoint
+/*
+Endpoint for posting a ride to the database.
+Parameters: (username, orgin:{x, y}, destination:{x, y}, seats, departure)
+*/
 app.post("/rides/postRide", (req, res) => {
     console.log(req.body);
     try {
@@ -126,7 +130,10 @@ app.post("/rides/postRide", (req, res) => {
     }
 });
 
-//update ride endpoint
+/*
+Endpoint for updating a previously posted ride.
+Parameters: (username, rideID, origin:{x, y}, destination:{x, y}, seats, departure)
+*/
 app.post("/rides/updateRide", (req, res) => {
     try {
         var data = req.body
@@ -142,7 +149,10 @@ app.post("/rides/updateRide", (req, res) => {
     }
 });
 
-// post ride enpoint
+/*
+Endpoint for finding k nearest rides to origin.
+Parameters: (origin:{x, y}, departure)
+*/
 app.post("/rides/findRide", (req, res) => {
     try {
         var data = req.body;
@@ -155,8 +165,11 @@ app.post("/rides/findRide", (req, res) => {
     }
 });
 
-// get all rides
-app.post("/rides/allRides", (req, res) => {
+/*
+Endpoint for getting all rides.
+Parameters: ()
+*/
+app.get("/rides/allRides", (req, res) => {
     try {
         var rides = db.allRides();
         res.send({ success: true, body: rides });
@@ -167,7 +180,9 @@ app.post("/rides/allRides", (req, res) => {
 });
 
 
-// verify users email
+/*
+Endpoint to verify users email
+*/
 app.get("/verify/user/:username", (req, res) => {
     try {
         var user = db.getUser(req.params.username);
@@ -182,13 +197,10 @@ app.get("/verify/user/:username", (req, res) => {
     }
 });
 
-
-app.get("/allRides", (req, res) => {
-    console.log("hello");
-    res.send(db.allRides());
-})
-
-
+/*
+Endpoint to request a ride.
+Parameters: (username, )
+*/
 app.post("/requestRide", (req, res) =>{
     try{
         var user = db.getUser(req.body.username)
@@ -205,6 +217,8 @@ app.post("/requestRide", (req, res) =>{
     }
 });
 
+/*
+*/
 app.post("/review", (req, res) => {
     try{
         db.giveReview(req.body.reviewer, req.body.receiver, req.body.message, req.body.rating);
@@ -218,6 +232,8 @@ app.post("/review", (req, res) => {
 })
 
 
+/*
+*/
 app.post("/getRating", (req, res) =>{
     try{
         res.send(db.getRating(req.body.username));
