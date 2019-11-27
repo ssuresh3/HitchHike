@@ -66,9 +66,9 @@ export default class Signup extends Component {
         // console.log(this.state.password);
         return (
             <React.Fragment>
-                {/* <View style={styles.formContainer}> */}
-                <KeyboardAvoidingView style={styles.container}
-                    behavior="padding">
+                <View style={styles.formContainer}>
+                {/* <KeyboardAvoidingView style={styles.container}
+                    behavior="padding"> */}
                     <Text style={styles.containerTwo}>Sign up for HitchHike!</Text>
                     <TextInput
                         style={styles.inputBox} //creating first name text input
@@ -194,7 +194,8 @@ export default class Signup extends Component {
                             <Text style={styles.signupButton}> Sign in! </Text>
                         </TouchableOpacity>
                     </View>
-                </KeyboardAvoidingView>
+                {/* </KeyboardAvoidingView> */}
+                </View>
             </React.Fragment>
         );
     }
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: 'white',
         color: 'black',
-        padding: 40,
+        // padding: 40,
         fontSize: 30
     },
 
