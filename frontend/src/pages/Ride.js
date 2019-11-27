@@ -73,17 +73,13 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            rides: dummyRides
+            rides: []
         };
     }
 
-    getRides() {
-        axios.get("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/getAllRides", (response) => {
-            this.setState(previousState => {
-                return {
-                    rides: response.data
-                }
-            })
+    getRides = () => {
+        axios.get("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides", function(response){
+            console.log(response)
         })
     }
 
