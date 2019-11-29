@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 
 
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -29,6 +29,54 @@ export default class App extends Component {
 
     this.user = AsyncStorage.getItem("user");
   }
+
+  post = () => {
+    this.setState({ loading: true });
+
+    if (
+      this.state.start == null ||
+      this.state.end == null ||
+      isNaN(this.state.price) ||
+      isNaN(this.state.seats) ||
+      this.state.date == null
+    ) {
+      this.setState({ showInvalid: true, loading: false });
+      return;
+    }
+
+    var body = JSON.stringify({
+      username: 'ssuresh3',
+      origin: {
+        x: this.state.start.lat,
+        y: this.state.start.lng,
+        desc: this.state.start.description,
+      },
+      destination: {
+        x: this.state.end.lat,
+        y: this.state.end.lng,
+        desc: this.state.end.description,
+      },
+      seats: this.state.seats,
+      departure: Date.now(),
+    });
+    console.log(body);
+
+    fetch(
+      'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      }
+    ).catch(error => {
+      console.log(error);
+    });
+
+    // this.props.navigation.navigate('HomeRoute');
+  };
 
   render() {
     return (
@@ -83,54 +131,16 @@ export default class App extends Component {
               this.setState({ seats: parseInt(seats) });
             }}
           />
-          <TouchableOpacity
-            style={myRides.button}
-            onPress={() => {
-              if (
-                this.state.start == null ||
-                this.state.end == null ||
-                isNaN(this.state.price) ||
-                isNaN(this.state.seats)
-              ) {
-                this.setState({ showInvalid: true });
-                return;
-              }
+          
+          <Button
+            mode="contained"
+            onPress={this.post}
+            style={myRides.inputBox}
+            loading={this.state.loading}
+            theme={theme}>
+            Post
+          </Button>
 
-              var body = JSON.stringify({
-                username: this.user.username,
-                origin: {
-                  x: this.state.start.lat,
-                  y: this.state.start.lng,
-                  desc: this.state.start.description,
-                },
-                destination: {
-                  x: this.state.end.lat,
-                  y: this.state.end.lng,
-                  desc: this.state.end.description,
-                },
-                seats: this.state.seats,
-                departure: "2020-08-17 12:09:36",
-              });
-              console.log(body);
-
-              fetch(
-                'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide',
-                {
-                  method: 'POST',
-                  headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                  },
-                  body: body,
-                }
-              ).catch(error => {
-                console.log(error);
-              });
-
-              this.props.navigation.navigate('HomeRoute');
-            }}>
-            <Text style={myRides.buttonText}>Post</Text>
-          </TouchableOpacity>
         </KeyboardAwareScrollView>
       </React.Fragment>
     );
