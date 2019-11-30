@@ -21,7 +21,7 @@ import {
 } from 'react-native';
 
 console.log("Hello");
-import {myRides} from '../pages/Styles';
+import {myRides, theme} from '../pages/Styles';
 console.log(myRides);
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -121,9 +121,15 @@ export default class Login extends Component {
                                     Login
                         </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={myRides.button} onPress={() => this.props.navigation.navigate('SignupRoute')}>
-                                <Text style={myRides.buttonText}> Sign Up </Text>
-                            </TouchableOpacity>
+                            <Button onPress={() => this.props.navigation.navigate('SignupRoute')}
+                                mode="contained"
+                                onPress={this.post}
+                                style={myRides.inputBox}
+                                loading={this.state.loading}
+                                theme={theme}>
+                                Sign Up
+                            </Button>
+
                             {/* <Button
                         style={styles.button1}
 

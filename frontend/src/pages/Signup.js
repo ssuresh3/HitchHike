@@ -3,7 +3,6 @@
     Users will be routed to Verify.js upon clicking Sign Up!
     Users have the option to login if they have already been verified (they can be routed to Login.js)
 */
-
 //importing necessary libraries
 import React, { Component } from 'react';
 import {
@@ -13,20 +12,16 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView
 } from 'react-native';
-
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
 import { TextInput } from 'react-native-paper';
-import {myRides} from '../pages/Styles';
-
+import {myRides, theme} from '../pages/Styles';
 //creating Signup class
 export default class Signup extends Component {
-
     //constructor
     constructor(props) {
         super(props);
-
         this.state = {
             fName: '',
             lName: '',
@@ -38,7 +33,6 @@ export default class Signup extends Component {
             confirmPassword: ''
         };
     }
-
     // postSignupData() {
     //     console.log('hello');
     //     fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup', {
@@ -57,7 +51,6 @@ export default class Signup extends Component {
     //         }),
     //     });
     // }
-
     //renders form component with signup argument, creates a text and button
     render() {
         // console.log(this.state.fName);
@@ -196,10 +189,14 @@ export default class Signup extends Component {
                                 });
                                 this.props.navigation.navigate('VerifyRoute')
                             }
-
                         }
-
-                        }>
+                        }
+                        mode="contained"
+                        onPress={this.post}
+                        style={myRides.inputBox}
+                        loading={this.state.loading}
+                        theme={theme}
+                        >
                             {' '}
                             Sign Up{' '}
                         </Text>
@@ -207,17 +204,20 @@ export default class Signup extends Component {
                 </KeyboardAwareScrollView>
                 <View style={myRides.signupTextCont}>
                     <Text style={myRides.signupText}> Already have an account? </Text>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                        <Text style={myRides.signupButton}> Sign in! </Text>
-                    </TouchableOpacity>
+                    <Button onPress={() => this.props.navigation.navigate('LoginRoute')}
+                        mode="contained"
+                        onPress={this.post}
+                        style={myRides.inputBox}
+                        loading={this.state.loading}
+                        theme={theme}>
+                        Sign in!
+                    </Button>
                 </View>
             </React.Fragment>
         );
     }
 }
-
 //adding CSS
-
 //     signupTextCont: {
 //         flexGrow: 1,
 //         justifyContent: 'center',
@@ -225,12 +225,10 @@ export default class Signup extends Component {
 //         paddingVertical: 16,
 //         flexDirection: 'row',
 //     },
-
 //     signupText: {
 //         color: '#ff8700',
 //         fontSize: 16,
 //     },
-
 //     signupButton: {
 //         color: '#ff8700',
 //         fontSize: 16,
@@ -240,7 +238,6 @@ export default class Signup extends Component {
 //         justifyContent: 'center', //centers flex objects
 //         alignItems: 'center',
 //     },
-
 //     inputBox: {
 //         width: 200,
 //         height: 30,
@@ -251,7 +248,6 @@ export default class Signup extends Component {
 //         color: '#002f6c',
 //         marginVertical: 10,
 //     },
-
 //     button: {
 //         width: 300,
 //         backgroundColor: '#ff8700',
@@ -259,7 +255,6 @@ export default class Signup extends Component {
 //         marginVertical: 10,
 //         paddingVertical: 12,
 //     },
-
 //     buttonText: {
 //         fontSize: 16,
 //         fontWeight: '500',
