@@ -81,7 +81,12 @@ function updateRides(){
 
         // departure time has passed
         if (now.getTime() > nextRide.departs.getTime()) {
-
+            //get username from nextRide
+            //using username i can access pastrides array
+            //add nextRide to pastrides array
+            //remove nextRide from posetedrides array
+            //search through postedrides, remove once found
+            //create unit test for this function
             rideID = nextRide.ID
             rideQueue.pop()
             __rides.remove(rideID)

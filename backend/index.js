@@ -246,3 +246,5 @@ app.post("/getRating", (req, res) =>{
     }
 })
 
+//Endpoint to view past rides
+
