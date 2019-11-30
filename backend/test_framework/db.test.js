@@ -1,3 +1,5 @@
+//file used by jest
+
 const fs = require('fs');
 const db = require('../db');
 
