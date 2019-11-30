@@ -92,7 +92,7 @@ export default class LocationAutocompleteInput extends React.Component {
                     var url =
                       'https://maps.googleapis.com/maps/api/place/details/json?place_id=' +
                       suggestion.place_id +
-                      '&fields=geometry&key=AIzaSyCsd_xEVy2XRMjbGNb8_qICT9QIOq971Cg&sessiontoken=' +
+                      '&fields=geometry,name&key=AIzaSyCsd_xEVy2XRMjbGNb8_qICT9QIOq971Cg&sessiontoken=' +
                       this.state.session;
 
                     fetch(url)
@@ -101,6 +101,7 @@ export default class LocationAutocompleteInput extends React.Component {
                         //pass place details to parent
                         var loc = responseJson.result.geometry.location;
                         loc.description = suggestion.description;
+                        loc.name = responseJson.result.name;
                         this.props.onEnter(loc);
                       })
                       .catch(error => {
