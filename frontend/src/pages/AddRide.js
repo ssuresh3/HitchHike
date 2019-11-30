@@ -9,11 +9,11 @@ import { TextInput, Button } from 'react-native-paper';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import LocationAutocompleteInput from './components/LocationAutocompleteInput';
+import LocationAutocompleteInput from '../components/LocationAutocompleteInput';
 
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
-import {myRides} from '../../src/components';
+import {myRides} from '../pages/Styles';
 
 export default class App extends Component {
   constructor(props) {
@@ -144,7 +144,7 @@ export default class App extends Component {
             }}
           />
           <TextInput
-            style={meRides.inputBox}
+            style={myRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -157,7 +157,7 @@ export default class App extends Component {
             }
           />
           <TextInput
-            style={meRides.inputBox}
+            style={myRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -214,7 +214,7 @@ export default class App extends Component {
           <Button
             mode="contained"
             onPress={this.post}
-            style={meRides.inputBox}
+            style={myRides.inputBox}
             loading={this.state.loading}
             theme={theme}>
             Post
