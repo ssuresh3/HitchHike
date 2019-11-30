@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, AsyncStorage } from 'react-native';
-
+import {
+  View,
+  TouchableOpacity,
+  AsyncStorage,
+} from 'react-native';
 
 import { TextInput, Button } from 'react-native-paper';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import LocationAutocompleteInput from '../components/LocationAutocompleteInput';
+import LocationAutocompleteInput from './components/LocationAutocompleteInput';
 
-import {myRides} from '../pages/Styles';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+
+import {myRides} from '../../src/components';
 
 export default class App extends Component {
   constructor(props) {
@@ -21,18 +26,18 @@ export default class App extends Component {
       price: NaN,
       seats: NaN,
       date: null,
-      datePicker: {
-        show: false,
-        mode: 'date',
-      },
+      loading: false,
+      showDatePicker: false,
+      datePickerMode: 'date',
     };
 
-    this.user = AsyncStorage.getItem("user");
   }
 
-  post = () => {
+  //post new ride to db
+  post = async () => {
     this.setState({ loading: true });
 
+    //check if all fields are filled
     if (
       this.state.start == null ||
       this.state.end == null ||
@@ -40,12 +45,35 @@ export default class App extends Component {
       isNaN(this.state.seats) ||
       this.state.date == null
     ) {
+      //if field not filled show invalid fields
       this.setState({ showInvalid: true, loading: false });
       return;
     }
 
+    var username = '';
+
+    //get logged in username from async storage
+    try {
+      const user = await AsyncStorage.getItem('user');
+      if (user == null) {
+        throw 'user is null';
+      }
+
+      username = JSON.parse(user).username;
+
+      if (username == null) {
+        throw 'username is null';
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.error('Error getting username: ' + error);
+      this.setState({ showInvalid: false, loading: false });
+      return;
+    }
+
+    //stringify ride post body
     var body = JSON.stringify({
-      username: 'ssuresh3',
+      username: username,
       origin: {
         x: this.state.start.lat,
         y: this.state.start.lng,
@@ -57,10 +85,11 @@ export default class App extends Component {
         desc: this.state.end.description,
       },
       seats: this.state.seats,
-      departure: Date.now(),
+      departure: this.state.date.valueOf(),
     });
     console.log(body);
 
+    //make post request
     fetch(
       'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide',
       {
@@ -71,11 +100,17 @@ export default class App extends Component {
         },
         body: body,
       }
-    ).catch(error => {
-      console.log(error);
-    });
-
-    // this.props.navigation.navigate('HomeRoute');
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        //TODO: check for successful post
+        this.setState({ loading: false });
+        this.props.navigation.navigate('HomeRoute');
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+        console.error(error);
+      });
   };
 
   render() {
@@ -84,9 +119,12 @@ export default class App extends Component {
         <KeyboardAwareScrollView
           contentContainerStyle={myRides.container}
           resetScrollToCoords={{ x: 0, y: 0 }}
-          scrollEnabled={false}
+          scrollEnabled={true}
           keyboardShouldPersistTaps={true}
+          
+          //still not entirely functional on android
           enableOnAndroid={true}>
+
           <LocationAutocompleteInput
             style={{ zIndex: 8, margin: 10 }}
             label={'Pickup'}
@@ -106,7 +144,7 @@ export default class App extends Component {
             }}
           />
           <TextInput
-            style={myRides.inputBox}
+            style={meRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -119,7 +157,7 @@ export default class App extends Component {
             }
           />
           <TextInput
-            style={myRides.inputBox}
+            style={meRides.inputBox}
             dense={true}
             theme={theme}
             mode={'outlined'}
@@ -131,16 +169,80 @@ export default class App extends Component {
               this.setState({ seats: parseInt(seats) });
             }}
           />
-          
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 10,
+            }}>
+            <TouchableOpacity
+              onPress={() =>{
+                this.setState({ showDatePicker: true, datePickerMode: 'date' })
+              }}>
+              <TextInput
+                style={{ marginHorizontal: 10, width: 120 }}
+                label={'Date'}
+                theme={theme}
+                dense={true}
+                editable={false}
+                pointerEvents={"none"}
+                value={
+                  this.state.date != null ? this.state.date.toLocaleDateString('en-US'): ''
+                }
+                error={this.state.showInvalid && this.state.date == null}
+                mode={'outlined'}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.setState({ showDatePicker: true, datePickerMode: 'time'})
+              }>
+              <TextInput
+                style={{ marginHorizontal: 10, width: 120 }}
+                label={'Time'}
+                theme={theme}
+                dense={true}
+                editable={false}
+                pointerEvents={"none"}
+                value={(this.state.date!=null)?this.state.date.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit',hour12:true}):''}
+                error={this.state.showInvalid && this.state.date == null}
+                mode={'outlined'}
+              />
+            </TouchableOpacity>
+          </View>
+
           <Button
             mode="contained"
             onPress={this.post}
-            style={myRides.inputBox}
+            style={meRides.inputBox}
             loading={this.state.loading}
             theme={theme}>
             Post
           </Button>
 
+          <DateTimePicker
+            isVisible={this.state.showDatePicker}
+            mode={this.state.datePickerMode}
+
+            //start with selected date if available
+            date={this.state.date!=null?this.state.date:new Date()}
+
+            //date must be in the future
+            minimumDate={new Date()}
+            is24Hour={false}
+            onConfirm={date => {
+              console.log(date);
+              this.setState({
+                date: date,
+                showDatePicker: false,
+              });
+            }}
+            onCancel={() => {
+              this.setState({
+                showDatePicker: false,
+              });
+            }}
+          />
         </KeyboardAwareScrollView>
       </React.Fragment>
     );
@@ -149,7 +251,7 @@ export default class App extends Component {
 
 const theme = { colors: { primary: '#ff8700' } };
 
-// const myRides = StyleSheet.create({
+// const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
 //     flexDirection: 'column',
@@ -160,21 +262,6 @@ const theme = { colors: { primary: '#ff8700' } };
 //   inputBox: {
 //     width: '80%',
 //     margin: 10,
-//     zIndex:1
-//   },
-
-//   button: {
-//     width: 300,
-//     backgroundColor: '#ff8700',
-//     borderRadius: 25,
-//     marginVertical: 10,
-//     paddingVertical: 12,
-//   },
-
-//   buttonText: {
-//     fontSize: 16,
-//     fontWeight: '500',
-//     color: '#ffffff',
-//     textAlign: 'center',
+//     zIndex: 1,
 //   },
 // });
