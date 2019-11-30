@@ -52,6 +52,7 @@ function User(fName, lName, username, password, email, pNumber, DOB){
     this.requestedRides = [];
     this.reviewsGiven = [];
     this.reviewsReceived = [];
+    this.pastRides = [];
 
     //new users start unvarified
     this.userStatus = {
@@ -82,9 +83,16 @@ function updateRides(){
         // departure time has passed
         if (now.getTime() > nextRide.departs.getTime()) {
             //get username from nextRide
-            //using username i can access pastrides array
-            //add nextRide to pastrides array
-            //remove nextRide from posetedrides array
+            var tempUsername = nextRide.driverUserName;
+            //find user through username
+            var user = findUser(tempUsername);
+            //add nextRide to user's pastrides array
+            user.pastRides.push(nextRide);
+            //remove nextRide from postedrides array
+            var i;
+            for(i = 0; i < postedRides.length; i++){
+                console.log(postedRides[i]);
+            }
             //search through postedrides, remove once found
             //create unit test for this function
             rideID = nextRide.ID
