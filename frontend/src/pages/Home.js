@@ -51,7 +51,7 @@ export default class Home extends Component {
                                 style={myRides.inputBox}
                                 onPress={() => {
                                     // console.log('Signing up');
-                                    this.props.navigation.navigate('RideRoute')
+                                    this.props.navigation.navigate('AvailableRidesRoute')
                                 }}
                                 // loading={this.state.loading}
                                 theme={{
@@ -69,7 +69,7 @@ export default class Home extends Component {
                                 style={myRides.inputBox}
                                 onPress={() => {
                                     // console.log('Signing up');
-                                    this.props.navigation.navigate('AddRideRoute')
+                                    this.props.navigation.navigate('PostRidesRoute')
                                 }}
                                 // loading={this.state.loading}
                                 theme={{

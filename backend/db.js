@@ -27,7 +27,7 @@ var __rides = new RBush();
 
 // store departureTime: rideID
 var rideQueue = new Heap(function (a, b) {
-    return a.departs.getTime() - b.departs.getTime();
+    return a.departTime.getTime() - b.departTime.getTime();
 });
 
 
@@ -52,6 +52,7 @@ function User(fName, lName, username, password, email, pNumber, DOB) {
     this.requestedRides = [];
     this.reviewsGiven = [];
     this.reviewsReceived = [];
+    this.pastRides = [];
 
     //new users start unvarified
     this.userStatus = {
@@ -72,27 +73,8 @@ function Rides(username, origin, destination, seats, dateString) {
     this.seatsLeft = this.maxSeats
 }
 
-// remove rides who's departure time has passed
-function updateRides() {
-    var now = new Date()
-
-    if (rideQueue.size() > 0) {
-        var nextRide = rideQueue.peek()
-
-        // departure time has passed
-        if (now.getTime() > nextRide.departs.getTime()) {
-
-            rideID = nextRide.ID
-            rideQueue.pop()
-            __rides.remove(rideID)
-
-            console.log("ride with ID = ", rideID, "has expired, moving it to pastRides")
-        }
-    }
-}
-
 // make updateRides run every 30 seconds 
-let timerId = setInterval(() => updateRides(), 30000);
+let timerId = setInterval(() => module.exports.updateRides(), 30000);
 
 // find user in __users
 function findUser(username) {
@@ -244,7 +226,7 @@ module.exports = {
         }
 
         // add rideID to min heap of rides
-        rideQueue.push({ "departs": date, "ID": ride.rideID });
+        rideQueue.push(ride);
 
         // add rideID to user's rides attribute
         user.postedRides.push(node)
@@ -282,6 +264,62 @@ module.exports = {
         }
     },
 
+    // remove rides who's departure time has passed
+    updateRides: function () {
+        var now = new Date()
+
+        if (rideQueue.size() > 0) {
+            var nextRide = rideQueue.peek()
+            // console.log("next ride is: ");
+            // console.log(nextRide);
+
+            // departure time has passed
+            if (now.getTime() > nextRide.departTime.getTime()) {
+                console.log("Ride is old");
+
+                //get username from nextRide
+                var tempUsername = nextRide.driverUserName;
+                // console.log("username is: " + tempUsername);
+
+                //find user through username
+                var user = findUser(tempUsername);
+                // console.log("user is: ");
+                // console.log(user);
+
+                //add nextRide to user's pastrides array
+                user.pastRides.push(nextRide);
+                // console.log("user's past rides: ");
+                // console.log(user.pastRides);
+                // console.log("user's posted rides: ")
+                // console.log(user.postedRides);
+
+                // remove nextRide from postedrides array
+                var i;
+                console.log(user.postedRides.length);
+                for (i = 0; i < user.postedRides.length; i++) {
+                    // console.log("ride " + i + " is ");
+                    console.log(user.postedRides[i]);
+                    if(user.postedRides[i].Ride.rideID == nextRide.rideID){
+                        // console.log("deleting ride")
+                        user.postedRides.splice(i, 1);
+                        break;
+                    }
+                }
+
+                // console.log("updated posted rides are: ");
+                // for(i = 0; i < user.postedRides.length; i++){
+                //     console.log("ride " + i + " is ");
+                //     console.log(user.postedRides[i]);
+                // }
+
+                rideID = nextRide.rideID
+                rideQueue.pop()
+                __rides.remove(rideID)
+
+                console.log("ride with ID = ", rideID, "has expired, moving it to pastRides")
+            }
+        }
+    },
     findRide: function (location, dateString) {
 
         console.log("looking for rides")
@@ -313,14 +351,7 @@ module.exports = {
     },
 
     allRides: function () {
-        var ridesArray = [];
-        if (__rides.data.children != null) {
-            __rides.data.children.forEach(child => {
-                if(child.Ride.seatsLeft<child.Ride.maxSeats)ridesArray.push(child.Ride);
-            });
-        }
-
-        return ridesArray;
+        return __rides;
     },
 
     giveReview: function (reviewerUserName, receiverUserName, message, rating) {

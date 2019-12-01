@@ -1,3 +1,5 @@
+//index.js jest file
+
 const fs = require('fs');
 const db = require('../db');
 const axios = require('axios');

@@ -20,10 +20,34 @@ const AppStack = createStackNavigator(
   {
     // SignupRoute: Signup,
     // VerifyRoute: Verify,
-    HomeRoute: Home,
-    RideRoute: Ride,
-    AddRideRoute: AddRide,
-    MyRidesRoute: MyRides
+    HomeRoute: {
+      screen: Home,
+
+      navigationOptions: {
+        header: null
+      }
+    },
+    AvailableRidesRoute: {
+      screen: Ride,
+
+      navigationOptions: {
+        header: null
+      }
+    },
+    PostRidesRoute: {
+      screen: AddRide,
+
+      navigationOptions: {
+        header: null
+      }
+    },
+    MyRidesRoute: {
+      screen: MyRides,
+
+      navigationOptions: {
+        header: null
+      }
+    },
   }
 )
 
