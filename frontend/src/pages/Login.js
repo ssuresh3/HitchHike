@@ -13,12 +13,15 @@ import {
     TouchableOpacity,
     AsyncStorage,
     Keyboard,
-    Button,
     Image,
     KeyboardAvoidingView,
     ScrollView,
     SafeAreaView
 } from 'react-native';
+
+import {
+    Button
+} from "react-native-paper"
 
 console.log("Hello");
 import {myRides, theme} from '../pages/Styles';
@@ -86,44 +89,54 @@ export default class Login extends Component {
                                 ref={(input) => this.password = input}
                             />
 
-                            <TouchableOpacity style={myRides.button}>
-                                <Text
-                                    style={myRides.buttonText}
-                                    onPress={() => {
-                                        console.log('login');
-                                        fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
-                                            method: 'POST',
-                                            headers: {
-                                                Accept: 'application/json',
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({
-                                                username: this.state.username,
-                                                password: this.state.password
-                                            }),
-                                        }).then(response => response.json()).then(response => {
-                                            console.log(response)
-                                            // console.log("test")
-                                            if (!response.success) {
-                                                console.log("enter if false")
-                                                alert("Invalid username or password! Please try again.");
-                                                // console.log("Kailas is smart");
-                                            } else {
-                                                console.log("enter if true")
-                                                //stringify user object
-                                                AsyncStorage.setItem('user', JSON.stringify(response));
-                                                // AsyncStorage.setItem(this.username, response);
-                                                this.props.navigation.navigate('HomeRoute')
-                                            }
-                                        });
-                                    }
-                                    }>
-                                    Login
-                        </Text>
-                            </TouchableOpacity>
+                            <Button
+                                 mode="contained"
+                                //  dark = {false}
+                                 style={myRides.inputBox}
+                                 loading={this.state.loading}
+                                 theme={{
+                                         colors: {
+                                             primary: '#ff8700',
+                                             text: "#000000"
+                                         },
+                                         dark: false
+                                     }
+                                 }
+                                 title = {"Log In"}
+                                 onPress={() => {
+                                    console.log('login');
+                                    fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
+                                        method: 'POST',
+                                        headers: {
+                                            Accept: 'application/json',
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            username: this.state.username,
+                                            password: this.state.password
+                                        }),
+                                    }).then(response => response.json()).then(response => {
+                                        console.log(response)
+                                        // console.log("test")
+                                        if (!response.success) {
+                                            console.log("enter if false")
+                                            alert("Invalid username or password! Please try again.");
+                                            // console.log("Kailas is smart");
+                                        } else {
+                                            console.log("enter if true")
+                                            //stringify user object
+                                            AsyncStorage.setItem('user', JSON.stringify(response));
+                                            // AsyncStorage.setItem(this.username, response);
+                                            this.props.navigation.navigate('HomeRoute')
+                                        }
+                                    });
+                                }
+                                }>
+                                {label = "lOg In"}
+                            </Button>
+
                             <Button onPress={() => this.props.navigation.navigate('SignupRoute')}
                                 mode="contained"
-                                onPress={this.post}
                                 style={myRides.inputBox}
                                 loading={this.state.loading}
                                 theme={{
@@ -132,8 +145,8 @@ export default class Login extends Component {
                                         }
                                     }
                                 }
-                                title = {"Sign up"}
-                                label = "Sign up">
+                                title = {"Sign up"}>
+                                    {label = "Sign up"}
                             </Button>
 
                             {/* <Button
