@@ -209,13 +209,16 @@ app.post("/requestRide", (req, res) =>{
 
         rides.push(req.body.ride)
 
+        if(rides.seatsLeft == 0)throw "No seats left"
+
         db.updateRide(ride.driverUserName, ride.rideID, ride.origin, ride.destination, ride.seats, ride.departure, --rides.seatsLeft)
 
         db.updateUser(req.body.username, "rides", r)
+        res.send({ success: true});
     }
     catch(e){
         console.log(e);
-        res.send(e);
+        res.send({ success: false, reason: e });
     }
 });
 
