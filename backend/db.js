@@ -316,7 +316,7 @@ module.exports = {
         var ridesArray = [];
         if (__rides.data.children != null) {
             __rides.data.children.forEach(child => {
-                ridesArray.push(child.Ride);
+                if(child.Ride.seatsLeft<child.Ride.maxSeats)ridesArray.push(child.Ride);
             });
         }
 
