@@ -79,6 +79,7 @@ function updateRides(){
 
     if (rideQueue.size() > 0){
         var nextRide = rideQueue.peek()
+        console.log("Ride's username is: " + nextRide.driverUserName);
 
         // departure time has passed
         if (now.getTime() > nextRide.departs.getTime()) {

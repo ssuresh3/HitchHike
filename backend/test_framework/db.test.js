@@ -1,3 +1,5 @@
+//
+
 const fs = require('fs');
 const db = require('../db');
 
@@ -32,6 +34,11 @@ test('finding posted ride', () => {
 
 	var rideFound = db.findRide(request.origin, request.departure)
 	expect(rideFound).toBeDefined()
+});
+
+//test the updateRides function
+test('seeing updated rides', () => {
+	db.updateRides();
 });
 
 
