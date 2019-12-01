@@ -274,16 +274,27 @@ module.exports = {
 
             // departure time has passed
             if (now.getTime() > nextRide.departTime.getTime()) {
+                console.log("Ride is old");
+
                 //get username from nextRide
                 var tempUsername = nextRide.driverUserName;
+                console.log("username is: " + tempUsername);
+
                 //find user through username
                 var user = findUser(tempUsername);
+                console.log("user is: ");
+                console.log(user);
+
                 //add nextRide to user's pastrides array
                 user.pastRides.push(nextRide);
-                //remove nextRide from postedrides array
+                console.log("user's past rides: ");
+                console.log(user.pastRides);
+
+                // remove nextRide from postedrides array
                 var i;
-                for(i = 0; i < postedRides.length; i++){
-                    console.log(postedRides[i]);
+                for(i = 0; i < user.postedRides.length; i++){
+                    console.log("ride " + i + " is ");
+                    console.log(user.postedRides[i]);
                 }
                 //search through postedrides, remove once found
                 //create unit test for this function
