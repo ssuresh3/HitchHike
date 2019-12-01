@@ -314,12 +314,11 @@ module.exports = {
 
     allRides: function () {
         var ridesArray = [];
-        if (__rides.children != null) {
-            __rides.children.forEach(child => {
+        if (__rides.data.children != null) {
+            __rides.data.children.forEach(child => {
                 ridesArray.push(child.Ride);
             });
         }
-        console.log(__rides);
 
         return ridesArray;
     },
