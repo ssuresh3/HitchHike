@@ -16,7 +16,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
 import { TextInput, Button } from 'react-native-paper';
-import {myRides, theme} from '../pages/Styles';
+import {myRides, theme, login_signup} from '../pages/Styles';
 //creating Signup class
 export default class Signup extends Component {
     //constructor
@@ -151,8 +151,8 @@ export default class Signup extends Component {
                     // ref={input => (this.password = input)}
                     />
                     {/* </KeyboardAvoidingView> */}
-                    <TouchableOpacity style={myRides.button}>
-                        <Text style={myRides.buttonText} onPress={() => {
+                    {/* <TouchableOpacity style={myRides.button}> */}
+                        <Button style={myRides.inputBox} onPress={() => {
                             if(this.state.fName.length == 0){
                                 alert("Enter your first name!");
                             } else if(this.state.lName.length == 0){
@@ -201,10 +201,9 @@ export default class Signup extends Component {
                         }
                     }
                         >
-                            {' '}
-                            Sign Up{' '}
-                        </Text>
-                    </TouchableOpacity>
+                            {label = "Sign Up"}
+                        </Button>
+                    {/* </TouchableOpacity> */}
                 </KeyboardAwareScrollView>
                 <View style={myRides.signupTextCont}>
                     <Text style={myRides.signupText}> Already have an account? </Text>
