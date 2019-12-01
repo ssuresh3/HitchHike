@@ -15,7 +15,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import {myRides, theme} from '../pages/Styles';
 //creating Signup class
 export default class Signup extends Component {
@@ -192,7 +192,6 @@ export default class Signup extends Component {
                         }
                         }
                         mode="contained"
-                        onPress={this.post}
                         style={myRides.inputBox}
                         loading={this.state.loading}
                         theme={theme}
@@ -206,11 +205,16 @@ export default class Signup extends Component {
                     <Text style={myRides.signupText}> Already have an account? </Text>
                     <Button onPress={() => this.props.navigation.navigate('LoginRoute')}
                         mode="contained"
-                        onPress={this.post}
                         style={myRides.inputBox}
                         loading={this.state.loading}
-                        theme={theme}>
-                        Sign in!
+                        theme = {{
+                            colors: {
+                                primary: '#ff8700'
+                            }
+                        }
+                    }
+                    title = {"Sign in!"}>
+                    {label = "Sign in!"}
                     </Button>
                 </View>
             </React.Fragment>
