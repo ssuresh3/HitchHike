@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 const myRides = StyleSheet.create({
     container: {
         flex: 1,
@@ -125,6 +125,13 @@ const login_signup = StyleSheet.create({
         color: '#ff8700',
         textAlign: 'center'
     },
+    topBar: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ff8700',
+    },
+    rideList: {
+        height: '100%',
+    },
 
     //   container: {     backgroundColor: 'white',     color: 'black',     padding:
     // 10,     fontSize: 30,     borderColor: 'black',     borderWidth: 2,   },
@@ -170,4 +177,4 @@ var theme = {
     }
 }
 
-export {myRides, login_signup, theme}
+export { myRides, login_signup, theme }
