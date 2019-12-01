@@ -319,7 +319,7 @@ module.exports = {
             ridesArray.push(child.Ride);
         });
 
-        return __rides;
+        return ridesArray;
     },
 
     giveReview: function(reviewerUserName, receiverUserName, message, rating){
