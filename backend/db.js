@@ -13,7 +13,7 @@
 */
 
 var security = require("./security.js");
-const fs = require('fs'); 
+const fs = require('fs');
 var HashMap = require('hashmap');
 var Heap = require('heap');
 var RBush = require('rbush');
@@ -26,13 +26,13 @@ var __users = new HashMap();
 var __rides = new RBush();
 
 // store departureTime: rideID
-var rideQueue = new Heap(function(a, b) {
+var rideQueue = new Heap(function (a, b) {
     return a.departTime.getTime() - b.departTime.getTime();
 });
 
 
 //review object to be stored within user object
-function Review(reviewerUserName, receiverUserName, message, rating){
+function Review(reviewerUserName, receiverUserName, message, rating) {
     this.reviewerUserName = reviewerUserName;
     this.receiverUserName = receiverUserName;
     this.message = message;
@@ -40,7 +40,7 @@ function Review(reviewerUserName, receiverUserName, message, rating){
 }
 
 // user object that will be stored in ram
-function User(fName, lName, username, password, email, pNumber, DOB){
+function User(fName, lName, username, password, email, pNumber, DOB) {
     this.username = username;
     this.password = security.encryptPasword(password)
     this.fName = fName;
@@ -56,14 +56,14 @@ function User(fName, lName, username, password, email, pNumber, DOB){
 
     //new users start unvarified
     this.userStatus = {
-        verified: false    
+        verified: false
     }
 
     __users.set(username, this)
 }
 
 // ride object
-function Rides(username, origin, destination, seats, dateString){
+function Rides(username, origin, destination, seats, dateString) {
     this.rideID = module.exports.RideID(username, dateString);
     this.origin = origin;
     this.destination = destination;
@@ -77,19 +77,19 @@ function Rides(username, origin, destination, seats, dateString){
 let timerId = setInterval(() => module.exports.updateRides(), 30000);
 
 // find user in __users
-function findUser(username){
-    try{ return __users.get(username)}
-    catch(e){
+function findUser(username) {
+    try { return __users.get(username) }
+    catch (e) {
         console.log(e)
         return e
     }
 }
 
 // every time a new user signs up, write to file
-function write_to_file(user_obj){
+function write_to_file(user_obj) {
     json_obj = JSON.stringify(user_obj)
 
-    fs.readFile('backup.json', 'utf-8', function(err, data) {
+    fs.readFile('backup.json', 'utf-8', function (err, data) {
         if (err) throw err
 
         var backup = JSON.parse(data)
@@ -97,59 +97,59 @@ function write_to_file(user_obj){
         // check if user_obj is already in file
         backup.users.push(user_obj)
 
-        fs.writeFile("backup.json", JSON.stringify(backup), function(err){
+        fs.writeFile("backup.json", JSON.stringify(backup), function (err) {
             if (err) throw err;
         });
     })
 }
 
 // read users from file
-function readBackup(username, status){
+function readBackup(username, status) {
     console.log("usage: Reading __users from disk")
-    
+
     var text = fs.readFileSync('backup.json')
     var file = JSON.parse(text)
 
-    for (var i=0; i<file['users'].length; i++){
-        
+    for (var i = 0; i < file['users'].length; i++) {
+
         // seach for single user
-        if (status >= 0){ 
-            if (file['users'][i]['username'] == username){
+        if (status >= 0) {
+            if (file['users'][i]['username'] == username) {
                 console.log("found user")
                 return file['users'][i]
             }
         }
         // transfer entire backup file to __users array
-        else{
+        else {
             __users.set(username, file['users'][i])
             return
         }
     }
 }
 
-function reviewArraySum(arr){
+function reviewArraySum(arr) {
     var len = arr.length;
     var sum = 0;
 
-    if(len == 0){
+    if (len == 0) {
         return [sum, len];
     }
 
-    for(i in arr){
+    for (i in arr) {
         sum += arr[i].rating;
     }
 
-    return [sum , len];
+    return [sum, len];
 }
 
 // public functions availiable to index.js
 module.exports = {
 
-    newUser: function(fName, lName, username, password, email, pNumber, DOB){
+    newUser: function (fName, lName, username, password, email, pNumber, DOB) {
         console.log("creating new user")
 
-        if (__users.has(username)){
-            throw Error ('username in use')
+        if (__users.has(username)) {
+            throw Error('username in use')
         }
 
         var user = new User(fName, lName, username, password, email, pNumber, DOB)
@@ -160,47 +160,47 @@ module.exports = {
         return user
     },
 
-    getUser: function(username){
-        
+    getUser: function (username) {
+
         // if db crashed, read from file
-        if (__users.size == 0){
+        if (__users.size == 0) {
             readBackup(username, -1)
             user = findUser(username)
             //console.log(user)
             return user
         }
-        else{
+        else {
             user = findUser(username)
             return user
         }
     },
 
-    updateUser: function(fName, lName, username, password, email, pNumber, DOB){
-        try{
+    updateUser: function (fName, lName, username, password, email, pNumber, DOB) {
+        try {
             user = module.exports.deleteUser(username)
             newUser = module.exports.newUser(fName, lName, username, password, email, pNumber, DOB)
             return newUser
         }
         catch{
-            throw Error ("could not remove", username, "from database while updating user")
+            throw Error("could not remove", username, "from database while updating user")
         }
     },
 
-    deleteUser: function(username){
+    deleteUser: function (username) {
         console.log("removing user from database")
 
-        if (__users.has(username)){
+        if (__users.has(username)) {
             __users.delete(username)
             console.log("user deleted successfuly")
         }
-        else{
+        else {
             console.log("could not delete user because email was not found")
         }
     },
 
     // date is in format: "August 19, 1975 23:15:30"
-    postRide: function(username, origin, destination, seats, dateString){
-        
+    postRide: function (username, origin, destination, seats, dateString) {
+
         //console.log("posting a ride")
         user = module.exports.getUser(username)
 
@@ -235,42 +235,43 @@ module.exports = {
         //console.log(node)
     },
 
-    deleteRide: function(username){
-        try{
+    deleteRide: function (username) {
+        try {
             user = module.exports.getUser(username)
-            rideID = user.postedRides[user.postedRides.length-1]
+            rideID = user.postedRides[user.postedRides.length - 1]
             __rides.remove(rideID)
             console.log("successfuly deleted ride for", username)
         }
         catch{
-            throw Error ("could not remove", rideID, "from database")
+            throw Error("could not remove", rideID, "from database")
         }
     },
 
-    updateRide: function(username, rideID, origin, destination, seats, departure, seatsLeft){
-        try{
-          node = __rides.remove(rideID).data.children[0].Ride
-        //   console.log(node)
-          node.origin = origin
-          node.destination = destination
-          node.seats = seats
-          node.departure = departure
-          node.seatsLeft = seatsLeft
-          __rides.insert(node)
-          return node 
+    updateRide: function (username, rideID, origin, destination, seats, departure, seatsLeft) {
+        try {
+            node = __rides.remove(rideID).data.children[0].Ride
+            //   console.log(node)
+            node.origin = origin
+            node.destination = destination
+            node.seats = seats
+            node.departure = departure
+            node.seatsLeft = seatsLeft
+            __rides.insert(node)
+            return node
         }
         catch{
-            throw Error ("could not update ride from database")
+            throw Error("could not update ride from database")
         }
     },
 
     // remove rides who's departure time has passed
-    updateRides: function(){
+    updateRides: function () {
         var now = new Date()
 
-        if (rideQueue.size() > 0){
+        if (rideQueue.size() > 0) {
             var nextRide = rideQueue.peek()
-            console.log("Ride's username is: " + nextRide.driverUserName);
+            // console.log("next ride is: ");
+            // console.log(nextRide);
 
             // departure time has passed
             if (now.getTime() > nextRide.departTime.getTime()) {
@@ -278,27 +279,40 @@ module.exports = {
 
                 //get username from nextRide
                 var tempUsername = nextRide.driverUserName;
-                console.log("username is: " + tempUsername);
+                // console.log("username is: " + tempUsername);
 
                 //find user through username
                 var user = findUser(tempUsername);
-                console.log("user is: ");
-                console.log(user);
+                // console.log("user is: ");
+                // console.log(user);
 
                 //add nextRide to user's pastrides array
                 user.pastRides.push(nextRide);
-                console.log("user's past rides: ");
-                console.log(user.pastRides);
+                // console.log("user's past rides: ");
+                // console.log(user.pastRides);
+                // console.log("user's posted rides: ")
+                // console.log(user.postedRides);
 
                 // remove nextRide from postedrides array
                 var i;
-                for(i = 0; i < user.postedRides.length; i++){
-                    console.log("ride " + i + " is ");
+                console.log(user.postedRides.length);
+                for (i = 0; i < user.postedRides.length; i++) {
+                    // console.log("ride " + i + " is ");
                     console.log(user.postedRides[i]);
+                    if(user.postedRides[i].Ride.rideID == nextRide.rideID){
+                        // console.log("deleting ride")
+                        user.postedRides.splice(i, 1);
+                        break;
+                    }
                 }
-                //search through postedrides, remove once found
-                //create unit test for this function
-                rideID = nextRide.ID
+
+                // console.log("updated posted rides are: ");
+                // for(i = 0; i < user.postedRides.length; i++){
+                //     console.log("ride " + i + " is ");
+                //     console.log(user.postedRides[i]);
+                // }
+
+                rideID = nextRide.rideID
                 rideQueue.pop()
                 __rides.remove(rideID)
 
@@ -307,8 +321,8 @@ module.exports = {
         }
     },
 
-    findRide: function(location, dateString){
-        
+    findRide: function (location, dateString) {
+
         console.log("looking for rides")
 
         var date = new Date(dateString)
@@ -322,27 +336,27 @@ module.exports = {
         return neighbors
     },
 
-    testBackup: function(username){
+    testBackup: function (username) {
         console.log("size of database before backup read", __users.size)
         readBackup(username, -1)
         console.log("size after backup read", __users.size)
     },
 
-    hash: function(password){
+    hash: function (password) {
         return security.encryptPasword(password)
     },
 
-    RideID: function(username, date){
+    RideID: function (username, date) {
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
         return (username + ":" + departure)
     },
 
-    allRides: function(){
+    allRides: function () {
         return __rides;
     },
 
-    giveReview: function(reviewerUserName, receiverUserName, message, rating){
-        try{
+    giveReview: function (reviewerUserName, receiverUserName, message, rating) {
+        try {
             var reviewerS = getUser(reviewerUserName).reviewsGiven;
             var receiverS = getUser(receiverUserName).reviewsReceived;
             var toPut = new Review(reviewerUserName, receiverUserName, message, rating);
@@ -351,20 +365,20 @@ module.exports = {
             this.updateUser(reviewerUserName, "reviewsGiven", reviewerS, reviewerS);
             this.updateUser(receiverUserName, "reviewsGiven", receiverS, receiverS);
             return "success";
-        } catch(e){
+        } catch (e) {
             return e;
         }
     },
 
-    getRating: function(username){
-        try{
+    getRating: function (username) {
+        try {
             var user = getUser(username);
             var giveSum = reviewArraySum(user.reviewsGiven);
             var gotSum = reviewArraySum(user.reviewsReceived);
             var numReviews = giveSum[1] + gotSum[1];
             var sumReviews = giveSum[0] + gotSum[0];
-            if(numReviews == 0) return 0; else return sumReviews / numReviews;
-        } catch(e){
+            if (numReviews == 0) return 0; else return sumReviews / numReviews;
+        } catch (e) {
             return e;
         }
     }

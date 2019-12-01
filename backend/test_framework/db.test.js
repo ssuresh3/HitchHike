@@ -23,8 +23,8 @@ test('posting a ride', () => {
 	var ride = mockData['rides'][0]
 	var ride2 = mockData['rides'][1]
 	
-	db.postRide(user.username, ride.origin, ride.destination, ride.seats, ride.departure)
 	db.postRide(user.username, ride2.origin, ride2.destination, ride2.seats, ride2.departure)
+	db.postRide(user.username, ride.origin, ride.destination, ride.seats, ride.departure)
 	expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')
 });
 
