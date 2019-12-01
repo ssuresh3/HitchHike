@@ -204,13 +204,21 @@ export default class Signup extends Component {
                             {label = "Sign Up"}
                         </Button>
                     {/* </TouchableOpacity> */}
+                    <Button style={myRides.inputBox} 
+                        onPress={() => this.props.navigation.navigate('LoginRoute')}
+                        mode="contained"
+                        style={myRides.inputBox}
+                        loading={this.state.loading}
+                        theme= {{
+                            colors: {
+                                primary: '#ff8700'
+                            }
+                        }
+                    }
+                        >
+                            {label = "Sign In"}
+                        </Button>
                 </KeyboardAwareScrollView>
-                <View style={myRides.signupTextCont}>
-                    <Text style={myRides.signupText}> Already have an account? </Text>
-                    <Button onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                        {label = "Sign in!"}
-                    </Button>
-                </View>
             </React.Fragment>
         );
     }
