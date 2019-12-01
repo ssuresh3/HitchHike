@@ -146,7 +146,7 @@ export default class Login extends Component {
                                     }
                                 }
                                 title = {"Sign up"}>
-                                    {label = "Sign up"}
+                                {label = "Sign up"}
                             </Button>
 
                             {/* <Button
