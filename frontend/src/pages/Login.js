@@ -126,8 +126,14 @@ export default class Login extends Component {
                                 onPress={this.post}
                                 style={myRides.inputBox}
                                 loading={this.state.loading}
-                                theme={theme}>
-                                Sign Up
+                                theme={{
+                                        colors: {
+                                            primary: '#ff8700'
+                                        }
+                                    }
+                                }
+                                title = {"Sign up"}
+                                label = "Sign up">
                             </Button>
 
                             {/* <Button
