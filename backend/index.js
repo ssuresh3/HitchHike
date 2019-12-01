@@ -205,11 +205,9 @@ app.post("/requestRide", (req, res) =>{
     try{
         var user = db.getUser(req.body.username)
         
-        rides = user.rides;
+        rides = user.requestedRides;
 
         rides.push(req.body.ride)
-
-        if(rides.seatsLeft == 0)throw "No seats left"
 
         db.updateRide(ride.driverUserName, ride.rideID, ride.origin, ride.destination, ride.seats, ride.departure, --rides.seatsLeft)
 
