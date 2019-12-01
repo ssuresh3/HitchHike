@@ -30,7 +30,9 @@ export default class MyRides extends Component {
     return (
       <React.Fragment>
         <View>
-          <Text style={myRides.title}>My Rides</Text>
+          <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
+          My Posted Rides
+            </Divider>;
         </View>
         <View style={myRides.container}
         >
@@ -51,6 +53,11 @@ export default class MyRides extends Component {
               </Card>
             );
           })}
+        </View>
+        <View>
+            <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
+            My Requested Rides
+            </Divider>;
         </View>
       </React.Fragment>
     );
