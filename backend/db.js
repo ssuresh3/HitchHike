@@ -299,7 +299,7 @@ module.exports = {
                 for (i = 0; i < user.postedRides.length; i++) {
                     // console.log("ride " + i + " is ");
                     console.log(user.postedRides[i]);
-                    if(user.postedRides[i].Ride.rideID == nextRide.rideID){
+                    if (user.postedRides[i].Ride.rideID == nextRide.rideID) {
                         // console.log("deleting ride")
                         user.postedRides.splice(i, 1);
                         break;
@@ -354,8 +354,7 @@ module.exports = {
         var ridesArray = [];
         if (__rides.data.children != null) {
             __rides.data.children.forEach(child => {
-                ridesArray.push(child.Ride);
-                if(child.Ride.seatsLeft<child.Ride.maxSeats)ridesArray.push(child.Ride);
+                if (child.Ride != null && child.Ride.seatsLeft < child.Ride.maxSeats) ridesArray.push(child.Ride);
             });
         }
 
