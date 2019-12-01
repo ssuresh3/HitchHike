@@ -320,7 +320,6 @@ module.exports = {
             }
         }
     },
-
     findRide: function (location, dateString) {
 
         console.log("looking for rides")

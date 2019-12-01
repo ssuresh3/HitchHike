@@ -12,6 +12,7 @@ import {
     // AsyncStorage
 } from 'react-native';
 import { Button } from 'react-native-paper';
+import { myRides } from './Styles';
 
 
 export default class Home extends Component {
@@ -46,42 +47,59 @@ export default class Home extends Component {
                         Welcome to HitchHike!
                     </Text>
 
+                    <Button  mode="contained"
+                                style={myRides.inputBox}
+                                onPress={() => {
+                                    // console.log('Signing up');
+                                    this.props.navigation.navigate('RideRoute')
+                                }}
+                                // loading={this.state.loading}
+                                theme={{
+                                        colors: {
+                                            primary: '#ff8700'
+                                        }
+                                    }
+                                }
+                                title = {"Sign up"} 
+                    >
+                        {label = "Available rides"}
+                    </Button>
 
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => {
-                            // console.log('Signing up');
-                            this.props.navigation.navigate('RideRoute')
-                        }
+                    <Button  mode="contained"
+                                style={myRides.inputBox}
+                                onPress={() => {
+                                    // console.log('Signing up');
+                                    this.props.navigation.navigate('AddRideRoute')
+                                }}
+                                // loading={this.state.loading}
+                                theme={{
+                                        colors: {
+                                            primary: '#ff8700'
+                                        }
+                                    }
+                                }
+                                title = {"Sign up"} 
+                    >
+                        {label = "Post Rides"}
+                    </Button>
 
-                        }>
-                            {' '}
-                            Available Rides{' '}
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => {
-                            // console.log('Signing up');
-                            this.props.navigation.navigate('AddRideRoute')
-                        }
-
-                        }>
-                            {' '}
-                            Post Rides{' '}
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() => {
-                            // console.log('Signing up');
-                            this.props.navigation.navigate('MyRidesRoute')
-                        }
-
-                        }>
-                            {' '}
-                            My Rides{' '}
-                        </Text>
-                    </TouchableOpacity>
+                    <Button  mode="contained"
+                                style={myRides.inputBox}
+                                onPress={() => {
+                                    // console.log('Signing up');
+                                    this.props.navigation.navigate('MyRidesRoute')
+                                }}
+                                // loading={this.state.loading}
+                                theme={{
+                                        colors: {
+                                            primary: '#ff8700'
+                                        }
+                                    }
+                                }
+                                title = {"Sign up"} 
+                    >
+                        {label = "My Rides"}
+                    </Button>
                 </View>
             </React.Fragment>
         );

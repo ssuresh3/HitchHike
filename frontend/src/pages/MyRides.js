@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
-// import {myRides} from '../../src/components';
 import { Card } from 'react-native-paper';
+import  Divider  from 'react-native-divider'
+import {myRides} from './Styles'
 
 export default class MyRides extends Component {
 
@@ -29,29 +30,34 @@ export default class MyRides extends Component {
   render() {
     return (
       <React.Fragment>
-        <View>
-          <Text style={myRides.title}>My Rides</Text>
-        </View>
-        <View style={myRides.container}
-        >
+        <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
+          <Text>Posted Rides</Text>
+        </Divider>
+        {/*<View style={myRides.container}>
           {this.state.rides.map(ride => {
             return (
-              <Card style={myRides.rideCard}>
-                <View style={myRides.cardRow}>
-                  <Text>{ride.origin.desc}</Text>
-                  <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
-                  <Text>{ride.destination.desc}</Text>
-                </View>
-                <View style={myRides.cardRow}>
-                  <Text>Departs at {ride.departTime}</Text>
-                </View>
-                <View style={myRides.cardRow}>
-                  <Text>Rider's Phone Number{ride.riderPhone}</Text>
-                </View>
-              </Card>
+              // <Card style={myRides.rideCard}>
+              //   <View style={myRides.cardRow}>
+              //     <Text>{ride.origin.desc}</Text>
+              //     <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
+              //     <Text>{ride.destination.desc}</Text>
+              //   </View>
+              //   <View style={myRides.cardRow}>
+              //     <Text>Departs at {ride.departTime}</Text>
+              //   </View>
+              //   <View style={myRides.cardRow}>
+              //     <Text>Rider's Phone Number{ride.riderPhone}</Text>
+              //   </View>
+              // </Card>
+              <Text>Hi</Text>
             );
           })}
         </View>
+         <View>
+            <Divider borderColor="#ff8700" color="#ff8700" orientation="center"/>
+              <Text>Hi</Text>
+            </Divider>
+        </View> */}
       </React.Fragment>
     );
   }

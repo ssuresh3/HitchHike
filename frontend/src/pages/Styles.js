@@ -165,7 +165,8 @@ const login_signup = StyleSheet.create({
 
 var theme = {
     colors: {
-        primary: '#ff8700'
+        primary: '#ff8700',
+        secondary: "white"
     }
 }
 
