@@ -194,7 +194,12 @@ export default class Signup extends Component {
                         mode="contained"
                         style={myRides.inputBox}
                         loading={this.state.loading}
-                        theme={theme}
+                        theme= {{
+                            colors: {
+                                primary: '#ff8700'
+                            }
+                        }
+                    }
                         >
                             {' '}
                             Sign Up{' '}
@@ -203,19 +208,9 @@ export default class Signup extends Component {
                 </KeyboardAwareScrollView>
                 <View style={myRides.signupTextCont}>
                     <Text style={myRides.signupText}> Already have an account? </Text>
-                    <Button onPress={() => this.props.navigation.navigate('LoginRoute')}
-                        mode="contained"
-                        style={myRides.inputBox}
-                        loading={this.state.loading}
-                        theme = {{
-                            colors: {
-                                primary: '#ff8700'
-                            }
-                        }
-                    }
-                    title = {"Sign in!"}>
-                    {label = "Sign in!"}
-                    </Button>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
+                        <Text style={login_signup.signupButton}> Sign in! </Text>
+                    </TouchableOpacity>
                 </View>
             </React.Fragment>
         );
