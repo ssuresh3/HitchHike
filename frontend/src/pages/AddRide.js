@@ -78,11 +78,13 @@ export default class App extends Component {
         x: this.state.start.lat,
         y: this.state.start.lng,
         desc: this.state.start.description,
+        name:this.state.start.name
       },
       destination: {
         x: this.state.end.lat,
         y: this.state.end.lng,
         desc: this.state.end.description,
+        name:this.state.end.name
       },
       seats: this.state.seats,
       departure: this.state.date.valueOf(),
