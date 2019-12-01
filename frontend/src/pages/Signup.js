@@ -207,9 +207,9 @@ export default class Signup extends Component {
                 </KeyboardAwareScrollView>
                 <View style={myRides.signupTextCont}>
                     <Text style={myRides.signupText}> Already have an account? </Text>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                        <Text style={login_signup.signupButton}> Sign in! </Text>
-                    </TouchableOpacity>
+                    <Button onPress={() => this.props.navigation.navigate('LoginRoute')}>
+                        {label = "Sign in!"}
+                    </Button>
                 </View>
             </React.Fragment>
         );
