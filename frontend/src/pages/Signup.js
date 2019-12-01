@@ -163,10 +163,10 @@ export default class Signup extends Component {
                                 alert("DOB is incorrect format! Please try again."); 
                             } else if(this.state.phone.length != 10){
                                 alert("Phone number is incorrect format! Please try again.");    
-                            } else if(!this.state.email.includes("ucsc")){
+                            } else if(!this.state.email.includes("@ucsc.edu")){
                                 alert("Please enter a ucsc email!");
-                            } else if(this.state.password.length == 0){
-                                alert("Please enter a password!");
+                            } else if(this.state.password.length < 5){
+                                alert("Password too short! Please try again.");
                             } else if (this.state.password != this.state.confirmPassword) {
                                 // console.log(alert)
                                 alert("Passwords don't match! Please try again.");

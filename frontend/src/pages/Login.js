@@ -78,7 +78,8 @@ export default class Login extends Component {
                                 selectionColor="#fff"
                                 keyboardType="default"
                                 autoCapitalize="none"
-                                onSubmitEditing={() => this.password.focus()} />
+                                // onSubmitEditing={() => this.password.focus()} 
+                            />
                             <TextInput style={myRides.inputBox} //creating password text input
                                 onChangeText={(password) => this.setState({ password })}
                                 underlineColorAndroid='rgba(0,0,0,0)'
@@ -86,7 +87,7 @@ export default class Login extends Component {
                                 secureTextEntry={true}
                                 placeholderTextColor="#ff8700"
                                 autoCapitalize="none"
-                                ref={(input) => this.password = input}
+                                // ref={(input) => this.password = input}
                             />
 
                             <Button
