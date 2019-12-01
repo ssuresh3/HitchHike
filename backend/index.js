@@ -246,3 +246,19 @@ app.post("/getRating", (req, res) =>{
     }
 })
 
+/*
+Endpoint for getting past rides.
+Parameters: ()
+This needs to be updated
+*/
+
+// app.get("/rides/pastRides", (req, res) => {
+//     try {
+//         var rides = db.allRides();
+//         res.send({ success: true, body: rides });
+//     } catch (e) {
+//         console.log(e);
+//         res.send({ success: false, "reason": e });
+//     }
+// });
+

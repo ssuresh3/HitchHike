@@ -1,4 +1,4 @@
-//file used by jest
+//db.js test file
 
 const fs = require('fs');
 const db = require('../db');
@@ -21,7 +21,9 @@ test('the data is a new user', () => {
 test('posting a ride', () => {
 	var user = mockData['users'][0]
 	var ride = mockData['rides'][0]
+	var ride2 = mockData['rides'][1]
 	
+	db.postRide(user.username, ride2.origin, ride2.destination, ride2.seats, ride2.departure)
 	db.postRide(user.username, ride.origin, ride.destination, ride.seats, ride.departure)
 	expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')
 });
@@ -34,6 +36,11 @@ test('finding posted ride', () => {
 
 	var rideFound = db.findRide(request.origin, request.departure)
 	expect(rideFound).toBeDefined()
+});
+
+//test the updateRides function
+test('seeing updated rides', () => {
+	db.updateRides();
 });
 
 
