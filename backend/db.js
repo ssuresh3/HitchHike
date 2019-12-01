@@ -313,6 +313,12 @@ module.exports = {
     },
 
     allRides: function(){
+        var ridesArray = [];
+
+        __rides.children.forEach(child => {
+            ridesArray.push(child.Ride);
+        });
+
         return __rides;
     },
 
