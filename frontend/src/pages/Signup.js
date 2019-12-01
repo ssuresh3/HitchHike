@@ -187,13 +187,23 @@ export default class Signup extends Component {
                                 alert("Phone number is incorrect format! Please try again.");
                                 return;
                             }
-                            if (!this.state.phone.match(/\d/g).length===10) {
-                                alert("Phone number is incorrect format! Please try again.");
-                                return;
+                            if (this.state.phone.length===10) {
+                                var pattern = /\d/g;
+                                if(!this.state.phone.match(pattern)){
+                                    alert("Phone number is incorrect format! Please try again.");
+                                    return;
+                                }
                             }
                             if (!this.state.email.includes("@ucsc.edu")) {
                                 alert("Please enter a ucsc email!");
                                 return;
+                            }
+                            if(this.state.email.includes("@ucsc.edu")){
+                                var pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if(!this.state.email.match(pattern)){
+                                    alert("Please enter a proper ucsc email!");
+                                    return;
+                                }
                             }
                             if (this.state.password.length < 5) {
                                 alert("Password too short! Please try again.");
