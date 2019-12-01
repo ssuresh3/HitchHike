@@ -319,6 +319,7 @@ module.exports = {
                 ridesArray.push(child.Ride);
             });
         }
+        console.log(ridesArray);
 
         return ridesArray;
     },
