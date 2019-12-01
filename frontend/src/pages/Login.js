@@ -132,7 +132,7 @@ export default class Login extends Component {
                                     });
                                 }
                                 }>
-                                {label = "lOg In"}
+                                {label = "Log In"}
                             </Button>
 
                             <Button onPress={() => this.props.navigation.navigate('SignupRoute')}
