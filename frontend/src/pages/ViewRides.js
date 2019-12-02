@@ -14,9 +14,9 @@ import {
   Card,
   Button,
   Snackbar,
-  Avatar,
-  FAB,
-  IconButton,
+  // Avatar,
+  // FAB,
+  // IconButton,
 } from 'react-native-paper';
 
 export default class App extends Component {
@@ -184,13 +184,13 @@ export default class App extends Component {
         <View style={myRides.topBar}>
           <Text style={myRides.title}>Nearby Rides</Text>
 
-          <IconButton
+          {/* <IconButton
             icon="account"
             color={"#ff8700"}
             style={{position:"absolute",margin:20,top:20}}
             size={30}
             onPress={() => {}}
-          />
+          /> */}
         </View>
 
         <FlatList
@@ -224,7 +224,7 @@ export default class App extends Component {
               this.rideInfo(this.state.selectedRide)}
             <Card style={myRides.rideCard}>
               <View style={[myRides.cardRow]}>
-                <Avatar.Text
+                {/* <Avatar.Text
                   label={
                     this.state.selectedRide != null
                       ? this.state.selectedRide.driverUserName
@@ -235,7 +235,7 @@ export default class App extends Component {
                   size={30}
                   theme={theme}
                   style={{ margin: 10 }}
-                />
+                /> */}
                 <Text style={{ alignSelf: 'center' }}>
                   {this.state.selectedRide != null &&
                     this.state.selectedRide.driverUserName}
@@ -243,7 +243,7 @@ export default class App extends Component {
               </View>
             </Card>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
-              <Button
+              {/* <Button
                 mode="outlined"
                 style={[myRides.inputBox, { marginRight: 15 }]}
                 onPress={() => this.setState({ showModal: false })}
@@ -258,12 +258,12 @@ export default class App extends Component {
                 style={[myRides.inputBox, { marginLeft: 15 }]}
                 theme={theme}>
                 Join
-              </Button>
+              </Button> */}
             </View>
           </View>
         </Modal>
 
-        <FAB
+        {/* <FAB
           style={{
             zIndex: 99,
             position: 'absolute',
@@ -274,7 +274,7 @@ export default class App extends Component {
           icon="plus"
           theme={theme}
           onPress={() => {}}
-        />
+        /> */}
 
         <Snackbar
           visible={this.state.showSnack}
