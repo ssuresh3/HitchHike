@@ -87,7 +87,7 @@ export default class Login extends Component {
                                 dense={true}
                                 theme={theme}
                                 mode={'outlined'}
-                                label={'Username'}
+                                label={'Password'}
                                 onChangeText={(password) => this.setState({ password })}
                                 // underlineColorAndroid='rgba(0,0,0,0)'
                                 // placeholder="Password"
