@@ -128,9 +128,12 @@ const login_signup = StyleSheet.create({
     topBar: {
         borderBottomWidth: 1,
         borderBottomColor: '#ff8700',
+        zIndex:5,
+        backgroundColor:"#FFFFFF"
     },
     rideList: {
         height: '100%',
+        zIndex:1
     },
 
     //   container: {     backgroundColor: 'white',     color: 'black',     padding:
