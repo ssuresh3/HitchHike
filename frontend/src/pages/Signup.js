@@ -70,7 +70,7 @@ export default class Signup extends Component {
                     contentContainerStyle={myRides.container}
                 >
                     <View
-                        style={myRides.container}
+                        //style={myRides.container}
                     >
                         {/* <KeyboardAvoidingView style={styles.container}
                     behavior="padding"> */}
