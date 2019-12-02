@@ -38,10 +38,6 @@ test('finding posted ride', () => {
 	expect(rideFound).toBeDefined()
 });
 
-//test the updateRides function
-test('seeing updated rides', () => {
-	db.updateRides();
-});
 
 
 

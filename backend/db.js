@@ -247,21 +247,23 @@ module.exports = {
         }
     },
 
-    updateRide: function (username, rideID, origin, destination, seats, departure, seatsLeft) {
-        try {
-            node = __rides.remove(rideID).data.children[0].Ride
-            //   console.log(node)
-            node.origin = origin
-            node.destination = destination
-            node.seats = seats
-            node.departure = departure
-            node.seatsLeft = seatsLeft
-            __rides.insert(node)
-            return node
+    deleteRideByVal: function (ride) {
+        try{
+            __rides.remove(ride, (a, b) => {
+                return a.Ride.rideID === b.Ride.rideID;
+            });
         }
-        catch{
-            throw Error("could not update ride from database")
+        catch (e){
+            console.log("trying to delete ride by val")
+            throw Error(e)
         }
+    },
+
+    updateRide: function (oldRide, newRide) {
+        console.log(oldRide) 
+        module.exports.deleteRideByVal(oldRide)
+        __rides.insert(newRide)
+        return newRide
     },
 
     // remove rides who's departure time has passed
@@ -322,12 +324,9 @@ module.exports = {
     },
     findRide: function (location, dateString) {
 
-        console.log("looking for rides")
 
         var date = new Date(dateString)
         var buffer = 2 // two hour windows
-
-        console.log(date.getDay())
 
         var neighbors = knn(__rides, location.x, location.y, 5, function (item) {
             return (item.Ride.departTime.getDay() === date.getDay())
