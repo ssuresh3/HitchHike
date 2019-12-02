@@ -11,7 +11,7 @@ const myRides = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         top: 20,
-        justifyContent: 'space-between'
+        //justifyContent: 'space-between'
     },
     title: {
         fontSize: 30,
