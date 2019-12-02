@@ -4,7 +4,7 @@ const myRides = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+      //  justifyContent: 'flex-end'
     },
     title: {
         fontSize: 30,
