@@ -19,7 +19,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 // import Form from '../components/Form.js'
 // import { Actions } from 'react-native-router-flux';
 import { TextInput, Button } from 'react-native-paper';
-import { myRides, theme, login_signup } from '../pages/Styles';
+import { myRides, theme } from '../pages/Styles';
 //creating Signup class
 export default class Signup extends Component {
     //constructor
@@ -66,9 +66,9 @@ export default class Signup extends Component {
         // console.log(this.state.password);
         return (
             <React.Fragment>
-                <KeyboardAwareScrollView
+                <ScrollView
                    // contentContainerStyle={myRides.container}
-                    
+                    //vertical = {true}
                 >
                     <View
                         style={myRides.containerSignup}
@@ -304,8 +304,7 @@ export default class Signup extends Component {
                         </Button>
                         {/* </ScrollView> */}
                     </View>
-                </KeyboardAwareScrollView>
-
+                </ScrollView>
             </React.Fragment>
         );
     }
