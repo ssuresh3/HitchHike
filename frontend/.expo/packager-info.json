@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
   "expoServerNgrokUrl": "https://za-cvk.anonymous.frontend.exp.direct",
   "packagerNgrokUrl": "https://packager.za-cvk.anonymous.frontend.exp.direct",
-  "ngrokPid": 17575,
+  "ngrokPid": 23764,
   "webpackServerPort": null
 }
