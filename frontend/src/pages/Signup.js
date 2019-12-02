@@ -67,7 +67,7 @@ export default class Signup extends Component {
         return (
             <React.Fragment>
                 <KeyboardAwareScrollView
-                // contentContainerStyle={myRides.container}
+                    contentContainerStyle={myRides.container}
                 >
                     <View
                         style={myRides.container}
