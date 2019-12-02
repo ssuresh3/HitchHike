@@ -6,6 +6,9 @@
   Add routing path to the AppStack
 */
 
+/*
+  Importing the necessary libraries for App.js
+*/
 import Login from './src/pages/Login';
 import Signup from './src/pages/Signup';
 import Verify from './src/pages/Verify';
@@ -16,6 +19,10 @@ import MyRides from './src/pages/MyRides';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+/*
+  Creating the the first AppStack
+  This stack keeps track of the buttons on the Home page
+*/
 const AppStack = createStackNavigator(
   {
     HomeRoute: {
@@ -49,33 +56,44 @@ const AppStack = createStackNavigator(
   }
 )
 
+/*
+  Creating the the second AppStack
+  This stack has one page, Login
+*/
 const AuthStack = createStackNavigator({
-    LoginRoute: {
-      screen: Login,
+  LoginRoute: {
+    screen: Login,
 
-      navigationOptions: {
-        header: null
-      }
+    navigationOptions: {
+      header: null
     }
+  }
 });
 
+/*
+  Creating the the third AppStack
+  This stack has the Signup and and Verify pages
+*/
 const AuthStackTwo = createStackNavigator({
-    SignupRoute: {
-      screen: Signup,
+  SignupRoute: {
+    screen: Signup,
 
-      navigationOptions: {
-        header:null
-      }
-    },
-    VerifyRoute: {
-      screen: Verify,
-
-      navigationOptions: {
-        header: null
-      }
+    navigationOptions: {
+      header: null
     }
-  });
+  },
+  VerifyRoute: {
+    screen: Verify,
 
+    navigationOptions: {
+      header: null
+    }
+  }
+});
+
+/*
+  This block renders the entire app
+*/
 export default createAppContainer(createSwitchNavigator(
   {
     Auth: AuthStack,
