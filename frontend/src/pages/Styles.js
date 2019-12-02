@@ -6,6 +6,13 @@ const myRides = StyleSheet.create({
         alignItems: 'center',
       //  justifyContent: 'flex-end'
     },
+    containerSignup: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        top: 50
+      //  justifyContent: 'flex-end'
+    },
     title: {
         fontSize: 30,
         textAlign: 'center',

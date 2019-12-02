@@ -71,8 +71,7 @@ export default class Signup extends Component {
                     
                 >
                     <View
-                        style={myRides.container}
-                        behavior="padding"
+                        style={myRides.containerSignup}
                     >
                         {/* <KeyboardAvoidingView style={styles.container}
                     behavior="padding"> */}
