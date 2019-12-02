@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 const myRides = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
       //  justifyContent: 'flex-end'

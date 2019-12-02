@@ -74,13 +74,13 @@ export default class Signup extends Component {
                     >
                         {/* <KeyboardAvoidingView style={styles.container}
                     behavior="padding"> */}
-                         <Image
+                         {/* <Image
                                 style={{
                                     height: '35%',
                                     width: '50%'
                                 }}
                                 source={require('../../assets/HitchHike.png')}
-                                resizeMode="contain" />
+                                resizeMode="contain" /> */}
                         <TextInput
                             style={myRides.inputBox} //creating first name text input
                             onChangeText={fName => this.setState({ fName })}
