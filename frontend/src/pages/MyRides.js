@@ -1,111 +1,116 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
+import * as React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+// or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
-import  Divider  from 'react-native-divider'
-import {myRides} from './Styles'
-
-export default class MyRides extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      rides: [],
-    };
-    this.displayName() 
+import Divider from 'react-native-divider'
+class BeautifulText extends React.Component{
+  render(){
+    return(
+      <Text style = {styles.buttonText}>{this.props.text}</Text>
+    )
   }
-
-  displayName = async () => {
-    try {
-      let user = await AsyncStorage.getItem('user');
-      let parsedUser = JSON.parse(user);
-      this.setState({rides:parsedUser.data.rides});
-      console.log("extracting from asyncstorage")
-      console.log(this.state.rides);
-      // <Text>user</Text>
-    } catch (error) {
-      alert(error)
-    }
-  }
-
+}
+class RideView extends React.Component {
   render() {
+    
     return (
-      <React.Fragment>
-        <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
-          <Text>Posted Rides</Text>
-        </Divider>
-        {/*<View style={myRides.container}>
-          {this.state.rides.map(ride => {
-            return (
-              // <Card style={myRides.rideCard}>
-              //   <View style={myRides.cardRow}>
-              //     <Text>{ride.origin.desc}</Text>
-              //     <Image style={{width: 30, height: 20,marginLeft:30,marginRight:30,marginBottom:10}} source={require('../../assets/arrow_right.png')}/>
-              //     <Text>{ride.destination.desc}</Text>
-              //   </View>
-              //   <View style={myRides.cardRow}>
-              //     <Text>Departs at {ride.departTime}</Text>
-              //   </View>
-              //   <View style={myRides.cardRow}>
-              //     <Text>Rider's Phone Number{ride.riderPhone}</Text>
-              //   </View>
-              // </Card>
-              <Text>Hi</Text>
-            );
-          })}
+      <View>
+        <Card style = {styles.container}>
+        <View>
+        <View style={[myRides.cardRow, { marginTop: 20 }]}>
+          <Text numberOfLines={1}>
+            {this.props.item.origin.name.length > 15
+              ? this.props.item.origin.name.substring(0, 14) + '...'
+              : this.props.item.origin.name}
+          </Text>
+          <Image
+            style={{
+              width: 30,
+              height: 20,
+              marginLeft: 30,
+              marginRight: 30,
+              marginBottom: 10,
+            }}
+            source={require('arrow_right.png')}
+          />
+          <Text numberOfLines={1}>
+            {this.props.item.destination.name.length > 15
+              ? this.props.item.destination.name.substring(0, 14) + '...'
+              : this.props.item.destination.name}
+          </Text>
         </View>
-         <View>
-            <Divider borderColor="#ff8700" color="#ff8700" orientation="center"/>
-              <Text>Hi</Text>
-            </Divider>
-        </View> */}
-      </React.Fragment>
+
+        <View style={[myRides.cardRow, { marginBottom: 20 }]}>
+          <Text>
+            {new Date().toDateString()} at{' '}
+            {new Date().toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </Text>
+          <Text />
+        </View>
+      </View>
+        </Card>
+      </View>
     );
   }
 }
+export default class App extends React.Component {
+  render() {
+    return (
+      <View>
+        <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
+            Your Posted Rides
+        </Divider>
+        <RideView
+          item = {x}
+        />
+        <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
+            Your Booked Rides
+        </Divider>
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+      //  justifyContent: 'flex-end'
+    },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  buttonText: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: 'black',
+        textAlign: 'center'
+  }
+});
 
-// const myRides = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//   },
-//   title: {
-//     fontSize: 30,
-//     textAlign: 'center',
-//     padding: 20,
-//     marginTop: 20,
-//     color: '#ff8700',
-//   },
-//   rideCard: {
-//     padding: 20,
-//     margin: 10,
-//     marginTop: 0,
-//     alignSelf: 'stretch',
-//     shadowRadius: 5
-//   },
-//   cardRow: {
-//     flexDirection: "row",
-//     justifyContent: "center",
-//   }
-// });
 
-// const rides = [
-//   {
-//     origin: 'Crown',
-//     destination: 'RCC',
-//     maxSeats: 5,
-//     departTime: '12:30',
-//   },
-//   {
-//     origin: 'McHenry',
-//     destination: 'SNE',
-//     maxSeats: 5,
-//     departTime: '12:50',
-//   },
-//   {
-//     origin: 'UCSC',
-//     destination: 'Downtown',
-//     maxSeats: 5,
-//     departTime: '6:40',
-//   },
-// ];
+var x = {
+  "rideID": "ssuresh3:3:10:9",
+  "origin": {
+      "x": 48.13128570000001,
+      "y": 11.5493024,
+      "desc": "Theresienwiese, Bavariaring, Munich, Germany",
+      "name": "Theresienwiese"
+  },
+  "destination": {
+      "x": 42.56285560000001,
+      "y": -83.1841251,
+      "desc": "Somerset Collection, West Big Beaver Road, Troy, MI, USA",
+      "name": "Somerset Collection"
+  },
+  "maxSeats": 5,
+  "departTime": "2020-12-02T10:09:07.000Z",
+  "driverUserName": "ssuresh3",
+  "seatsLeft": 5
+}

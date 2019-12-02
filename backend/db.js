@@ -155,7 +155,7 @@ module.exports = {
         var user = new User(fName, lName, username, password, email, pNumber, DOB)
 
         // writing user to backup immediately for now
-        write_to_file(user)
+        //write_to_file(user)
 
         return user
     },
@@ -351,6 +351,8 @@ module.exports = {
 
     allRides: function () {
         var ridesArray = [];
+
+        console.log(__rides);
         if (__rides.data.children != null) {
             __rides.data.children.forEach(child => {
                 if (child.Ride != null && child.Ride.seatsLeft > 0) ridesArray.push(child.Ride);

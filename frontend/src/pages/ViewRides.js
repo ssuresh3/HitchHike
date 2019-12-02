@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -11,7 +10,14 @@ import {
 
 import {myRides} from '../../src/components';
 
-import { Card, Button, Snackbar } from 'react-native-paper';
+import {
+  Card,
+  Button,
+  Snackbar,
+  // Avatar,
+  // FAB,
+  // IconButton,
+} from 'react-native-paper';
 
 export default class App extends Component {
   constructor(props) {
@@ -22,12 +28,14 @@ export default class App extends Component {
       selectedRide: null,
       showSnack: false,
       snackMsg: '',
+      isRefreshing: false,
     };
     this.loadRides();
 
   }
 
   loadRides = async () => {
+    this.setState({ isRefreshing: true });
     try {
       fetch(
         'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides',
@@ -41,12 +49,15 @@ export default class App extends Component {
       )
         .then(response => response.json())
         .then(responseJson => {
-          console.log(responseJson.body)
+          console.log(responseJson.body);
+          var newRides = [];
           if (responseJson.success) {
-            this.setState({ rides: responseJson.body });
+            newRides = responseJson.body;
           }
+          this.setState({ rides: newRides, isRefreshing: false });
         });
     } catch (error) {
+      this.setState({ isRefreshing: false });
       alert(error);
     }
   };
@@ -79,8 +90,8 @@ export default class App extends Component {
 
         <View style={[myRides.cardRow, { marginBottom: 20 }]}>
           <Text>
-            {new Date().toDateString()} at{' '}
-            {new Date().toLocaleTimeString('en-US', {
+            {new Date(item.departTime).toDateString()} at{' '}
+            {new Date(item.departTime).toLocaleTimeString('en-US', {
               hour: '2-digit',
               minute: '2-digit',
             })}
@@ -124,7 +135,10 @@ export default class App extends Component {
       });
     } else {
       //make post request
-      var body = JSON.stringify({ username: username, ride: this.state.selectedRide});
+      var body = JSON.stringify({
+        username: username,
+        ride: this.state.selectedRide,
+      });
       fetch(
         'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/requestRide',
         {
@@ -169,11 +183,23 @@ export default class App extends Component {
       <React.Fragment style={myRides.container}>
         <View style={myRides.topBar}>
           <Text style={myRides.title}>Nearby Rides</Text>
+
+          {/* <IconButton
+            icon="account"
+            color={"#ff8700"}
+            style={{position:"absolute",margin:20,top:20}}
+            size={30}
+            onPress={() => {}}
+          /> */}
         </View>
 
         <FlatList
           data={this.state.rides}
           style={myRides.rideList}
+          refreshing={this.state.isRefreshing}
+          onRefresh={() => {
+            this.loadRides();
+          }}
           renderItem={({ item }) => {
             return (
               <Card
@@ -196,14 +222,34 @@ export default class App extends Component {
           <View style={[myRides.container, { marginTop: 25 }]}>
             {this.state.selectedRide != null &&
               this.rideInfo(this.state.selectedRide)}
-            <View style={myRides.cardRow}>
-              <Button
+            <Card style={myRides.rideCard}>
+              <View style={[myRides.cardRow]}>
+                {/* <Avatar.Text
+                  label={
+                    this.state.selectedRide != null
+                      ? this.state.selectedRide.driverUserName
+                          .substring(0, 2)
+                          .toUpperCase()
+                      : 'KK'
+                  }
+                  size={30}
+                  theme={theme}
+                  style={{ margin: 10 }}
+                /> */}
+                <Text style={{ alignSelf: 'center' }}>
+                  {this.state.selectedRide != null &&
+                    this.state.selectedRide.driverUserName}
+                </Text>
+              </View>
+            </Card>
+            <View style={[myRides.cardRow, { marginTop: 20 }]}>
+              {/* <Button
                 mode="outlined"
                 style={[myRides.inputBox, { marginRight: 15 }]}
                 onPress={() => this.setState({ showModal: false })}
                 icon={'close'}
                 theme={theme}>
-                Close
+                Cancel
               </Button>
               <Button
                 mode="contained"
@@ -212,14 +258,28 @@ export default class App extends Component {
                 style={[myRides.inputBox, { marginLeft: 15 }]}
                 theme={theme}>
                 Join
-              </Button>
+              </Button> */}
             </View>
           </View>
         </Modal>
 
+        {/* <FAB
+          style={{
+            zIndex: 99,
+            position: 'absolute',
+            margin: 16,
+            bottom: 0,
+            right: 0,
+          }}
+          icon="plus"
+          theme={theme}
+          onPress={() => {}}
+        /> */}
+
         <Snackbar
           visible={this.state.showSnack}
           theme={theme}
+          style={{ zIndex: 100 }}
           action={{
             label: 'close',
             onPress: () => this.setState({ showSnack: false }),
@@ -232,16 +292,19 @@ export default class App extends Component {
   }
 }
 
-const theme = { colors: { primary: '#ff8700' } };
+const theme = { colors: { primary: '#ff8700', accent: '#ff8700' } };
 
 // const myRides = StyleSheet.create({
 //   //These styles are new styles
 //   topBar: {
 //     borderBottomWidth: 1,
 //     borderBottomColor: '#ff8700',
+//     zIndex: 5,
+//     backgroundColor: '#FFFFFF'
 //   },
 //   rideList: {
 //     height: '100%',
+//     zIndex: 1,
 //   },
 
 //   //These styles already exist in external style sheet
