@@ -80,7 +80,6 @@ export default class Signup extends Component {
                             // placeholder="First Name"
                             // placeholderTextColor="#ff8700"
                             // selectionColor="#fff"
-                            margin-top = {25}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
