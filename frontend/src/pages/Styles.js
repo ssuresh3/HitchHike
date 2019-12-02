@@ -10,8 +10,8 @@ const myRides = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        top: 20
-      //  justifyContent: 'flex-end'
+        top: 20,
+        //justifyContent: 'space-between'
     },
     title: {
         fontSize: 30,
@@ -136,9 +136,12 @@ const login_signup = StyleSheet.create({
     topBar: {
         borderBottomWidth: 1,
         borderBottomColor: '#ff8700',
+        zIndex:5,
+        backgroundColor:"#FFFFFF"
     },
     rideList: {
         height: '100%',
+        zIndex:1
     },
 
     //   container: {     backgroundColor: 'white',     color: 'black',     padding:
