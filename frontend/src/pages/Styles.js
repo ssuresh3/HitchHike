@@ -10,7 +10,7 @@ const myRides = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        top: 50
+        top: 20
       //  justifyContent: 'flex-end'
     },
     title: {
