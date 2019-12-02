@@ -8,7 +8,7 @@ import {
   Modal,
 } from 'react-native';
 
-import {myRides} from '../../src/components';
+import {myRides} from '../pages/Styles';
 
 import {
   Card,

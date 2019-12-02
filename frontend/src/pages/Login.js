@@ -46,6 +46,7 @@ export default class Login extends Component {
                         dense={true}
                         theme={theme}
                         mode={'outlined'}
+                        value={this.state.username}
                         label={'Username'}
                         onChangeText={(username) => this.setState({ username })}
                         keyboardType="default"
@@ -55,6 +56,7 @@ export default class Login extends Component {
                         dense={true}
                         theme={theme}
                         mode={'outlined'}
+                        value={this.state.password}
                         label={'Password'}
                         onChangeText={(password) => this.setState({ password })}
                         secureTextEntry={true}
