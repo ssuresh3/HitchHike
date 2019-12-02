@@ -71,20 +71,28 @@ export default class Login extends Component {
                                 resizeMode="contain" />
                             {/* <Text style={myRides.containerTwo}>Log in to HitchHike!</Text> */}
                             <TextInput style={myRides.inputBox} //creating email text input
+                                dense={true}
+                                theme={theme}
+                                mode={'outlined'}
+                                label={'Username'}
                                 onChangeText={(username) => this.setState({ username })}
-                                underlineColorAndroid='rgba(0,0,0,0)'
-                                placeholder="Username"
-                                placeholderTextColor="#ff8700"
-                                selectionColor="#fff"
+                                // underlineColorAndroid='rgba(0,0,0,0)'
+                                // placeholder="Username"
+                                // placeholderTextColor="#ff8700"
+                                // selectionColor="#fff"
                                 keyboardType="default"
                                 autoCapitalize="none"
                                 onSubmitEditing={() => this.password.focus()} />
                             <TextInput style={myRides.inputBox} //creating password text input
+                                dense={true}
+                                theme={theme}
+                                mode={'outlined'}
+                                label={'Username'}
                                 onChangeText={(password) => this.setState({ password })}
-                                underlineColorAndroid='rgba(0,0,0,0)'
-                                placeholder="Password"
+                                // underlineColorAndroid='rgba(0,0,0,0)'
+                                // placeholder="Password"
                                 secureTextEntry={true}
-                                placeholderTextColor="#ff8700"
+                                // placeholderTextColor="#ff8700"
                                 autoCapitalize="none"
                                 ref={(input) => this.password = input}
                             />
