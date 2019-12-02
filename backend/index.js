@@ -203,7 +203,9 @@ Parameters: (username, )
 */
 app.post("/requestRide", (req, res) =>{
     try{
+        console.log("entering request ride");
         var user = db.getUser(req.body.username)
+        console.log(user);
         
         rides = user.requestedRides;
 

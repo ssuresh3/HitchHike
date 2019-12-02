@@ -27,16 +27,31 @@ test('testing login', async () => {
  	expect(data.data["success"]).toBe(true);
 });*/
 
-test('testing post ride', async () => {
+// test('testing post ride', async () => {
+// 	var user = mockData['users'][1]
+// 	var ride = mockData['rides'][1]
+// 	const response = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide", {
+// 		username: user.username,
+// 		password: user.password,
+// 		origin: ride.origin,
+// 		destination: ride.destination,
+// 		seats: ride.seats,
+// 		departure: ride.departure
+// 	});
+// });
+
+test('testing request ride', async () => {
+	console.log("start request ride");
 	var user = mockData['users'][1]
 	var ride = mockData['rides'][1]
-	const response = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide", {
-   			username: user.username,
-   			password: user.password,
-   			origin: ride.origin,
-   			destination: ride.destination,
-   			seats: ride.seats,
-   			departure: ride.departure
-    	});
+	const response = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/requestRide", {
+		username: user.username,
+		password: user.password,
+		origin: ride.origin,
+		destination: ride.destination,
+		seats: ride.seats,
+		departure: ride.departure
+	});
+	console.log("end request ride");
 })
 
