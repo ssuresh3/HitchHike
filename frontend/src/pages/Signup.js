@@ -76,7 +76,7 @@ export default class Signup extends Component {
                     behavior="padding"> */}
                          <Image
                                 style={{
-                                    height: '15%',
+                                    height: '35%',
                                     width: '50%'
                                 }}
                                 source={require('../../assets/HitchHike.png')}
