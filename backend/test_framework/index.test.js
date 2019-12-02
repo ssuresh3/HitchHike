@@ -7,7 +7,7 @@ var mockData = require('./mock_data.json');
 
 test('testing signup', async () => {
 	var user = mockData['users'][1]
- 	const data = await axios.post("http://localhost:8000/signup", {
+ 	const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup", {
    			fName: user.fName,
    			lName: user.lName,
    			username: user.username,
@@ -20,7 +20,7 @@ test('testing signup', async () => {
 
 /*test('testing login', async () => {
 	var user = mockData['users'][0]
- 	const data = await axios.post("http://localhost:8000/login", {
+ 	const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login", {
    			username: user.username,
    			password: user.password,
     });
@@ -30,7 +30,7 @@ test('testing signup', async () => {
 test('testing post ride', async () => {
 	var user = mockData['users'][1]
 	var ride = mockData['rides'][1]
-	const response = await axios.post("http://localhost:8000/rides/postRide", {
+	const response = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide", {
    			username: user.username,
    			password: user.password,
    			origin: ride.origin,
