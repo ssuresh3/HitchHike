@@ -34,13 +34,6 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
-    AvailableRidesRoute: {
-      screen: Ride,
-
-      navigationOptions: {
-        header: null
-      }
-    },
     PostRidesRoute: {
       screen: AddRide,
 

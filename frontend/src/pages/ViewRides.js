@@ -8,7 +8,7 @@ import {
   Modal,
 } from 'react-native';
 
-import {myRides} from './Styles'; //change when things work
+import {myRides} from './Styles';
 
 import {
   Card,
@@ -28,14 +28,11 @@ export default class App extends Component {
       selectedRide: null,
       showSnack: false,
       snackMsg: '',
-      isRefreshing: false,
+      isRefreshing: true,
     };
-    this.loadRides();
-
   }
 
   loadRides = async () => {
-    // this.setState({ isRefreshing: true });
     try {
       fetch(
         'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides',
@@ -54,10 +51,10 @@ export default class App extends Component {
           if (responseJson.success) {
             newRides = responseJson.body;
           }
-          // this.setState({ rides: newRides, isRefreshing: false });
+          this.setState({ rides: newRides, isRefreshing: false });
         });
     } catch (error) {
-      // this.setState({ isRefreshing: false });
+      this.setState({ isRefreshing: false });
       alert(error);
     }
   };
@@ -79,7 +76,7 @@ export default class App extends Component {
               marginRight: 30,
               marginBottom: 10,
             }}
-            source={require('../../assets/arrow_right.png')} //change this later
+            source={require('../../assets/arrow_right.png')}
           />
           <Text numberOfLines={1}>
             {item.destination.name.length > 15
@@ -118,7 +115,7 @@ export default class App extends Component {
       }
     } catch (error) {
       // Error retrieving data
-      console.error('Error getting username: ' + error);
+      // console.error('Error getting username: ' + error);
       this.setState({
         showModal: false,
         showSnack: true,
@@ -179,17 +176,23 @@ export default class App extends Component {
   };
 
   render() {
+    if(this.state.isRefreshing){
+      this.loadRides();
+    }
     return (
-      <React.Fragment style={myRides.container}>
+      <React.Fragment>
         <View style={myRides.topBar}>
           <Text style={myRides.title}>Nearby Rides</Text>
 
           <IconButton
+          //route to myRides
             icon="account"
             color={"#ff8700"}
             style={{position:"absolute",margin:20,top:20}}
             size={30}
-            onPress={() => {}}
+            onPress={() => {
+              this.props.navigation.navigate('MyRidesRoute');
+            }}
           />
         </View>
 
@@ -197,9 +200,7 @@ export default class App extends Component {
           data={this.state.rides}
           style={myRides.rideList}
           refreshing={this.state.isRefreshing}
-          onRefresh={() => {
-            this.loadRides();
-          }}
+          onRefresh={() => {this.setState({isRefreshing:true});}}
           renderItem={({ item }) => {
             return (
               <Card
@@ -264,6 +265,7 @@ export default class App extends Component {
         </Modal>
 
         <FAB
+        //route to addRide
           style={{
             zIndex: 99,
             position: 'absolute',
@@ -273,7 +275,9 @@ export default class App extends Component {
           }}
           icon="plus"
           theme={theme}
-          onPress={() => {}}
+          onPress={() => {
+            this.props.navigation.navigate('PostRidesRoute');
+          }}
         />
 
         <Snackbar
