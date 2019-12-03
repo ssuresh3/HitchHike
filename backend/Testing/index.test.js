@@ -5,7 +5,7 @@ const db = require('../db');
 const axios = require('axios');
 var mockData = require('./mock_data.json');
 
-/*test('testing signup', async () => {
+test('testing signup', async () => {
 	var user = mockData['users'][1]
  	const data = await axios.post("http://localhost:8000/signup", {
    			fName: user.fName,
@@ -18,7 +18,7 @@ var mockData = require('./mock_data.json');
  	expect(data.data["success"]).toBe(true);
 });
 
-test('testing login', async () => {
+/*test('testing login', async () => {
 	var user = mockData['users'][0]
  	const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login", {
    			username: user.username,

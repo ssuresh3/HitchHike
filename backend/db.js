@@ -232,6 +232,7 @@ module.exports = {
         user.postedRides.push(node)
 
         __rides.insert(node);
+        return ride;
         //console.log(node)
     },
 
