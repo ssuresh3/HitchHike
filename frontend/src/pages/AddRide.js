@@ -59,7 +59,7 @@ export default class App extends Component {
         throw 'user is null';
       }
 
-      username = JSON.parse(user).username;
+      username = JSON.parse(user).data.username;
 
       if (username == null) {
         throw 'username is null';
@@ -122,7 +122,7 @@ export default class App extends Component {
           contentContainerStyle={myRides.container}
           resetScrollToCoords={{ x: 0, y: 0 }}
           scrollEnabled={true}
-          keyboardShouldPersistTaps={true}
+          keyboardShouldPersistTaps={"always"}
           
           //still not entirely functional on android
           enableOnAndroid={true}>
