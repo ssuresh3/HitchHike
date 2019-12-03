@@ -23,6 +23,9 @@ class RideView extends React.Component {
   constructor(props){
     super(props);
     console.log(this.props.item)
+    this.dateObj = (new Date(this.props.item.departTime))
+    this.date = this.dateObj.toDateString()
+    this.time = this.dateObj.toLocaleTimeString()
   }
   render() {
     return (
@@ -48,7 +51,7 @@ class RideView extends React.Component {
         </Text>
         <Text style={{ textAlign: 'center' }}>
           <Text style={{ fontWeight: 'bold' }}>Time: </Text>
-          {this.props.item.departTime}
+          {this.date + " " + this.time}
         </Text>
       </Card>
     );
