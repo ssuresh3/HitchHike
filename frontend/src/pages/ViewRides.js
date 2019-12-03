@@ -8,6 +8,7 @@ import {
   Modal,
 } from 'react-native';
 
+//import external stylesheet
 import {myRides} from './Styles';
 
 import {
@@ -32,6 +33,7 @@ export default class App extends Component {
     };
   }
 
+  //asynchronously loads rides from the database
   loadRides = async () => {
     try {
       fetch(
@@ -47,19 +49,23 @@ export default class App extends Component {
       )
         .then(response => response.json())
         .then(responseJson => {
+          //new rides loaded from findRides
           console.log(responseJson.body);
           var newRides = [];
           if (responseJson.success) {
             newRides = responseJson.body;
           }
+          //update list with new rides
           this.setState({ rides: newRides, isRefreshing: false });
         });
     } catch (error) {
+      //show error if rides were not retrieved
       this.setState({ isRefreshing: false });
       alert(error);
     }
   };
 
+  //returns a view displaying basic info about a ride
   rideInfo = item => {
     return (
       <View>
