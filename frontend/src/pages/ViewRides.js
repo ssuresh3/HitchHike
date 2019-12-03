@@ -8,7 +8,7 @@ import {
   Modal,
 } from 'react-native';
 
-import {myRides} from '../pages/Styles';
+import {myRides} from './Styles'; //change when things work
 
 import {
   Card,
@@ -35,7 +35,7 @@ export default class App extends Component {
   }
 
   loadRides = async () => {
-    this.setState({ isRefreshing: true });
+    // this.setState({ isRefreshing: true });
     try {
       fetch(
         'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides',
@@ -54,10 +54,10 @@ export default class App extends Component {
           if (responseJson.success) {
             newRides = responseJson.body;
           }
-          this.setState({ rides: newRides, isRefreshing: false });
+          // this.setState({ rides: newRides, isRefreshing: false });
         });
     } catch (error) {
-      this.setState({ isRefreshing: false });
+      // this.setState({ isRefreshing: false });
       alert(error);
     }
   };
@@ -79,7 +79,7 @@ export default class App extends Component {
               marginRight: 30,
               marginBottom: 10,
             }}
-            source={require('arrow_right.png')}
+            source={require('../../assets/arrow_right.png')} //change this later
           />
           <Text numberOfLines={1}>
             {item.destination.name.length > 15
@@ -290,6 +290,8 @@ export default class App extends Component {
       </React.Fragment>
     );
   }
+
+
 }
 
 const theme = { colors: { primary: '#ff8700', accent: '#ff8700' } };
