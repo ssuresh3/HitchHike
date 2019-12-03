@@ -31,7 +31,7 @@ class RideView extends React.Component {
           {/*<Text style={{ fontWeight: 'bold' }}>From: </Text>*/}
           {this.props.item.origin.name + '   '}
           <Image
-            source={require('./assets/arrow_right.png')}
+            source={require('../../assets/arrow_right.png')}
             style={{
               width: 30,
               height: 10,
