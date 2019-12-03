@@ -66,7 +66,7 @@ export default class App extends Component {
       }
     } catch (error) {
       // Error retrieving data
-      console.error('Error getting username: ' + error);
+      console.log('Error getting username: ' + error);
       this.setState({ showInvalid: false, loading: false });
       return;
     }
@@ -111,7 +111,7 @@ export default class App extends Component {
       })
       .catch(error => {
         this.setState({ loading: false });
-        console.error(error);
+        console.log(error);
       });
   };
 

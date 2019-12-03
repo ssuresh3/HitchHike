@@ -170,7 +170,7 @@ export default class App extends Component {
             showSnack: true,
             snackMsg: '' + error,
           });
-          console.error(error);
+          console.log(error);
         });
     }
   };
@@ -231,7 +231,7 @@ export default class App extends Component {
                       ? this.state.selectedRide.driverUserName
                           .substring(0, 2)
                           .toUpperCase()
-                      : 'KK'
+                      : '--'
                   }
                   size={30}
                   theme={theme}
