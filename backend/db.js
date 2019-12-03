@@ -63,9 +63,10 @@ function User(fName, lName, username, password, email, pNumber, DOB) {
 }
 
 // ride object
-function Rides(username, origin, destination, seats, dateString) {
+function Rides(username, origin, destination, seats, dateString, pNumber) {
     this.rideID = module.exports.RideID(username, dateString);
     this.origin = origin;
+    this.pNumber
     this.destination = destination;
     this.maxSeats = seats;
     this.departTime = dateString
@@ -214,7 +215,7 @@ module.exports = {
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
 
         // create the ride
-        var ride = new Rides(username, origin, destination, seats, date)
+        var ride = new Rides(username, origin, destination, seats, date, user.pNumber)
         //console.log(ride.RideID)
 
         const node = {
