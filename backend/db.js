@@ -205,10 +205,6 @@ module.exports = {
         //console.log("posting a ride")
         user = module.exports.getUser(username)
 
-        /*if (user.userStatus.verified === false){
-            throw Error ("must be verified to post a ride")
-        }*/
-
         date = new Date(dateString)
 
         // store by day, hour, minutes
