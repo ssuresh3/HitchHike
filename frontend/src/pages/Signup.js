@@ -44,6 +44,7 @@ export default class Signup extends Component {
                             //creating first name text input
                             style={myRides.inputBox}
                             onChangeText={fName => this.setState({ fName })}
+                            value={this.state.fName}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -53,6 +54,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating last name text input
                             onChangeText={lName => this.setState({ lName })}
+                            value={this.state.lName}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -62,6 +64,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating username text input
                             onChangeText={username => this.setState({ username })}
+                            value={this.state.username}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -72,6 +75,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating birthday text input
                             onChangeText={DOB => this.setState({ DOB })}
+                            value={this.state.DOB}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -81,6 +85,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating Phone number text input
                             onChangeText={phone => this.setState({ phone })}
+                            value={this.state.phone}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -91,6 +96,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating email text input
                             onChangeText={email => this.setState({ email })}
+                            value={this.state.email}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -101,6 +107,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating password text input
                             onChangeText={password => this.setState({ password })}
+                            value={this.state.password}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
@@ -112,6 +119,7 @@ export default class Signup extends Component {
                         <TextInput
                             style={myRides.inputBox} //creating confirm password text input
                             onChangeText={confirmPassword => this.setState({ confirmPassword })}
+                            value={this.state.confirmPassword}
                             dense={true}
                             theme={theme}
                             mode={'outlined'}
