@@ -69,7 +69,6 @@ function verifyUser(user) {
     }
 }
 
-
 /*
 Endpoint for creating new user.
 Parameters: (firstName, LastName, username, password, email, phoneNumbre, DOB)
