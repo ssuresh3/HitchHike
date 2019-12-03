@@ -13,7 +13,7 @@ import LocationAutocompleteInput from '../components/LocationAutocompleteInput';
 
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
-import {myRides} from '../pages/Styles';
+import { myRides } from '../pages/Styles';
 
 export default class App extends Component {
   constructor(props) {
@@ -51,10 +51,10 @@ export default class App extends Component {
     }
 
     var username = '';
-
+    var user = null;
     //get logged in username from async storage
     try {
-      const user = await AsyncStorage.getItem('user');
+      user = await AsyncStorage.getItem('user');
       if (user == null) {
         throw 'user is null';
       }
@@ -78,13 +78,13 @@ export default class App extends Component {
         x: this.state.start.lat,
         y: this.state.start.lng,
         desc: this.state.start.description,
-        name:this.state.start.name
+        name: this.state.start.name
       },
       destination: {
         x: this.state.end.lat,
         y: this.state.end.lng,
         desc: this.state.end.description,
-        name:this.state.end.name
+        name: this.state.end.name
       },
       seats: this.state.seats,
       departure: this.state.date.valueOf(),
@@ -105,9 +105,14 @@ export default class App extends Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        //TODO: check for successful post
-        this.setState({ loading: false });
-        this.props.navigation.navigate('HomeRoute');
+        if (responseJson.success) {
+          this.setState({ loading: false });
+          this.props.navigation.navigate('HomeRoute');
+          user.data.postedRides.push(responseJson.data.Ride);
+          AsyncStorage.setItem('user', JSON.stringify(user));
+        } else {
+          this.setState({ loading: false });
+        }
       })
       .catch(error => {
         this.setState({ loading: false });
@@ -123,7 +128,7 @@ export default class App extends Component {
           resetScrollToCoords={{ x: 0, y: 0 }}
           scrollEnabled={true}
           keyboardShouldPersistTaps={"always"}
-          
+
           //still not entirely functional on android
           enableOnAndroid={true}>
 
@@ -178,7 +183,7 @@ export default class App extends Component {
               marginVertical: 10,
             }}>
             <TouchableOpacity
-              onPress={() =>{
+              onPress={() => {
                 this.setState({ showDatePicker: true, datePickerMode: 'date' })
               }}>
               <TextInput
@@ -189,7 +194,7 @@ export default class App extends Component {
                 editable={false}
                 pointerEvents={"none"}
                 value={
-                  this.state.date != null ? this.state.date.toLocaleDateString('en-US'): ''
+                  this.state.date != null ? this.state.date.toLocaleDateString('en-US') : ''
                 }
                 error={this.state.showInvalid && this.state.date == null}
                 mode={'outlined'}
@@ -197,7 +202,7 @@ export default class App extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                this.setState({ showDatePicker: true, datePickerMode: 'time'})
+                this.setState({ showDatePicker: true, datePickerMode: 'time' })
               }>
               <TextInput
                 style={{ marginHorizontal: 10, width: 120 }}
@@ -206,7 +211,7 @@ export default class App extends Component {
                 dense={true}
                 editable={false}
                 pointerEvents={"none"}
-                value={(this.state.date!=null)?this.state.date.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit',hour12:true}):''}
+                value={(this.state.date != null) ? this.state.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : ''}
                 error={this.state.showInvalid && this.state.date == null}
                 mode={'outlined'}
               />
@@ -227,7 +232,7 @@ export default class App extends Component {
             mode={this.state.datePickerMode}
 
             //start with selected date if available
-            date={this.state.date!=null?this.state.date:new Date()}
+            date={this.state.date != null ? this.state.date : new Date()}
 
             //date must be in the future
             minimumDate={new Date()}
