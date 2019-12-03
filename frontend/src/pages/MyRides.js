@@ -83,19 +83,19 @@ export default class App extends React.Component {
         {'    '}
           Your Posted Rides
         </Divider>
-        {this.state.user.postedRides.map((ride, key) => {
+        {this.state.user == {} ? this.state.user.postedRides.map((ride, key) => {
           return(
             <RideView key = {key} item = {ride}/>
           )
-        })}
+        }) : <View></View>}
         <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
           {'  '}Your Booked Rides{'  '}
         </Divider>
-        {this.state.user.requestedRides.map((ride, key) => {
+        {this.state.user == {} ? this.state.user.requestedRides.map((ride, key) => {
           return(
             <RideView key = {key} item = {ride}/>
           )
-        })}
+        }) : <View></View>}
       </ScrollView>
     );
   }
