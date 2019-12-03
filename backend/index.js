@@ -120,7 +120,7 @@ app.post("/rides/postRide", (req, res) => {
         var data = req.body
         var user = db.getUser(data.username)
 
-        //if (user.userStatus.verified === false) verifyUser(user);
+        if (user.userStatus.verified === false) verifyUser(user);
 
         var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure);
         res.send({ success: true });
@@ -177,7 +177,6 @@ app.get("/rides/allRides", (req, res) => {
         res.send({ success: false, "reason": e });
     }
 });
-
 
 /*
 Endpoint to verify users email

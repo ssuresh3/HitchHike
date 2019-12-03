@@ -56,7 +56,7 @@ function User(fName, lName, username, password, email, pNumber, DOB) {
 
     //new users start unvarified
     this.userStatus = {
-        verified: false
+        verified: true
     }
 
     __users.set(username, this)
@@ -328,7 +328,9 @@ module.exports = {
         //var date = new Date(dateString)
         //var buffer = 2 // two hour windows
 
-        var neighbors = knn(__rides, origin.long, origin.lat, 10);
+        var neighbors = knn(__rides, origin.long, origin.lat, 10, function (item) {
+            return (item.Ride.seatsLeft > 0)
+        });
         return neighbors
     },
 
