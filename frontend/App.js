@@ -11,12 +11,9 @@
 import Login from './src/pages/Login';
 import Signup from './src/pages/Signup';
 import Verify from './src/pages/Verify';
-import Home from './src/pages/Home';
 import ViewRides from './src/pages/ViewRides';
-import Temp from './src/pages/tempVIewRides'
-import Ride from './src/pages/Ride';
 import AddRide from './src/pages/AddRide';
-// import MyRides from './src/pages/MyRides';
+import MyRides from './src/pages/MyRides';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -39,13 +36,13 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
-    // MyRidesRoute: {
-    //   screen: MyRides,
+    MyRidesRoute: {
+      screen: MyRides,
 
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
+      navigationOptions: {
+        header: null
+      }
+    },
   }
 )
 

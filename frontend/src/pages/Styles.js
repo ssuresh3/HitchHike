@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native'
 const myRides = StyleSheet.create({
     container: {
         flex: 1,
+        height: '100%',
         flexDirection: 'column',
         alignItems: 'center',
-      //  justifyContent: 'flex-end'
     },
     containerSignup: {
         flex: 1,
@@ -18,14 +18,13 @@ const myRides = StyleSheet.create({
         textAlign: 'center',
         padding: 20,
         marginTop: 20,
-        color: '#ff8700'
+        color: '#ff8700',
     },
     rideCard: {
-        padding: 20,
-        margin: 10,
-        marginTop: 0,
+        margin: 5,
+        marginHorizontal: 10,
         alignSelf: 'stretch',
-        shadowRadius: 5
+        elevation: 4,
     },
     cardRow: {
         flexDirection: "row",
@@ -74,7 +73,18 @@ const myRides = StyleSheet.create({
         fontWeight: '500',
         color: '#ffffff',
         textAlign: 'center'
-    }
+    },
+    topBar: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ff8700',
+        zIndex: 5,
+        backgroundColor: "#FFFFFF"
+    },
+    rideList: {
+        height: '100%',
+        zIndex: 1
+    },
+
 })
 
 const login_signup = StyleSheet.create({
@@ -133,17 +143,6 @@ const login_signup = StyleSheet.create({
         color: '#ff8700',
         textAlign: 'center'
     },
-    topBar: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#ff8700',
-        zIndex:5,
-        backgroundColor:"#FFFFFF"
-    },
-    rideList: {
-        height: '100%',
-        zIndex:1
-    },
-
     //   container: {     backgroundColor: 'white',     color: 'black',     padding:
     // 10,     fontSize: 30,     borderColor: 'black',     borderWidth: 2,   },
     displayText: {

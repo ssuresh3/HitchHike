@@ -69,7 +69,6 @@ function verifyUser(user) {
     }
 }
 
-
 /*
 Endpoint for creating new user.
 Parameters: (firstName, LastName, username, password, email, phoneNumbre, DOB)
@@ -86,7 +85,7 @@ app.post("/signup", (req, res) => {
         res.send({ success: false, reason: e });
     }
 
-    if (user != -1) verifyUser(user);
+    //if (user != -1) verifyUser(user);
 });
 
 /*
@@ -115,7 +114,7 @@ Endpoint for posting a ride to the database.
 Parameters: (username, orgin:{x, y}, destination:{x, y}, seats, departure)
 */
 app.post("/rides/postRide", (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     try {
         var data = req.body
         var user = db.getUser(data.username)
@@ -123,7 +122,7 @@ app.post("/rides/postRide", (req, res) => {
         if (user.userStatus.verified === false) verifyUser(user);
 
         var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure);
-        res.send({ success: true });
+        res.send({ success: true, data: Ride });
     } catch (e) {
         console.log(e);
         res.send({ success: false, reason: e });
@@ -137,11 +136,10 @@ Parameters: (username, rideID, origin:{x, y}, destination:{x, y}, seats, departu
 app.post("/rides/updateRide", (req, res) => {
     try {
         var data = req.body
-        var user = db.getUser(data.username)
+        var user = db.getUser(data.username);
+        var ride = data.ride
 
-        // if (user.userStatus.verified === false)verifyUser(user);
-
-        var Ride = db.updateRide(data.username, data.rideID, data.origin, data.destination, data.seats, data.departure);
+        var Ride = db.updateRide(ride);
         res.send({ success: true });
     } catch (e) {
         console.log(e);
@@ -156,7 +154,8 @@ Parameters: (origin:{x, y}, departure)
 app.post("/rides/findRide", (req, res) => {
     try {
         var data = req.body;
-        var rides = db.findRide(data.origin, data.departure);
+        var rides = db.findRide(data.origin);
+
         res.send({ success: true, body: rides });
     } catch (e) {
         console.log(e);
@@ -177,7 +176,6 @@ app.get("/rides/allRides", (req, res) => {
         res.send({ success: false, "reason": e });
     }
 });
-
 
 /*
 Endpoint to verify users email
@@ -242,6 +240,15 @@ app.post("/getRating", (req, res) =>{
         res.send(db.getRating(req.body.username));
     }
     catch(e){
+        console.log(e);
+        res.send(e);
+    }
+})
+
+app.get("/getUser/:userName", (req,res) => {
+    try{
+        res.send(db.getUser(req.params.userName));
+    } catch(e){
         console.log(e);
         res.send(e);
     }

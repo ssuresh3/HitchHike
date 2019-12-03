@@ -8,6 +8,7 @@ import {
   Modal,
 } from 'react-native';
 
+//import external stylesheet
 import {myRides} from './Styles';
 
 import {
@@ -32,33 +33,39 @@ export default class App extends Component {
     };
   }
 
+  //asynchronously loads rides from the database
   loadRides = async () => {
     try {
       fetch(
-        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides',
+        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/findRide',
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({origin:{long:37.000706,lat:-122.062225}})
         }
       )
         .then(response => response.json())
         .then(responseJson => {
+          //new rides loaded from findRides
           console.log(responseJson.body);
           var newRides = [];
           if (responseJson.success) {
             newRides = responseJson.body;
           }
+          //update list with new rides
           this.setState({ rides: newRides, isRefreshing: false });
         });
     } catch (error) {
+      //show error if rides were not retrieved
       this.setState({ isRefreshing: false });
       alert(error);
     }
   };
 
+  //returns a view displaying basic info about a ride
   rideInfo = item => {
     return (
       <View>
@@ -101,15 +108,16 @@ export default class App extends Component {
 
   joinRide = async () => {
     var username = '';
+    var user = null;
 
     try {
-      const user = await AsyncStorage.getItem('user');
+      user = await AsyncStorage.getItem('user');
       if (user == null) {
         throw 'user is null';
       }
 
-      username = JSON.parse(user).username;
-
+      username = JSON.parse(user).data.username;
+      console.log(JSON.parse(user));
       if (username == null) {
         throw 'username is null';
       }
@@ -124,7 +132,8 @@ export default class App extends Component {
       return;
     }
 
-    if (this.state.selectedRide.driverUserName == username) {
+    //check if rider is same as driver
+    if (this.state.selectedRide.Ride.driverUserName == username) {
       this.setState({
         showModal: false,
         showSnack: true,
@@ -137,7 +146,7 @@ export default class App extends Component {
         ride: this.state.selectedRide,
       });
       fetch(
-        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/requestRide',
+        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/requestRide',
         {
           method: 'POST',
           headers: {
@@ -156,6 +165,8 @@ export default class App extends Component {
               snackMsg: 'Ride booked',
             });
             this.loadRides();
+            user.data.requestedRides.push(this.state.selectedRide);
+            AsyncStorage.setItem('user', JSON.stringify(user));
           } else {
             this.setState({
               showModal: false,
@@ -170,7 +181,7 @@ export default class App extends Component {
             showSnack: true,
             snackMsg: '' + error,
           });
-          console.error(error);
+          console.log(error);
         });
     }
   };
@@ -208,7 +219,7 @@ export default class App extends Component {
                 onPress={() => {
                   this.setState({ showModal: true, selectedRide: item });
                 }}>
-                {this.rideInfo(item)}
+                {this.rideInfo(item.Ride)}
               </Card>
             );
           }}
@@ -222,16 +233,16 @@ export default class App extends Component {
           onRequestClose={() => this.setState({ showModal: false })}>
           <View style={[myRides.container, { marginTop: 25 }]}>
             {this.state.selectedRide != null &&
-              this.rideInfo(this.state.selectedRide)}
+              this.rideInfo(this.state.selectedRide.Ride)}
             <Card style={myRides.rideCard}>
               <View style={[myRides.cardRow]}>
                 <Avatar.Text
                   label={
                     this.state.selectedRide != null
-                      ? this.state.selectedRide.driverUserName
+                      ? this.state.selectedRide.Ride.driverUserName
                           .substring(0, 2)
                           .toUpperCase()
-                      : 'KK'
+                      : '--'
                   }
                   size={30}
                   theme={theme}
@@ -239,14 +250,14 @@ export default class App extends Component {
                 /> 
                 <Text style={{ alignSelf: 'center' }}>
                   {this.state.selectedRide != null &&
-                    this.state.selectedRide.driverUserName}
+                    this.state.selectedRide.Ride.driverUserName}
                 </Text>
               </View>
             </Card>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
               <Button
                 mode="outlined"
-                style={[myRides.inputBox, { marginRight: 15 }]}
+                style={{ marginRight: 15 }}
                 onPress={() => this.setState({ showModal: false })}
                 icon={'close'}
                 theme={theme}>
@@ -256,7 +267,7 @@ export default class App extends Component {
                 mode="contained"
                 onPress={() => this.joinRide()}
                 icon={'check'}
-                style={[myRides.inputBox, { marginLeft: 15 }]}
+                style={{ marginLeft: 15 }}
                 theme={theme}>
                 Join
               </Button>

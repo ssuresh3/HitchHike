@@ -59,14 +59,14 @@ export default class App extends Component {
         throw 'user is null';
       }
 
-      username = JSON.parse(user).username;
+      username = JSON.parse(user).data.username;
 
       if (username == null) {
         throw 'username is null';
       }
     } catch (error) {
       // Error retrieving data
-      console.error('Error getting username: ' + error);
+      console.log('Error getting username: ' + error);
       this.setState({ showInvalid: false, loading: false });
       return;
     }
@@ -111,7 +111,7 @@ export default class App extends Component {
       })
       .catch(error => {
         this.setState({ loading: false });
-        console.error(error);
+        console.log(error);
       });
   };
 
@@ -122,7 +122,7 @@ export default class App extends Component {
           contentContainerStyle={myRides.container}
           resetScrollToCoords={{ x: 0, y: 0 }}
           scrollEnabled={true}
-          keyboardShouldPersistTaps={true}
+          keyboardShouldPersistTaps={"always"}
           
           //still not entirely functional on android
           enableOnAndroid={true}>

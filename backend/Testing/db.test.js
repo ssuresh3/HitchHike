@@ -34,7 +34,7 @@ test('finding posted ride', () => {
 	var ride = mockData['rides'][0]
 	var request = mockData['requestedRides'][0]
 
-	var rideFound = db.findRide(request.origin, request.departure)
+	var rideFound = db.findRide(request.origin)
 	expect(rideFound).toBeDefined()
 });
 

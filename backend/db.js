@@ -56,7 +56,7 @@ function User(fName, lName, username, password, email, pNumber, DOB) {
 
     //new users start unvarified
     this.userStatus = {
-        verified: false
+        verified: true
     }
 
     __users.set(username, this)
@@ -232,6 +232,7 @@ module.exports = {
         user.postedRides.push(node)
 
         __rides.insert(node);
+        return ride;
         //console.log(node)
     },
 
@@ -322,14 +323,14 @@ module.exports = {
             }
         }
     },
-    findRide: function (location, dateString) {
+    findRide: function (origin) {
 
 
-        var date = new Date(dateString)
-        var buffer = 2 // two hour windows
+        //var date = new Date(dateString)
+        //var buffer = 2 // two hour windows
 
-        var neighbors = knn(__rides, location.x, location.y, 5, function (item) {
-            return (item.Ride.departTime.getDay() === date.getDay())
+        var neighbors = knn(__rides, origin.long, origin.lat, 10, function (item) {
+            return (item.Ride.seatsLeft > 0)
         });
         return neighbors
     },
