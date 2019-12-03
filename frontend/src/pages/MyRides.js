@@ -62,8 +62,6 @@ export default class App extends React.Component {
         this.state = {
             user: {}
         }
-
-        this.getUser()
     }
 
     getUser = function(){
@@ -78,6 +76,7 @@ export default class App extends React.Component {
 
 
   render() {
+      this.getUser()
     return (
       <ScrollView style={{ flexDirection: 'column', marginTop: '10%' }}>
         <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
