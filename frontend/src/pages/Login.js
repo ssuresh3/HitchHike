@@ -5,9 +5,8 @@
     Once logged in, user will be routed to Home.js
 */
 
-/*
-  Importing neccesary libraries for Login.js
-*/
+
+//Importing neccesary libraries for Login.js
 import React, { Component } from 'react';
 import { AsyncStorage, Image, KeyboardAvoidingView, } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
@@ -15,9 +14,7 @@ import { myRides, theme } from '../pages/Styles';
 
 export default class Login extends Component {
 
-    /*
-        Constructor keeping track of state
-    */
+    //Constructor keeping track of state
     constructor(props) {
         super(props);
         this.state = {
@@ -26,23 +23,27 @@ export default class Login extends Component {
         };
     }
 
-    /*
-        Rendering Login Page
-    */
+    //Rendering Login Page
     render() {
         return (
             <React.Fragment>
                 <KeyboardAvoidingView style={myRides.container}
+                    //This view prevents the keyboard from blocking the react components
                     behavior="padding">
 
+
                     <Image
+                        //adding HitchHike logo
                         style={{
                             height: '35%',
                             width: '70%'
                         }}
                         source={require('../../assets/HitchHike.png')}
                         resizeMode="contain" />
-                    <TextInput style={myRides.inputBox} //creating email text input
+
+
+                    <TextInput style={myRides.inputBox}
+                        //text input for username
                         dense={true}
                         theme={theme}
                         mode={'outlined'}
@@ -52,7 +53,9 @@ export default class Login extends Component {
                         keyboardType="default"
                         autoCapitalize="none"
                     />
-                    <TextInput style={myRides.inputBox} //creating password text input
+
+                    <TextInput style={myRides.inputBox}
+                        //text input for password
                         dense={true}
                         theme={theme}
                         mode={'outlined'}
@@ -64,6 +67,7 @@ export default class Login extends Component {
                     />
 
                     <Button
+                        //button for logging in
                         mode="contained"
                         style={myRides.inputBox}
                         loading={this.state.loading}
@@ -76,8 +80,16 @@ export default class Login extends Component {
                         }
                         }
                         title={"Log In"}
+
+                        /*
+                            backend request for logging in
+                            utilizes the fetch API to send username and password to the backend
+                            verification also takes place in the backend to check if the username and password are valid
+                            Async storage library also utilized when valid user signs in to the app in order to preserve state
+                            upon clicking, if valid user credentials, page routes to ViewRides.js
+                        */
+
                         onPress={() => {
-                            console.log('login');
                             fetch('http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/login', {
                                 method: 'POST',
                                 headers: {
@@ -89,13 +101,10 @@ export default class Login extends Component {
                                     password: this.state.password
                                 }),
                             }).then(response => response.json()).then(response => {
-                                console.log(response)
 
                                 if (!response.success) {
-                                    console.log("enter if false")
                                     alert("Invalid username or password! Please try again.");
                                 } else {
-                                    console.log("enter if true")
                                     //stringify user object
                                     AsyncStorage.setItem('user', JSON.stringify(response));
                                     this.props.navigation.navigate('HomeRoute')
@@ -107,6 +116,7 @@ export default class Login extends Component {
                     </Button>
 
                     <Button onPress={() => this.props.navigation.navigate('SignupRoute')}
+                        //button for signing up, will route user to Signup.js
                         mode="contained"
                         style={myRides.inputBox}
                         loading={this.state.loading}
