@@ -108,8 +108,8 @@ export default class App extends Component {
         throw 'user is null';
       }
 
-      username = JSON.parse(user).username;
-
+      username = JSON.parse(user).data.username;
+      console.log(JSON.parse(user));
       if (username == null) {
         throw 'username is null';
       }
@@ -246,7 +246,7 @@ export default class App extends Component {
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
               <Button
                 mode="outlined"
-                style={[myRides.inputBox, { marginRight: 15 }]}
+                style={{ marginRight: 15 }}
                 onPress={() => this.setState({ showModal: false })}
                 icon={'close'}
                 theme={theme}>
@@ -256,7 +256,7 @@ export default class App extends Component {
                 mode="contained"
                 onPress={() => this.joinRide()}
                 icon={'check'}
-                style={[myRides.inputBox, { marginLeft: 15 }]}
+                style={{ marginLeft: 15 }}
                 theme={theme}>
                 Join
               </Button>
