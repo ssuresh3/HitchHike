@@ -35,13 +35,14 @@ export default class App extends Component {
   loadRides = async () => {
     try {
       fetch(
-        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/allRides',
+        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/findRide',
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({origin:{long:37.000706,lat:-122.062225}})
         }
       )
         .then(response => response.json())
@@ -124,7 +125,7 @@ export default class App extends Component {
       return;
     }
 
-    if (this.state.selectedRide.driverUserName == username) {
+    if (this.state.selectedRide.Ride.driverUserName == username) {
       this.setState({
         showModal: false,
         showSnack: true,
@@ -137,7 +138,7 @@ export default class App extends Component {
         ride: this.state.selectedRide,
       });
       fetch(
-        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/requestRide',
+        'http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/requestRide',
         {
           method: 'POST',
           headers: {
@@ -208,7 +209,7 @@ export default class App extends Component {
                 onPress={() => {
                   this.setState({ showModal: true, selectedRide: item });
                 }}>
-                {this.rideInfo(item)}
+                {this.rideInfo(item.Ride)}
               </Card>
             );
           }}
@@ -222,13 +223,13 @@ export default class App extends Component {
           onRequestClose={() => this.setState({ showModal: false })}>
           <View style={[myRides.container, { marginTop: 25 }]}>
             {this.state.selectedRide != null &&
-              this.rideInfo(this.state.selectedRide)}
+              this.rideInfo(this.state.selectedRide.Ride)}
             <Card style={myRides.rideCard}>
               <View style={[myRides.cardRow]}>
                 <Avatar.Text
                   label={
                     this.state.selectedRide != null
-                      ? this.state.selectedRide.driverUserName
+                      ? this.state.selectedRide.Ride.driverUserName
                           .substring(0, 2)
                           .toUpperCase()
                       : '--'
@@ -239,7 +240,7 @@ export default class App extends Component {
                 /> 
                 <Text style={{ alignSelf: 'center' }}>
                   {this.state.selectedRide != null &&
-                    this.state.selectedRide.driverUserName}
+                    this.state.selectedRide.Ride.driverUserName}
                 </Text>
               </View>
             </Card>
