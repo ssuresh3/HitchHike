@@ -123,7 +123,7 @@ app.post("/rides/postRide", (req, res) => {
         if (user.userStatus.verified === false) verifyUser(user);
 
         var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure);
-        res.send({ success: true });
+        res.send({ success: true, data: Ride });
     } catch (e) {
         console.log(e);
         res.send({ success: false, reason: e });
@@ -241,6 +241,15 @@ app.post("/getRating", (req, res) =>{
         res.send(db.getRating(req.body.username));
     }
     catch(e){
+        console.log(e);
+        res.send(e);
+    }
+})
+
+app.get("/getUser/:userName", (req,res) => {
+    try{
+        res.send(db.getUser(req.params.userName));
+    } catch(e){
         console.log(e);
         res.send(e);
     }

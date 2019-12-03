@@ -66,6 +66,7 @@ export default class App extends React.Component {
 
     getUser = function(){
         AsyncStorage.getItem("user").then(data => {
+            console.log(data)
             this.setState(previousState => {
                 return {
                     user: data
