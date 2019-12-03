@@ -17,7 +17,7 @@ import ViewRides from './src/pages/ViewRides';
 import Temp from './src/pages/tempVIewRides'
 import Ride from './src/pages/Ride';
 import AddRide from './src/pages/AddRide';
-// import MyRides from './src/pages/MyRides';
+import MyRides from './src/pages/MyRides';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -41,13 +41,13 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
-    // MyRidesRoute: {
-    //   screen: MyRides,
+    MyRidesRoute: {
+      screen: MyRides,
 
-    //   navigationOptions: {
-    //     header: null
-    //   }
-    // },
+      navigationOptions: {
+        header: null
+      }
+    },
   }
 )
 
