@@ -141,7 +141,7 @@ export default class Signup extends Component {
                                 return;
                             }
                             if (this.state.username.length < 5) {
-                                alert("Username too short! Please try again.");
+                                alert("Username too short! Please try again and enter a username longer than 4 characters.");
                                 return;
                             }
                             if (this.state.DOB.length != 10) {
@@ -178,7 +178,7 @@ export default class Signup extends Component {
                                 }
                             }
                             if (this.state.password.length < 5) {
-                                alert("Password too short! Please try again.");
+                                alert("Password too short! Please try again and enter a username longer than 4 characters.");
                                 return;
                             }
                             if (this.state.password != this.state.confirmPassword) {
