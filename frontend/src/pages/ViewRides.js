@@ -166,6 +166,7 @@ export default class App extends Component {
             });
             this.loadRides();
             console.log(user);
+            user = JSON.parse(user)
             user.data.requestedRides.push(this.state.selectedRide);
             AsyncStorage.setItem('user', JSON.stringify(user));
           } else {

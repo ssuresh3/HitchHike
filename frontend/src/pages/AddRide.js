@@ -108,6 +108,7 @@ export default class App extends Component {
         if (responseJson.success) {
           this.setState({ loading: false });
           this.props.navigation.navigate('HomeRoute');
+          user = JSON.parse(user);
           user.data.postedRides.push(responseJson.data.Ride);
           AsyncStorage.setItem('user', JSON.stringify(user));
         } else {

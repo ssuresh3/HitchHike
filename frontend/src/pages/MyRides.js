@@ -20,6 +20,13 @@ import {myRides} from './Styles'
 
 /*Component wraps data for each ride into a card*/
 class RideView extends React.Component {
+  constructor(props){
+    super(props);
+    console.log(this.props.item)
+    this.dateObj = (new Date(this.props.item.departTime))
+    this.date = this.dateObj.toDateString()
+    this.time = this.dateObj.toLocaleTimeString()
+  }
   render() {
     return (
       <Card style={myRides.rideCard}>
@@ -44,7 +51,7 @@ class RideView extends React.Component {
         </Text>
         <Text style={{ textAlign: 'center' }}>
           <Text style={{ fontWeight: 'bold' }}>Time: </Text>
-          {this.props.item.departTime}
+          {this.date + " " + this.time}
         </Text>
       </Card>
     );
@@ -60,16 +67,24 @@ export default class App extends React.Component {
         super(props)
 
         this.state = {
-            user: {}
+          userLoaded: false,
+            user: {
+              postedRides: [],
+              requestedRides: []
+            }
         }
     }
 
     getUser = function(){
+      
         AsyncStorage.getItem("user").then(data => {
-            console.log(data)
+            // console.log(data)
+            data = JSON.parse(data)
+            // console.log(data.data.requestedRides[0].Ride)
             this.setState(previousState => {
                 return {
-                    user: data
+                    userLoaded: true,
+                    user: data.data
                 }
             })
         })
@@ -77,24 +92,26 @@ export default class App extends React.Component {
 
 
   render() {
-      this.getUser()
+    if(!this.state.userLoaded) this.getUser();
+    // console.log(this.state.user)
     return (
       <ScrollView style={{ flexDirection: 'column', marginTop: '10%' }}>
         <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
         {'    '}
           Your Posted Rides
         </Divider>
-        {this.state.user == {} ? this.state.user.postedRides.map((ride, key) => {
+        {this.state.user != {} ? this.state.user.postedRides.map((ride, key) => {
           return(
-            <RideView key = {key} item = {ride}/>
+            <RideView key = {key} item = {ride.Ride}/>
           )
         }) : <View></View>}
         <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
           {'  '}Your Booked Rides{'  '}
         </Divider>
-        {this.state.user == {} ? this.state.user.requestedRides.map((ride, key) => {
+        {this.state.user != {} ? this.state.user.requestedRides.map((ride, key) => {
+          console.log(ride + "ho")
           return(
-            <RideView key = {key} item = {ride}/>
+            <RideView key = {key} item = {ride.Ride}/>
           )
         }) : <View></View>}
       </ScrollView>
