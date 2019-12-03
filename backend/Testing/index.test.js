@@ -58,7 +58,10 @@ test('testing updating a ride', async () => {
         departure: ride.departure
       });
 
+  
   var Ride = data.data["body"][0]
+
+  console.log("found rides:\n", data.data["body"])
 
   const res = await axios.post("http://localhost:8000/rides/requestRide", {
         username: user.username,

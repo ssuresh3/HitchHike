@@ -86,7 +86,7 @@ app.post("/signup", (req, res) => {
         res.send({ success: false, reason: e });
     }
 
-    if (user != -1) verifyUser(user);
+    //if (user != -1) verifyUser(user);
 });
 
 /*
@@ -115,12 +115,12 @@ Endpoint for posting a ride to the database.
 Parameters: (username, orgin:{x, y}, destination:{x, y}, seats, departure)
 */
 app.post("/rides/postRide", (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     try {
         var data = req.body
         var user = db.getUser(data.username)
 
-        if (user.userStatus.verified === false) verifyUser(user);
+        //if (user.userStatus.verified === false) verifyUser(user);
 
         var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure);
         res.send({ success: true });
@@ -137,7 +137,7 @@ Parameters: (username, rideID, origin:{x, y}, destination:{x, y}, seats, departu
 app.post("/rides/updateRide", (req, res) => {
     try {
         var data = req.body
-        var user = db.getUser(data.username)
+        var user = db.getUser(data.username);
         var ride = data.ride
 
         var Ride = db.updateRide(ride);
@@ -155,7 +155,8 @@ Parameters: (origin:{x, y}, departure)
 app.post("/rides/findRide", (req, res) => {
     try {
         var data = req.body;
-        var rides = db.findRide(data.origin, data.departure);
+        var rides = db.findRide(data.origin);
+
         res.send({ success: true, body: rides });
     } catch (e) {
         console.log(e);

@@ -322,15 +322,13 @@ module.exports = {
             }
         }
     },
-    findRide: function (location, dateString) {
+    findRide: function (origin) {
 
 
-        var date = new Date(dateString)
-        var buffer = 2 // two hour windows
+        //var date = new Date(dateString)
+        //var buffer = 2 // two hour windows
 
-        var neighbors = knn(__rides, location.x, location.y, 5, function (item) {
-            return (item.Ride.departTime.getDay() === date.getDay())
-        });
+        var neighbors = knn(__rides, origin.long, origin.lat, 10);
         return neighbors
     },
 
