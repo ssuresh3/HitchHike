@@ -156,7 +156,6 @@ Parameters: (origin:{x, y}, departure)
 app.post("/rides/findRide", (req, res) => {
     try {
         var data = req.body;
-        //console.log(data)
         var rides = db.findRide(data.origin, data.departure);
         res.send({ success: true, body: rides });
     } catch (e) {
@@ -201,20 +200,19 @@ app.get("/verify/user/:username", (req, res) => {
 Endpoint to request a ride.
 Parameters: (username, )
 */
-app.post("/requestRide", (req, res) =>{
+app.post("/rides/requestRide", (req, res) =>{
     try{
         var user = db.getUser(req.body.username)
         
-        rides = user.requestedRides;
+        user.requestedRides.push(req.body.ride);
 
-        rides.push(req.body.ride)
+        var oldRide = req.body.ride
+        var newRide = JSON.parse(JSON.stringify(oldRide));
+        newRide.Ride.seatsLeft--
 
-        var ride = req.body.ride;
+        inserted = db.updateRide(oldRide, newRide);
 
-        db.updateRide(ride.driverUserName, ride.rideID, ride.origin, ride.destination, ride.seats, ride.departure, --rides.seatsLeft)
-
-        db.updateUser(req.body.username, "rides", r)
-        res.send({ success: true});
+        res.send({ success: true, body: inserted.Ride});
     }
     catch(e){
         console.log(e);

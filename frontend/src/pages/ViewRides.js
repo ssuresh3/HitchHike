@@ -236,7 +236,7 @@ export default class App extends Component {
                   size={30}
                   theme={theme}
                   style={{ margin: 10 }}
-                />
+                /> 
                 <Text style={{ alignSelf: 'center' }}>
                   {this.state.selectedRide != null &&
                     this.state.selectedRide.driverUserName}
