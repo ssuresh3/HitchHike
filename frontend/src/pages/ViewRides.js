@@ -108,9 +108,10 @@ export default class App extends Component {
 
   joinRide = async () => {
     var username = '';
+    var user = null;
 
     try {
-      const user = await AsyncStorage.getItem('user');
+      user = await AsyncStorage.getItem('user');
       if (user == null) {
         throw 'user is null';
       }
@@ -164,6 +165,8 @@ export default class App extends Component {
               snackMsg: 'Ride booked',
             });
             this.loadRides();
+            user.data.requestedRides.push(this.state.selectedRide);
+            AsyncStorage.setItem('user', JSON.stringify(user));
           } else {
             this.setState({
               showModal: false,
