@@ -165,6 +165,7 @@ export default class App extends Component {
               snackMsg: 'Ride booked',
             });
             this.loadRides();
+            console.log(user);
             user.data.requestedRides.push(this.state.selectedRide);
             AsyncStorage.setItem('user', JSON.stringify(user));
           } else {
