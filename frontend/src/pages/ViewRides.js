@@ -106,9 +106,11 @@ export default class App extends Component {
     );
   };
 
+  //book a new ride for the user
   joinRide = async () => {
     var username = '';
 
+    //get logged in user from storage
     try {
       const user = await AsyncStorage.getItem('user');
       if (user == null) {
@@ -131,6 +133,7 @@ export default class App extends Component {
       return;
     }
 
+    //check if rider is same as driver
     if (this.state.selectedRide.Ride.driverUserName == username) {
       this.setState({
         showModal: false,
@@ -182,6 +185,7 @@ export default class App extends Component {
     }
   };
 
+  //render list
   render() {
     if(this.state.isRefreshing){
       this.loadRides();
@@ -223,6 +227,7 @@ export default class App extends Component {
         />
 
         <Modal
+          //
           visible={this.state.showModal}
           animationType={'slide'}
           transparent={false}
