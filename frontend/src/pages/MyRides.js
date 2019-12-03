@@ -1,3 +1,7 @@
+/*
+Page to view rides posted and requested by users
+*/
+
 import * as React from 'react';
 import {
   Text,
@@ -56,8 +60,20 @@ export default class App extends React.Component {
         super(props)
 
         this.state = {
-            user: AsyncStorage.getItem("user")
+            user: {}
         }
+
+        this.getUser()
+    }
+
+    getUser = function(){
+        AsyncStorage.getItem("user").then(data => {
+            this.setState(previousState => {
+                return {
+                    user: data
+                }
+            })
+        })
     }
 
 
