@@ -138,10 +138,9 @@ app.post("/rides/updateRide", (req, res) => {
     try {
         var data = req.body
         var user = db.getUser(data.username)
+        var ride = data.ride
 
-        // if (user.userStatus.verified === false)verifyUser(user);
-
-        var Ride = db.updateRide(data.username, data.rideID, data.origin, data.destination, data.seats, data.departure);
+        var Ride = db.updateRide(ride);
         res.send({ success: true });
     } catch (e) {
         console.log(e);
