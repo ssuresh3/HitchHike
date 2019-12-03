@@ -126,12 +126,8 @@ export default class App extends Component {
       return;
     }
 
-<<<<<<< HEAD
     //check if rider is same as driver
     if (this.state.selectedRide.Ride.driverUserName == username) {
-=======
-    if (this.state.selectedRide.driverUserName == username) {
->>>>>>> e2937e4cabc1a060044135f3718d5e0c393028b3
       this.setState({
         showModal: false,
         showSnack: true,
