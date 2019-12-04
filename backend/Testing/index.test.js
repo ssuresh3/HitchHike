@@ -7,7 +7,7 @@ var mockData = require('./mock_data.json');
 
 test('testing signup', async () => {
 	var user = mockData['users'][1]
- 	const data = await axios.post("http://localhost:8000/signup", {
+ 	const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/signup", {
    			fName: user.fName,
    			lName: user.lName,
    			username: user.username,
@@ -30,7 +30,7 @@ test('testing signup', async () => {
 test('testing post ride', async () => {
 	var user = mockData['users'][1]
 	var ride = mockData['rides'][1]
-	const data = await axios.post("http://localhost:8000/rides/postRide", {
+	const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/postRide", {
    			username: user.username,
    			password: user.password,
    			origin: ride.origin,
@@ -43,7 +43,7 @@ test('testing post ride', async () => {
 
 test('testing find ride', async () => {
   var ride = mockData['rides'][1]
-  const data = await axios.post("http://localhost:8000/rides/findRide", {
+  const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/findRide", {
         origin: ride.origin,
         departure: ride.departure
       });
@@ -53,7 +53,7 @@ test('testing find ride', async () => {
 test('testing updating a ride', async () => {
   var user = mockData['users'][1]
   var ride = mockData['rides'][1]
-  const data = await axios.post("http://localhost:8000/rides/findRide", {
+  const data = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/findRide", {
         origin: ride.origin,
         departure: ride.departure
       });
@@ -63,7 +63,7 @@ test('testing updating a ride', async () => {
 
   console.log("found rides:\n", data.data["body"])
 
-  const res = await axios.post("http://localhost:8000/rides/requestRide", {
+  const res = await axios.post("http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/rides/requestRide", {
         username: user.username,
         ride: Ride
       });
