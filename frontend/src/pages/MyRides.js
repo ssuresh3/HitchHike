@@ -21,6 +21,7 @@ import {myRides} from './Styles'
 /*Component wraps data for each ride into a card*/
 class RideView extends React.Component {
   constructor(props){
+    console.disableYellowBox = true,
     super(props);
     console.log(this.props.item)
     this.dateObj = (new Date(this.props.item.departTime))
@@ -101,6 +102,7 @@ export default class App extends React.Component {
           Your Posted Rides
         </Divider>
         {this.state.user != {} ? this.state.user.postedRides.map((ride, key) => {
+          if(ride == null) return <View></View>
           return(
             <RideView key = {key} item = {ride.Ride}/>
           )
@@ -110,6 +112,7 @@ export default class App extends React.Component {
         </Divider>
         {this.state.user != {} ? this.state.user.requestedRides.map((ride, key) => {
           console.log(ride + "ho")
+          if(ride == null) return <View></View>
           return(
             <RideView key = {key} item = {ride.Ride}/>
           )

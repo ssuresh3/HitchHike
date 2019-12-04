@@ -17,6 +17,7 @@ import { myRides } from '../pages/Styles';
 
 export default class App extends Component {
   constructor(props) {
+    console.disableYellowBox = true,
     super(props);
 
     this.state = {
