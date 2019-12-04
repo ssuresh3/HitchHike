@@ -85,7 +85,7 @@ app.post("/signup", (req, res) => {
         res.send({ success: false, reason: e });
     }
 
-    //if (user != -1) verifyUser(user);
+    if (user != -1) verifyUser(user);
 });
 
 /*
