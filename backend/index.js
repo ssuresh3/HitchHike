@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const port = 8000
 const sgMail = require('@sendgrid/mail');
-var db = require("./db.js")
+var db = require("./db.js");
 sgMail.setApiKey("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");
 
 app.listen(port, () => {
@@ -15,6 +15,7 @@ app.listen(port, () => {
 
 //parse incoming requests as JSON
 app.use(express.json());
+app.use(express.static('./'));
 
 //base url of server
 const baseURL = "http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/";
