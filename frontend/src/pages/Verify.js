@@ -1,92 +1,53 @@
 /*
-    
+    Verify.js is what the user sees upon entering valid signup credentials
+    User needs to see the o
 */
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    Text,
     View,
+    Text,
     TouchableOpacity,
+    Button,
+    Image
 } from 'react-native';
 
-import { TextInput } from 'react-native-paper';
-import {myRides} from '../pages/Styles';
+import { myRides, theme } from './Styles';
 
 export default class Verify extends Component {
     render() {
         return (
             <React.Fragment>
-                <Text>
-                    Verifying Email... Check your Email!
+
+                <View style={myRides.container}>
+                    <Image
+                        //adding HitchHike logo
+                        style={{
+                            height: '35%',
+                            width: '70%'
+                        }}
+                        source={require('../../assets/HitchHike.png')}
+                        resizeMode="contain" />
+
+                    <Text style={{ fontWeight: 'bold', fontSize: 20, padding: 20, alignContent: "center" }}>
+                        Verifying Email..
                     {"\n"}
-                    Once you're done, 
+                        Check your Email!
+            {"\n"}
+                        Once you're done,
                 </Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginRoute')}>
-                    <Text style={myRides.button}> Sign in! </Text>
-                </TouchableOpacity>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('LoginRoute')}
+                        mode="contained"
+                        style={myRides.inputBox}
+                        //  loading={this.state.loading}
+                        color='#ff8700'
+                        title={"Sign In"}
+                    >
+                    </Button>
+                </View>
+
             </React.Fragment>
         );
     }
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         // flex: 1,
-//         justifyContent: 'center',
-//         textAlign: 'center',
-//         backgroundColor: 'white',
-//         color: 'black',
-//         padding: 10,
-//         fontSize: 30,
-//     },
-
-//     signupTextCont: {
-//         flexGrow: 1,
-//         justifyContent: 'center',
-//         alignItems: 'flex-end',
-//         paddingVertical: 16,
-//         flexDirection: 'row',
-//     },
-
-//     signupText: {
-//         color: '#12799f',
-//         fontSize: 16,
-//     },
-
-//     signupButton: {
-//         color: '#12799f',
-//         fontSize: 16,
-//         fontWeight: '500',
-//     },
-//     formContainer: {
-//         justifyContent: 'center', //centers flex objects
-//         alignItems: 'center',
-//     },
-
-//     inputBox: {
-//         width: 200,
-//         height: 30,
-//         backgroundColor: '#eeeeee',
-//         borderRadius: 25,
-//         paddingHorizontal: 16,
-//         fontSize: 16,
-//         color: '#002f6c',
-//         marginVertical: 10,
-//     },
-
-//     button: {
-//         width: 300,
-//         backgroundColor: '#ff8700',
-//         borderRadius: 25,
-//         marginVertical: 10,
-//         paddingVertical: 12,
-//     },
-
-//     buttonText: {
-//         fontSize: 16,
-//         fontWeight: '500',
-//         color: '#ffffff',
-//         textAlign: 'center',
-//     },
-// });
