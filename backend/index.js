@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const port = 8000
 const sgMail = require('@sendgrid/mail');
-var db = require("./db.js")
+var db = require("./db.js");
 sgMail.setApiKey("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");
 
 app.listen(port, () => {
@@ -85,7 +85,7 @@ app.post("/signup", (req, res) => {
         res.send({ success: false, reason: e });
     }
 
-    //if (user != -1) verifyUser(user);
+    if (user != -1) verifyUser(user);
 });
 
 /*
@@ -187,10 +187,10 @@ app.get("/verify/user/:username", (req, res) => {
             throw "Invalid verification code";
         }
         user.userStatus.verified = true;
-        res.send({ success: true, reason: "You are verified!" });
+        res.sendFile('verify.html', { root : __dirname});
     } catch (e) {
         console.log(e);
-        res.send({ success: false, reason: "verification failed" });
+        res.sendFile('fail.html', { root : __dirname});
     }
 });
 

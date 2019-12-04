@@ -56,7 +56,7 @@ function User(fName, lName, username, password, email, pNumber, DOB) {
 
     //new users start unvarified
     this.userStatus = {
-        verified: true
+        verified: false
     }
 
     __users.set(username, this)
