@@ -15,7 +15,6 @@ app.listen(port, () => {
 
 //parse incoming requests as JSON
 app.use(express.json());
-app.use(express.static('./'));
 
 //base url of server
 const baseURL = "http://ec2-13-59-36-193.us-east-2.compute.amazonaws.com:8000/";
@@ -188,10 +187,10 @@ app.get("/verify/user/:username", (req, res) => {
             throw "Invalid verification code";
         }
         user.userStatus.verified = true;
-        res.sendFile('verify.html');
+        res.sendFile('verify.html', { root : __dirname});
     } catch (e) {
         console.log(e);
-        res.sendFile('fail.html');
+        res.sendFile('fail.html', { root : __dirname});
     }
 });
 
