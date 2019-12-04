@@ -17,6 +17,7 @@ import { myRides, theme } from '../pages/Styles';
 export default class Signup extends Component {
     //constructor
     constructor(props) {
+        console.disableYellowBox = true,
         super(props);
         this.state = {
             fName: '',
