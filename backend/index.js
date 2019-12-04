@@ -187,10 +187,10 @@ app.get("/verify/user/:username", (req, res) => {
             throw "Invalid verification code";
         }
         user.userStatus.verified = true;
-        res.send({ success: true, reason: "You are verified!" });
+        res.sendFile('verify.html');
     } catch (e) {
         console.log(e);
-        res.send({ success: false, reason: "verification failed" });
+        res.sendFile('fail.html');
     }
 });
 
