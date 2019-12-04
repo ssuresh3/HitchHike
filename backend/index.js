@@ -210,11 +210,11 @@ app.post("/rides/requestRide", (req, res) =>{
 
         inserted = db.updateRide(oldRide, newRide);
 
-        res.send("verify.html");
+        res.send({success:true});
     }
     catch(e){
         console.log(e);
-        res.send("fail.html");
+        res.send({success:false,reason:e});
     }
 });
 
