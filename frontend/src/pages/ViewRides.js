@@ -258,7 +258,7 @@ export default class App extends Component {
             </Card>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
               <Text numberOfLines={1}>
-                {"$"+item.price}
+                {"$"+this.state.selectedRide.Ride.price}
               </Text>
             </View>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
