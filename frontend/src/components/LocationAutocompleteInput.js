@@ -49,11 +49,11 @@ export default class LocationAutocompleteInput extends React.Component {
           numberOfLines={1}
           multiline={false}
           dense={true}
-          theme={{colors:{primary:"#ff8700"}}}
+          theme={{ colors: { primary: "#ff8700" } }}
           mode={this.props.mode}
 
           //clear text input when focused
-          onFocus={()=>{this.setState({text:'',isAutofilled:false})}}
+          onFocus={() => { this.setState({ text: '', isAutofilled: false }) }}
 
           //generate suggestions when new character is typed
           onChangeText={text => {
@@ -71,9 +71,9 @@ export default class LocationAutocompleteInput extends React.Component {
               //if no suggestion chosen pass null to submit
               this.props.onEnter(null);
             }
-            this.setState({ text: text, suggestions: []});
+            this.setState({ text: text, suggestions: [] });
           }}
-          
+
         />
         {this.state.suggestions.length > 0 && (
           <Card style={styles.autocomplete}>
@@ -84,7 +84,7 @@ export default class LocationAutocompleteInput extends React.Component {
                   onPress={() => {
                     this.setState({
                       text: suggestion.description,
-                      suggestions:[],
+                      suggestions: [],
                       isAutofilled: true,
                     });
 

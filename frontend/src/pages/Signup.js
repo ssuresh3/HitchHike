@@ -18,7 +18,7 @@ export default class Signup extends Component {
     //constructor
     constructor(props) {
         console.disableYellowBox = true,
-        super(props);
+            super(props);
         this.state = {
             fName: '',
             lName: '',

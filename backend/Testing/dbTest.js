@@ -2,7 +2,7 @@
 
 const db = require('./db.js');
 
-function unitTest(){
+function unitTest() {
 
 	// user tests
 	//var user = db.newUser("cody", "hartsook", "chartsoo", "1234HitchHike", "chartsoo@ucsc.edu", "7076941051", "7/11/1997")
@@ -12,10 +12,10 @@ function unitTest(){
 	//db.updateUser("chartsoo", "fName", "cody", "Cody")
 
 	// ride tests
-	var origin = {"x":100, "y":100}
+	var origin = { "x": 100, "y": 100 }
 	//	var origin2 = {"x": 120, "y": 95}
-	var origin2 = {"x": 200, "y": 200}
-	var destination = {"x": 500, "y": 500}
+	var origin2 = { "x": 200, "y": 200 }
+	var destination = { "x": 500, "y": 500 }
 	var seats = 4
 	var time = "August 19, 2018 23:15:30"
 	var time2 = "August 20, 2018 23:30:30"

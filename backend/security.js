@@ -8,23 +8,23 @@ const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
 
 function encrypt(password) {
-	let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
-	let encrypted = cipher.update(password);
-	encrypted = Buffer.concat([encrypted, cipher.final()]);
-	return encrypted.toString('hex');
+    let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+    let encrypted = cipher.update(password);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return encrypted.toString('hex');
 }
 
 module.exports = {
 
-    encryptPasword: function(password){
+    encryptPasword: function (password) {
         return encrypt(password)
     },
 
-    varifyUser: function(email){
+    varifyUser: function (email) {
         console.log("varifying user given email: ", email)
     },
 
-    updatePasswork: function(email, oldP, newP){
+    updatePasswork: function (email, oldP, newP) {
         console.log("updating password, make user varify email")
     },
 }

@@ -8,13 +8,13 @@ var mockData = require('./mock_data.json')
 // test new user
 test('the data is a new user', () => {
 	var user = mockData['users'][0]
- 	expect(db.newUser(user.fName, user.lName, user.username, user.password, user.email, user.pNumber, user.DOB).email).toBe('chartsoo@ucsc.edu')
+	expect(db.newUser(user.fName, user.lName, user.username, user.password, user.email, user.pNumber, user.DOB).email).toBe('chartsoo@ucsc.edu')
 });
 
 // test get user
 test('the data is a new user', () => {
 	var user = mockData['users'][0]
- 	expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')
+	expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')
 });
 
 // test posting a ride and finding a ride
@@ -22,7 +22,7 @@ test('posting a ride', () => {
 	var user = mockData['users'][0]
 	var ride = mockData['rides'][0]
 	var ride2 = mockData['rides'][1]
-	
+
 	db.postRide(user.username, ride2.origin, ride2.destination, ride2.seats, ride2.departure)
 	db.postRide(user.username, ride.origin, ride.destination, ride.seats, ride.departure)
 	expect(db.getUser(user.username).email).toBe('chartsoo@ucsc.edu')

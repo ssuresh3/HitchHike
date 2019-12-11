@@ -247,19 +247,19 @@ module.exports = {
     },
 
     deleteRideByVal: function (ride) {
-        try{
+        try {
             __rides.remove(ride, (a, b) => {
                 return a.Ride.rideID === b.Ride.rideID;
             });
         }
-        catch (e){
+        catch (e) {
             console.log("trying to delete ride by val")
             throw Error(e)
         }
     },
 
     updateRide: function (oldRide, newRide) {
-        console.log(oldRide) 
+        console.log(oldRide)
         module.exports.deleteRideByVal(oldRide)
         __rides.insert(newRide)
         return newRide

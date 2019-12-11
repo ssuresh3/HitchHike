@@ -17,7 +17,7 @@ export default class Login extends Component {
     //Constructor keeping track of state
     constructor(props) {
         console.disableYellowBox = true,
-        super(props);
+            super(props);
         this.state = {
             username: '',
             password: ''

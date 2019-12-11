@@ -123,7 +123,7 @@ app.post("/rides/postRide", (req, res) => {
 
         if (user.userStatus.verified === false) verifyUser(user);
 
-        var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure,data.price);
+        var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure, data.price);
         console.log(user.pNumber);
         console.log(data.price);
         res.send({ success: true, data: Ride });
@@ -191,10 +191,10 @@ app.get("/verify/user/:username", (req, res) => {
             throw "Invalid verification code";
         }
         user.userStatus.verified = true;
-        res.sendFile('verify.html', { root : __dirname});
+        res.sendFile('verify.html', { root: __dirname });
     } catch (e) {
         console.log(e);
-        res.sendFile('fail.html', { root : __dirname});
+        res.sendFile('fail.html', { root: __dirname });
     }
 });
 
@@ -202,10 +202,10 @@ app.get("/verify/user/:username", (req, res) => {
 Endpoint to request a ride.
 Parameters: (username, )
 */
-app.post("/rides/requestRide", (req, res) =>{
-    try{
+app.post("/rides/requestRide", (req, res) => {
+    try {
         var user = db.getUser(req.body.username)
-        
+
         user.requestedRides.push(req.body.ride);
 
         var oldRide = req.body.ride
@@ -214,23 +214,23 @@ app.post("/rides/requestRide", (req, res) =>{
 
         inserted = db.updateRide(oldRide, newRide);
 
-        res.send({success:true});
+        res.send({ success: true });
     }
-    catch(e){
+    catch (e) {
         console.log(e);
-        res.send({success:false,reason:e});
+        res.send({ success: false, reason: e });
     }
 });
 
 /*
 */
 app.post("/review", (req, res) => {
-    try{
+    try {
         db.giveReview(req.body.reviewer, req.body.receiver, req.body.message, req.body.rating);
         res.send("Success!");
-    } 
-    
-    catch(e){
+    }
+
+    catch (e) {
         console.log(e);
         res.send(e);
     }
@@ -239,20 +239,20 @@ app.post("/review", (req, res) => {
 
 /*
 */
-app.post("/getRating", (req, res) =>{
-    try{
+app.post("/getRating", (req, res) => {
+    try {
         res.send(db.getRating(req.body.username));
     }
-    catch(e){
+    catch (e) {
         console.log(e);
         res.send(e);
     }
 })
 
-app.get("/getUser/:userName", (req,res) => {
-    try{
+app.get("/getUser/:userName", (req, res) => {
+    try {
         res.send(db.getUser(req.params.userName));
-    } catch(e){
+    } catch (e) {
         console.log(e);
         res.send(e);
     }

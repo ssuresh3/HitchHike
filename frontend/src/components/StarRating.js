@@ -73,10 +73,10 @@ export default class StarRating extends Component {
                 </View>
 
 
-                <TouchableOpacity style={styles.button} onPress = {() => 
+                <TouchableOpacity style={styles.button} onPress={() =>
                     alert("Your rating was " + this.state.rating)
                 }>
-                    <Text style = {styles.buttonText}>Submit</Text>
+                    <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
 
             </React.Fragment>
