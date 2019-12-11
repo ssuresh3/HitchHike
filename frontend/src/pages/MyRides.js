@@ -16,13 +16,13 @@ import {
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
 import Divider from 'react-native-divider';
-import {myRides} from './Styles'
+import { myRides } from './Styles'
 
 /*Component wraps data for each ride into a card*/
 class RideView extends React.Component {
-  constructor(props){
+  constructor(props) {
     console.disableYellowBox = true,
-    super(props);
+      super(props);
     console.log(this.props.item)
     this.dateObj = (new Date(this.props.item.departTime))
     this.date = this.dateObj.toDateString()
@@ -64,47 +64,47 @@ Client class for RideView component
 Used to display requested and posted rides
 */
 export default class App extends React.Component {
-    constructor(props){
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-          userLoaded: false,
-            user: {
-              postedRides: [],
-              requestedRides: []
-            }
+    this.state = {
+      userLoaded: false,
+      user: {
+        postedRides: [],
+        requestedRides: []
+      }
+    }
+  }
+
+  getUser = function () {
+
+    AsyncStorage.getItem("user").then(data => {
+      // console.log(data)
+      data = JSON.parse(data)
+      // console.log(data.data.requestedRides[0].Ride)
+      this.setState(previousState => {
+        return {
+          userLoaded: true,
+          user: data.data
         }
-    }
-
-    getUser = function(){
-      
-        AsyncStorage.getItem("user").then(data => {
-            // console.log(data)
-            data = JSON.parse(data)
-            // console.log(data.data.requestedRides[0].Ride)
-            this.setState(previousState => {
-                return {
-                    userLoaded: true,
-                    user: data.data
-                }
-            })
-        })
-    }
+      })
+    })
+  }
 
 
   render() {
-    if(!this.state.userLoaded) this.getUser();
+    if (!this.state.userLoaded) this.getUser();
     // console.log(this.state.user)
     return (
       <ScrollView style={{ flexDirection: 'column', marginTop: '10%' }}>
         <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
-        {'    '}
+          {'    '}
           Your Posted Rides
         </Divider>
         {this.state.user != {} ? this.state.user.postedRides.map((ride, key) => {
-          if(ride == null) return <View></View>
-          return(
-            <RideView key = {key} item = {ride.Ride}/>
+          if (ride == null) return <View><Text></Text></View>
+          return (
+            <RideView key={key} item={ride.Ride} />
           )
         }) : <View></View>}
         <Divider borderColor="#ff8700" color="#ff8700" orientation="center">
@@ -112,9 +112,9 @@ export default class App extends React.Component {
         </Divider>
         {this.state.user != {} ? this.state.user.requestedRides.map((ride, key) => {
           console.log(ride + "ho")
-          if(ride == null) return <View></View>
-          return(
-            <RideView key = {key} item = {ride.Ride}/>
+          if (ride == null) return <View></View>
+          return (
+            <RideView key={key} item={ride.Ride} />
           )
         }) : <View></View>}
       </ScrollView>
