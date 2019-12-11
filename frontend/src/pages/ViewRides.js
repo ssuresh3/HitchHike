@@ -258,7 +258,7 @@ export default class App extends Component {
             </Card>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
               <Text numberOfLines={1}>
-                {this.state.selectedRide!=null&&("$"+this.state.selectedRide.Ride.price)}
+                {this.state.selectedRide!=null&&("$"+this.state.selectedRide.Ride.price&&console.log(this.state.selectedRide.Ride))}
               </Text>
             </View>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
