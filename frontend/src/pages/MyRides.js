@@ -54,6 +54,10 @@ class RideView extends React.Component {
           <Text style={{ fontWeight: 'bold' }}>Time: </Text>
           {this.date + " " + this.time}
         </Text>
+        <Text style={{ textAlign: 'center' }}>
+          <Text style={{ fontWeight: 'bold' }}>Phone Number: </Text>
+          {this.props.item.pNumber}
+        </Text>
       </Card>
     );
   }
