@@ -108,7 +108,13 @@ export default class App extends Component {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.success) {
-          this.updateUser(JSON.parse(user));
+          var parsedUser = JSON.parse(user);
+          parsedUser.data.postedRides.push(responseJson.data.Ride);
+          AsyncStorage.setItem('user', JSON.stringify(parsedUser));
+          this.setState({ loading: false });
+          console.log("thisis fine");
+          this.props.navigation.navigate('HomeRoute');
+
         } else {
           this.setState({ loading: false });
         }
@@ -120,10 +126,7 @@ export default class App extends Component {
   };
 
   updateUser = async (user) => {
-    user.data.postedRides.push(responseJson.data.Ride);
-    AsyncStorage.setItem('user', JSON.stringify(user));
-    this.setState({ loading: false });
-    this.props.navigation.navigate('HomeRoute');
+
   }
 
   render() {

@@ -258,7 +258,7 @@ export default class App extends Component {
             </Card>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
               <Text numberOfLines={1}>
-                {this.state.selectedRide!=null&&("$"+this.state.selectedRide.Ride.price&&console.log(this.state.selectedRide.Ride))}
+                {this.state.selectedRide!=null&&("$"+this.state.selectedRide.Ride.price)}
               </Text>
             </View>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
@@ -301,7 +301,7 @@ export default class App extends Component {
         <Snackbar
           visible={this.state.showSnack}
           theme={theme}
-          style={{ zIndex: 100 }}
+          style={{ zIndex: 100, position: 'absolute',bottom:0 }}
           action={{
             label: 'close',
             onPress: () => this.setState({ showSnack: false }),
