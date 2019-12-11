@@ -95,6 +95,8 @@ Parameters: (username)
 app.post("/login", (req, res) => {
     try {
         var user = db.getUser(req.body.username);
+        console.log(user.pNumber);
+        console.log(user);
         if (user.password === (db.hash(req.body.password))) {
             if (user.userStatus.verified) {
                 res.send({ success: true, data: user });
