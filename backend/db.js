@@ -63,15 +63,16 @@ function User(fName, lName, username, password, email, pNumber, DOB) {
 }
 
 // ride object
-function Rides(username, origin, destination, seats, dateString, pNumber) {
+function Rides(username, origin, destination, seats, dateString, pNumber, price) {
     this.rideID = module.exports.RideID(username, dateString);
     this.origin = origin;
-    this.pNumber
+    this.pNumber = pNumber;
     this.destination = destination;
     this.maxSeats = seats;
-    this.departTime = dateString
-    this.driverUserName = username
-    this.seatsLeft = this.maxSeats
+    this.departTime = dateString;
+    this.driverUserName = username;
+    this.seatsLeft = this.maxSeats;
+    this.price = price;
 }
 
 // make updateRides run every 30 seconds 
@@ -200,7 +201,7 @@ module.exports = {
     },
 
     // date is in format: "August 19, 1975 23:15:30"
-    postRide: function (username, origin, destination, seats, dateString) {
+    postRide: function (username, origin, destination, seats, dateString, price) {
 
         //console.log("posting a ride")
         user = module.exports.getUser(username)
@@ -211,7 +212,7 @@ module.exports = {
         departure = (date.getDay() + ":" + date.getHours() + ":" + date.getMinutes())
 
         // create the ride
-        var ride = new Rides(username, origin, destination, seats, date, user.pNumber)
+        var ride = new Rides(username, origin, destination, seats, date, user.pNumber, price)
         //console.log(ride.RideID)
 
         const node = {

@@ -89,6 +89,7 @@ export default class App extends Component {
       },
       seats: this.state.seats,
       departure: this.state.date.valueOf(),
+      price: this.state.price
     });
     console.log(body);
 
