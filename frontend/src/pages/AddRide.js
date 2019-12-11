@@ -18,7 +18,7 @@ import { myRides } from '../pages/Styles';
 export default class App extends Component {
   constructor(props) {
     console.disableYellowBox = true,
-    super(props);
+      super(props);
 
     this.state = {
       showInvalid: false,
@@ -108,11 +108,7 @@ export default class App extends Component {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.success) {
-          this.setState({ loading: false });
-          user = JSON.parse(user);
-          user.data.postedRides.push(responseJson.data.Ride);
-          AsyncStorage.setItem('user', JSON.stringify(user));
-          this.props.navigation.navigate('HomeRoute');
+          this.updateUser(JSON.parse(user));
         } else {
           this.setState({ loading: false });
         }
@@ -122,6 +118,13 @@ export default class App extends Component {
         console.log(error);
       });
   };
+
+  updateUser = async (user) => {
+    user.data.postedRides.push(responseJson.data.Ride);
+    AsyncStorage.setItem('user', JSON.stringify(user));
+    this.setState({ loading: false });
+    this.props.navigation.navigate('HomeRoute');
+  }
 
   render() {
     return (
