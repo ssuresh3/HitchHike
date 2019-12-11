@@ -123,7 +123,7 @@ app.post("/rides/postRide", (req, res) => {
 
         if (user.userStatus.verified === false) verifyUser(user);
 
-        var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure,user.pNumber,data.price);
+        var Ride = db.postRide(data.username, data.origin, data.destination, data.seats, data.departure,data.price);
         console.log(user.pNumber);
         console.log(data.price);
         res.send({ success: true, data: Ride });
