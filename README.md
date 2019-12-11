@@ -16,7 +16,7 @@
 
 6. If you are on iOS, scan the QR code using the camera app. Follow the notification to the Expo app, where the HitchHike app will run.
 
-... If you are on Android, scan the QR code directly from the Expo app. HitchHike will automatically open up.
+   If you are on Android, scan the QR code directly from the Expo app. HitchHike will automatically open up.
 
 ### Troubleshooting:
 
