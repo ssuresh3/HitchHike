@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 //import external stylesheet
-import {myRides} from './Styles';
+import { myRides } from './Styles';
 
 import {
   Card,
@@ -23,7 +23,7 @@ import {
 export default class App extends Component {
   constructor(props) {
     console.disableYellowBox = true,
-    super(props);
+      super(props);
     this.state = {
       rides: [],
       showModal: false,
@@ -45,7 +45,7 @@ export default class App extends Component {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({origin:{long:37.000706,lat:-122.062225}})
+          body: JSON.stringify({ origin: { long: 37.000706, lat: -122.062225 } })
         }
       )
         .then(response => response.json())
@@ -101,7 +101,6 @@ export default class App extends Component {
               minute: '2-digit',
             })}
           </Text>
-          <Text />
         </View>
       </View>
     );
@@ -190,7 +189,7 @@ export default class App extends Component {
   };
 
   render() {
-    if(this.state.isRefreshing){
+    if (this.state.isRefreshing) {
       this.loadRides();
     }
     return (
@@ -199,10 +198,10 @@ export default class App extends Component {
           <Text style={myRides.title}>Nearby Rides</Text>
 
           <IconButton
-          //route to myRides
+            //route to myRides
             icon="account"
             color={"#ff8700"}
-            style={{position:"absolute",margin:20,top:20}}
+            style={{ position: "absolute", margin: 20, top: 20 }}
             size={30}
             onPress={() => {
               this.props.navigation.navigate('MyRidesRoute');
@@ -214,7 +213,7 @@ export default class App extends Component {
           data={this.state.rides}
           style={myRides.rideList}
           refreshing={this.state.isRefreshing}
-          onRefresh={() => {this.setState({isRefreshing:true});}}
+          onRefresh={() => { this.setState({ isRefreshing: true }); }}
           renderItem={({ item }) => {
             return (
               <Card
@@ -243,20 +242,25 @@ export default class App extends Component {
                   label={
                     this.state.selectedRide != null
                       ? this.state.selectedRide.Ride.driverUserName
-                          .substring(0, 2)
-                          .toUpperCase()
+                        .substring(0, 2)
+                        .toUpperCase()
                       : '--'
                   }
                   size={30}
                   theme={theme}
                   style={{ margin: 10 }}
-                /> 
+                />
                 <Text style={{ alignSelf: 'center' }}>
                   {this.state.selectedRide != null &&
                     this.state.selectedRide.Ride.driverUserName}
                 </Text>
               </View>
             </Card>
+            <View style={[myRides.cardRow, { marginTop: 20 }]}>
+              <Text numberOfLines={1}>
+                {"$"+item.price}
+              </Text>
+            </View>
             <View style={[myRides.cardRow, { marginTop: 20 }]}>
               <Button
                 mode="outlined"
@@ -279,7 +283,7 @@ export default class App extends Component {
         </Modal>
 
         <FAB
-        //route to addRide
+          //route to addRide
           style={{
             zIndex: 99,
             position: 'absolute',
