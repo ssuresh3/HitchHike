@@ -198,7 +198,7 @@ export default class Signup extends Component {
                                         lName: this.state.lName,
                                         username: this.state.username,
                                         DOB: this.state.DOB,
-                                        phone: this.state.phone,
+                                        pNumber: this.state.phone,
                                         email: this.state.email,
                                         password: this.state.password
                                     }),
