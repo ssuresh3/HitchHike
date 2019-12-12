@@ -6,7 +6,7 @@
 
 1. Please clone the repository to your local machine.
 
-2. Afterwards make sure to download the `expo cli`, `npm`, and `yarn` on your local machine.
+2. Make sure to download `npm` and `expo-cli`.
 
 3. Download the Expo app on your phone.
 
@@ -20,6 +20,8 @@
 
 ### Troubleshooting:
 
-* If you are having trouble with missing npm modules, run the command `npm install` in the `hitchhike/frontend` directory. This should install all of the necessary modules. **This may take a few minutes**
+* Make sure you have the latest version of Node.JS installed on your computer
+
+* If you are having trouble with missing npm modules, run the command `npm install` in the `hitchhike/frontend` directory. This should install all of the necessary modules. **This may take a few minutes.**
 
 * Open an issue in the repository to report any bugs. We will resolve these issues as soon as possible. We appreciate your support through the development process, and we hope you enjoy the app!
