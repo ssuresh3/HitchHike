@@ -2,6 +2,12 @@
 
 ## The best way to get around.
 
+### Running the app easily (Android):
+1. Install the Expo app from the Play Store.
+2. Go to: https://expo.io/@ssuresh3/frontend
+3. Scan the QR code on the webpage.
+4. Enjoy! (Please report if this doesn't work)
+
 ### How to install the app:
 
 1. Please clone the repository to your local machine.
