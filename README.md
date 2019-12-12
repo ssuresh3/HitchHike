@@ -2,13 +2,19 @@
 
 ## The best way to get around.
 
+### Downloading the app using the link:
+
+   https://drive.google.com/file/d/1gX4RNcS0mTrx4BXN3j2m9gmyT4dowdrV/view
+
+Make sure to allow installing APKs from Google Drive and bypass Play Protect when installing and running. 
+
 ### Running the app easily (Android):
 1. Install the Expo app from the Play Store.
 2. Go to: https://expo.io/@ssuresh3/frontend
 3. Scan the QR code on the webpage.
 4. Enjoy! (Please report if this doesn't work)
 
-### How to install the app:
+### How to run the app the harder way:
 
 1. Please clone the repository to your local machine.
 
