@@ -20,7 +20,7 @@
 
 ### Troubleshooting:
 
-* Make sure you have the latest version of Node.JS installed on your computer
+* Make sure you have the latest version of Node.JS installed on your computer.
 
 * If you are having trouble with missing npm modules, run the command `npm install` in the `hitchhike/frontend` directory. This should install all of the necessary modules. **This may take a few minutes.**
 
